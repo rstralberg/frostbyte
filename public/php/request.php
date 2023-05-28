@@ -1,5 +1,13 @@
-
 <?php
+// ========================================================================
+// FrostByte
+// by Roland Strålberg
+// All Rights Reserved 
+// Contact: rstralberg@pm.me
+// ========================================================================
+//
+// Handle A Request From Jscript Client
+// - se public/js/request.js
 
 require_once __DIR__ . '/../../php/reply/sql_read.php';
 require_once __DIR__ . '/../../php/reply/sql_write.php';

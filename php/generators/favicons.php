@@ -1,13 +1,13 @@
 <?php
 
 // ========================================================================
-// OEBBY
+// FrostByte
 // by Roland Strålberg
 // All Rights Reserved 
 // Contact: rstralberg@pm.me
 // ========================================================================
 //
-// RETURNS ALL FAVICONS 
+// Returns All Favicons 
 //
 
 function generate_favicons($config)

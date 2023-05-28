@@ -1,32 +1,14 @@
-class f_base {
-
-    opt = [];
-    listener = null;
-    div = null;
-    label = null;
-    inp = null;
-    value = null;
-
-    constructor(label, value, opt, listener, type) {
-        this.opt = opt;
-        this.listener = listener;
-        this.value = value;
-
-        this.div = document.createElement('div');
-
-        this.label = document.createElement('label');
-        this.label.innerHTML = label;
-        this.div.appendChild(this.label);
-
-        this.inp = document.createElement(type);
-        if (opt && typeof opt != 'undefined') {
-            for (let i = 0; i < opt.length; i++) {
-                this.inp.setAttribute(opt[i].key, opt[i].value);
-            }
-        }
-        this.div.appendChild(this.inp);
-    }
-}
+// ========================================================================
+// FrostByte
+// by Roland Strålberg
+// All Rights Reserved 
+// Contact: rstralberg@pm.me
+// ========================================================================
+//
+// Some basic support for most of the form-members
+// Its essential a container to hold the member along
+// with a label
+//
 
 function create_base( text ) {
     

@@ -1,3 +1,17 @@
+// ========================================================================
+// FrostByte
+// by Roland Strålberg
+// All Rights Reserved 
+// Contact: rstralberg@pm.me
+// ========================================================================
+//
+// A generic form used everywhere when a form or dialog is needed.
+// 'fields' are an array of web-controls that will populate the form,
+// each of them are described in the files starting with 'form_' 
+//
+// 1. Create the form (create_form)
+// 2. Open it and let the user do what the user want to. (open_form)
+// 3. Close and detroy the form (close_form)
 
 function create_form(id, title, fields) {
 
@@ -6,9 +20,10 @@ function create_form(id, title, fields) {
     var isdown = false;
 
 
-    var form = document.createElement('div');
+    var form = document.createElement('form');
     form.classList.add('iform');
     form.id = id;
+    form.enctype = 'multipart/form-data';
 
     let titlediv = document.createElement('div');
     titlediv.classList.add('ititle');

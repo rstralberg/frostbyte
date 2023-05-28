@@ -1,3 +1,13 @@
+// ========================================================================
+// FrostByte
+// by Roland Strålberg
+// All Rights Reserved 
+// Contact: rstralberg@pm.me
+// ========================================================================
+//
+// JS version of PHP Block database table
+//
+
 
 
 class block_data

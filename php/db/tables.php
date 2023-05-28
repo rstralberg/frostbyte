@@ -1,12 +1,12 @@
 <?php
 // ========================================================================
-// OEBBY
+// FrostByte
 // by Roland Strålberg
 // All Rights Reserved 
 // Contact: rstralberg@pm.me
 // ========================================================================
 //
-// CREATE TABLES IF NEEDED
+// Create Tables If Needed
 // - Checks for existance and creates everthing if needed
 // - Deletes all tables
 
@@ -67,7 +67,7 @@ function create_tables($db)
             ]),
             json_encode( [
                 'type' => 'text',
-                'text' => 'Welcome to OEBBY',
+                'text' => 'Welcome to FrostByte',
                 'align' => 'center'
             ]));
     }

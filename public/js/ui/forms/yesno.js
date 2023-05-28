@@ -4,11 +4,11 @@ function yesno(title,text, on_yes, on_no = null) {
     const FORM_ID = 'yes-no-form';
     let form = create_form(FORM_ID, title, [
         create_label('center', text),
-        create_button(T('yes'),'center', () => {
+        create_button(T('yes'),() => {
             close_form(FORM_ID);
             on_yes();
         }),
-        create_button(T('no'),'center', () => {
+        create_button(T('no'), () => {
             close_form(FORM_ID);
             if( on_no ) on_no();
         })

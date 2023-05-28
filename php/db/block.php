@@ -1,12 +1,12 @@
 <?php
 // ========================================================================
-// OEBBY
+// FrostByte
 // by Roland Strålberg
 // All Rights Reserved 
 // Contact: rstralberg@pm.me
 // ========================================================================
 //
-// DEFINES A PAGE CONTENT BLOCK 
+// Defines A Page Content Block 
 // - Holds both common block parameters 
 //   and specific type parmeters in Json-format
 //   

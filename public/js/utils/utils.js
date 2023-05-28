@@ -57,3 +57,15 @@ function for_each_child(elem,arg,func) {
 function remove_all_spaces(str) {
     return str.replace(/\s/g, '');
 }
+
+function is_object_valid(obj) {
+    if( typeof obj === 'undefined') {
+        console.error('Undefined object');
+        return false;
+    }
+    if( obj === null) {
+        console.error('null object');
+        return false;
+    }
+    return obj;
+}

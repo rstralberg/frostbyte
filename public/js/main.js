@@ -1,4 +1,18 @@
-
+// ========================================================================
+// FrostByte
+// by Roland Strålberg
+// All Rights Reserved 
+// Contact: rstralberg@pm.me
+// ========================================================================
+//
+// Application main entry called by PHP on start
+// - args 
+//      lang - language (current sv or en)
+//      login - true on a login attempt
+//      user - current user if logged in, else null
+//      page - current page name
+//      fonts - avaible fonts
+//
 function main(args) {
 
     const PANELAREA = 'panelarea';
@@ -10,8 +24,13 @@ function main(args) {
     const RIGHTPANEL = 'right-panel';
 
     global.init();
+    console.log('before load page');
     global.page = load_page(args.page);
-
+    if(global.page )
+        console.log('after load page is valid.');
+    else
+        console.log('after load page is NULL.');
+    
     let username = '';
     if( args.user ) {
         username = args.user;
@@ -79,7 +98,7 @@ function main(args) {
 
     fill_left_panel(left_panel);
     fill_navbar(navbar);
-    fill_center_panel(blocks, page_data.current.name);
+    fill_center_panel(blocks, global.page.name);
     fill_footer(footer);
     fill_right_panel(right_panel);
 

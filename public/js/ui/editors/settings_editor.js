@@ -18,37 +18,37 @@ function on_settings() {
         create_text('text', 'ce-siteowner', T('siteowner'), config.siteowner, on_siteowner),
         create_select(T('theme'), theme_names, config.theme, on_theme),
         create_text('text', T('charset'), config.charset, on_charset),
-        create_file('logo-file', T('logo'), on_logo),
+        create_image( T('logo'), T('logo'), config.logo, true, 256, on_logo),
         create_checkbox(T('showheaders'), config.showheaders, on_showheaders),
-        create_button(T('close'), 'center', () => { close_form(FORM_ID) })
+        create_button(T('close'), () => { close_form(FORM_ID) })
     ]);
     open_form(form);
 
-    function on_language(target, value) {
-        console.log(`on_language(${target.id}, ${value})`);
+    function on_language(value) {
+        console.log(`on_language(${value})`);
     }
 
-    function on_sitename(target, value) {
-        console.log(`on_sitename(${target.id}, ${value})`);
+    function on_sitename(value) {
+        console.log(`on_sitename(${value})`);
     }
 
-    function on_siteowner(target, value) {
-        console.log(`on_siteowner(${target.id}, ${value})`);
+    function on_siteowner(value) {
+        console.log(`on_siteowner( ${value})`);
     }
 
-    function on_theme(target, value) {
-        console.log(`on_theme(${target.id}, ${value})`);
+    function on_theme(value) {
+        console.log(`on_theme(${value})`);
     }
 
-    function on_charset(target, value) {
-        console.log(`on_charset(${target.id}, ${value})`);
+    function on_charset(value) {
+        console.log(`on_charset(${value})`);
     }
 
-    function on_logo(target, value) {
-        console.log(`on_logo(${target.id}, ${value})`);
+    function on_logo(value) {
+        update_config_value('logo',value);
     }
 
-    function on_showheaders(target, value) {
-        console.log(`on_showheaders(${target.id}, ${value})`);
+    function on_showheaders(value) {
+        console.log(`on_showheaders(${value})`);
     }
 }

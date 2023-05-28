@@ -15,7 +15,7 @@ function open_theme_editor() {
             { value: 'controls', text: T('controls') },
             { value: 'inputs', text: T('inputs') }
         ], 'body', on_action ),
-        create_button('te-close', T('close'), 'center', on_close)
+        create_button('te-close', T('close'), on_close)
     ]);
     let body = document.querySelector('html');
     body.insertBefore(form, body.firstChild);

@@ -1,13 +1,13 @@
 <?php
 
 // ========================================================================
-// OEBBY
+// FrostByte
 // by Roland Strålberg
 // All Rights Reserved 
 // Contact: rstralberg@pm.me
 // ========================================================================
 //
-// GENERATE HEADER
+// Generate Header
 // - Generates a comple HTML header
 // - Scans CSS and JS files to include in header
 //

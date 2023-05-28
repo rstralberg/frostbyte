@@ -1,12 +1,12 @@
 <?php
 // ========================================================================
-// OEBBY
+// FrostByte
 // by Roland Strålberg
 // All Rights Reserved 
 // Contact: rstralberg@pm.me
 // ========================================================================
 //
-// LEXICON OF SENTENCES IN DIFFRENT LANGUAGES
+// Lexicon Of Sentences In Diffrent Languages
 //
 require_once __DIR__ . '/db.php';
 

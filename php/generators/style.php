@@ -1,12 +1,12 @@
 <?php
 // ========================================================================
-// OEBBY
+// FrostByte
 // by Roland Strålberg
 // All Rights Reserved 
 // Contact: rstralberg@pm.me
 // ========================================================================
 //
-// GENERATE CSS VARIABLES USING A THEME
+// Generate Css Variables Using A Theme
 // - 
 // - 
 require_once  __DIR__ . '/../utils.php';

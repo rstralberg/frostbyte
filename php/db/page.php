@@ -1,12 +1,12 @@
 <?php
 // ========================================================================
-// OEBBY
+// FrostByte
 // by Roland Strålberg
 // All Rights Reserved 
 // Contact: rstralberg@pm.me
 // ========================================================================
 //
-// DEFINES A PAGE
+// Defines A Page
 // - Has a title, position and is the container 
 //   of all Blocks in the page
 //   

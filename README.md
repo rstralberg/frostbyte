@@ -1,2 +1,3 @@
-# frostbyte
-A simple web management application
+# FrostByte
+A simple web management application by Roland Strålberg
+

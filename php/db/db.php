@@ -1,12 +1,12 @@
 <?php
 // ========================================================================
-// OEBBY
+// FrostByte
 // by Roland Strålberg
 // All Rights Reserved 
 // Contact: rstralberg@pm.me
 // ========================================================================
 //
-// DATABASE MANAGENT
+// Database Managent
 // - Create Database and Tables
 // - Add and Delete Tables
 // - Execute Querys on Tables

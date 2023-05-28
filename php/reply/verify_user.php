@@ -1,12 +1,12 @@
 <?php
 // ========================================================================
-// OEBBY
+// FrostByte
 // by Roland Strålberg
 // All Rights Reserved 
 // Contact: rstralberg@pm.me
 // ========================================================================
 //
-// HANDLE A VERIFY USER REQUEST 
+// Handle A Verify User Request 
 // - 
 // - 
 

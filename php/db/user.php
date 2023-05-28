@@ -1,12 +1,12 @@
 <?php
 // ========================================================================
-// OEBBY
+// FrostByte
 // by Roland Strålberg
 // All Rights Reserved 
 // Contact: rstralberg@pm.me
 // ========================================================================
 //
-// DEFINES USER and specific type parmeters in Json-format
+// Defines User And Specific Type Parmeters In Json-Format
 // - Username, Full name, Email and Password
 // - Also some flags for permissions
 //   

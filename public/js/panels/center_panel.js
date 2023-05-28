@@ -15,7 +15,7 @@ function fill_center_panel(panel, page) {
             }
             catch (error) {
                 panel.removeChild(div);
-                alert(error);
+                console.error(error);
             }
         });
     }

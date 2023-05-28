@@ -1,5 +1,14 @@
+// ========================================================================
+// FrostByte
+// by Roland Strålberg
+// All Rights Reserved 
+// Contact: rstralberg@pm.me
+// ========================================================================
+//
+// A form button
+// 'listener' will be called with no arguments when button clicked
 
-function create_button(caption, align, listener) {
+function create_button(caption, listener) {
 
     let btn = document.createElement('button');
     btn.classList.add('ibutton');
@@ -9,23 +18,7 @@ function create_button(caption, align, listener) {
     });
 
     let div = document.createElement('div');
-    switch(align) {
-        case 'left':
-            div.classList.add('icol-40-60');
-            div.appendChild(btn);
-            div.appendChild(document.createElement('div'));
-            break;
-
-        case 'center':
-            div.appendChild(btn);
-            break;
-
-        case 'right':
-            div.classList.add('icol-40-60');
-            div.appendChild(document.createElement('div'));
-            div.appendChild(btn);
-            break;
-    }
+    div.appendChild(btn);
     return div;
 }
 

@@ -1,13 +1,13 @@
 <?php
 // ========================================================================
-// OEBBY
+// FrostByte
 // by Roland Strålberg
 // All Rights Reserved 
 // Contact: rstralberg@pm.me
 // ========================================================================
 //
-// CONFIGURATION TABLE
-// - Basic configuration for OEBBY
+// Configuration Table
+// - Basic configuration for FrostByte
 require_once __DIR__ . '/db.php';
 
 class config

@@ -1,13 +1,13 @@
 <?php
 
 // ========================================================================
-// OEBBY
+// FrostByte
 // by Roland Strålberg
 // All Rights Reserved 
 // Contact: rstralberg@pm.me
 // ========================================================================
 //
-// MAIN ENTRY
+// Main Entry
 // - Creates database tables if needed
 // - Scans CSS and JS files to include in header
 // - Creates theme based CSS file

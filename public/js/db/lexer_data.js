@@ -1,3 +1,12 @@
+// ========================================================================
+// FrostByte
+// by Roland Strålberg
+// All Rights Reserved 
+// Contact: rstralberg@pm.me
+// ========================================================================
+//
+// JS version of PHP Lexer database table
+//
 
 class lexer_data {
     static _lex = new Map();

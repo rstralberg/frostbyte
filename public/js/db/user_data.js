@@ -1,3 +1,12 @@
+// ========================================================================
+// FrostByte
+// by Roland Strålberg
+// All Rights Reserved 
+// Contact: rstralberg@pm.me
+// ========================================================================
+//
+// JS version of PHP User database table
+//
 
 class user_data
 {
@@ -13,16 +22,20 @@ class user_data
         'password', 'pages', 'system', 'theme' ];}
 }
 
-
-function load_user(username) {
-    let user = sql_read('user', user_data.columns(), '`username`=' + sql_string(username)); 
-    if( user === null ) {
+function decode_user_data(data) {
+    if( typeof data === 'undefined') {
         return null;
     }
-    user.pages = sql_is_true(user.pages);
-    user.system = sql_is_true(user.system);
-    user.theme = sql_is_true(user.theme);
-    return user;
+    if( data != null ) {
+        data.pages = sql_is_true(data.pages);
+        data.system = sql_is_true(data.system);
+        data.theme = sql_is_true(data.theme);
+    }
+    return data;
+}
+
+function load_user(username) {
+    return decode_user_data(sql_read('`user`', user_data.columns(), '`username`=' + sql_string(username))); 
 }
 
 function verify_user( username, password ) {

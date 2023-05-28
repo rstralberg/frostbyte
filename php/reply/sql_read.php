@@ -1,12 +1,12 @@
 <?php
 // ========================================================================
-// OEBBY
+// FrostByte
 // by Roland Strålberg
 // All Rights Reserved 
 // Contact: rstralberg@pm.me
 // ========================================================================
 //
-// HANDLE A SQL SELECT REQUEST 
+// Handle A Sql Select Request 
 // - 
 // - 
 
@@ -35,10 +35,10 @@ function sql_read($args) {
         }
         $query[strlen($query)-1] = ' ';
         $query .= ' from ' . $table . ' ';
-        if( gettype($where) == 'string' && strlen($where) > 0) {
+        if( $where && gettype($where) == 'string' && strlen($where) > 0) {
             $query .= ' where ' . $where;
         }
-        if( gettype($order) == 'string' && strlen($order) > 0) {
+        if( $order && gettype($order) == 'string' && strlen($order) > 0) {
             $query .= ' order by ' . $order;
         }
     

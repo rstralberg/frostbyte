@@ -11,7 +11,7 @@ function login() {
         create_text('password', T('password'), '', (value) =>{
             password = value;
         } ),
-        create_button(T('login'), 'left', () => {
+        create_button(T('login'), () => {
             if( verify_user(username, password) ) {
                 let user = load_user(username);
                 if( user ) {
@@ -23,7 +23,7 @@ function login() {
                 alert( T('login_failed') );
             }             
         }),
-        create_button(T('close'), 'right', () => {
+        create_button(T('close'), () => {
             close_form(FORM_ID);
         })
     ]);

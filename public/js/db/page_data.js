@@ -1,3 +1,12 @@
+// ========================================================================
+// FrostByte
+// by Roland Strålberg
+// All Rights Reserved 
+// Contact: rstralberg@pm.me
+// ========================================================================
+//
+// JS version of PHP Page database table
+//
 
 class page_data {
     title = '';
@@ -6,8 +15,6 @@ class page_data {
     index = 0;
     ishome = false;
 
-    static current() { return page_data._current; }
-    static current(page) { page_data._current = page; }
     static columns() { return ['title', 'name', 'parent', 'index', 'ishome']; }
 }
 
@@ -26,9 +33,11 @@ function load_pages() {
         ``, '`index` asc',
         sql_mode.mutli);
     let ret = new Array();
-    pages.forEach(page => {
-        ret.push( decode_page_data(page) );
-    });
+    if (pages) {
+        pages.forEach(page => {
+            ret.push(decode_page_data(page));
+        });
+    }
     return ret;
 }
 
@@ -40,7 +49,7 @@ function load_top_pages() {
         sql_mode.mutli);
     let ret = new Array();
     pages.forEach(page => {
-        ret.push( decode_page_data(page) );
+        ret.push(decode_page_data(page));
     });
     return ret;
 }
@@ -51,20 +60,20 @@ function load_child_pages(parent) {
         `\`parent\`=${sql_string(parent)}`,
         '`index` asc',
         sql_mode.mutli);
-    let ret = new Array();        
+    let ret = new Array();
     pages.forEach(page => {
-        ret.push( decode_page_data(page) );
+        ret.push(decode_page_data(page));
     });
     return ret;
 }
 
 function load_page(name) {
-    return decode_page_data( sql_read('`page`',
+    let result = sql_read('page',
         page_data.columns(),
         `\`name\`=${sql_string(name)}`,
-        '',
-        sql_mode.single) );
-
+        null,
+        sql_mode.single);
+    return decode_page_data(result);
 }
 
 function update_page_title(pagename, title) {

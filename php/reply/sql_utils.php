@@ -1,12 +1,12 @@
 <?php
 // ========================================================================
-// OEBBY
+// FrostByte
 // by Roland Strålberg
 // All Rights Reserved 
 // Contact: rstralberg@pm.me
 // ========================================================================
 //
-// HELPFUL SQL FUNCTIONS
+// Helpful Sql Functions
 // - 
 // - 
 function sql_verify($array,$parameters ) {

@@ -1,3 +1,14 @@
+// ========================================================================
+// FrostByte
+// by Roland Strålberg
+// All Rights Reserved 
+// Contact: rstralberg@pm.me
+// ========================================================================
+//
+// Some globals use in the app
+// Although its said that globals should be avoided
+// I found that these ones is really handy
+//
 
 class global {
 

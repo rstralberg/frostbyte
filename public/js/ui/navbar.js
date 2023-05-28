@@ -23,7 +23,6 @@ function fill_navbar(navbar) {
             navbar.appendChild(create_navlink(page.name, page.title, on_page_select));
         });    
     }
-    page_data.current = pages[0];
 }
 
 function create_navlink(name,text,func) {
@@ -31,6 +30,7 @@ function create_navlink(name,text,func) {
     let a = document.createElement('button');
     a.classList.add('navlinks');
     a.innerHTML = text;
+    a.href = name;
     a.addEventListener('click', (e) => {
         func(name)
     });

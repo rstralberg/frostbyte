@@ -1,13 +1,13 @@
 <?php
 
 // ========================================================================
-// OEBBY
+// FrostByte
 // by Roland Strålberg
 // All Rights Reserved 
 // Contact: rstralberg@pm.me
 // ========================================================================
 //
-// DEFINES WEB SITE THEME
+// Defines Web Site Theme
 // - Implemented by setting css --variables
 // - Generates css file theme.css
 // - Each theme col is in Json-format

@@ -332,6 +332,22 @@
     width: 10vw;
 }
 
-.image {
-    display: block;
+.image
+{
+    background: var(--block-background);
+    color: var(--block-color);
+    border-color: var(--block-border-color);
+    border-style: var(--block-border-style);
+    border-radius: var(--block-border-radius);
+    border-width: var(--block-border-width);
 }
+
+.image > img {
+    margin: 20px;
+}
+
+.image > canvas {
+    margin: 4px;
+    padding: 4px;
+}
+

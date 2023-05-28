@@ -1,3 +1,12 @@
+// ========================================================================
+// FrostByte
+// by Roland Strålberg
+// All Rights Reserved 
+// Contact: rstralberg@pm.me
+// ========================================================================
+//
+// A form color selector
+// 'listener' will be called with a RGB string (rbg(r,b,g))  when changed
 
 function create_color(label, value, listener ) {
     

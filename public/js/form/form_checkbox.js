@@ -1,3 +1,13 @@
+// ========================================================================
+// FrostByte
+// by Roland Strålberg
+// All Rights Reserved 
+// Contact: rstralberg@pm.me
+// ========================================================================
+//
+// A form checkbox
+// 'listener' will be called with checkbox state (boolean) when changed
+
 function create_checkbox(label, checked, listener) {
 
     let base = create_base(label);

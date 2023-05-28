@@ -77,7 +77,7 @@ function open_style_editor(type) {
             }
         }
     });
-    fields.push(create_button('st-close', T('close'), 'center', (t,v) => {
+    fields.push(create_button('st-close', T('close'), (t,v) => {
         let body = document.querySelector('html');
         let editor = document.getElementById('st-editor');
         remove_childs(editor);

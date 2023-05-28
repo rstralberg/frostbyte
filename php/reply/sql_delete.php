@@ -1,12 +1,12 @@
 <?php
 // ========================================================================
-// OEBBY
+// FrostByte
 // by Roland Strålberg
 // All Rights Reserved 
 // Contact: rstralberg@pm.me
 // ========================================================================
 //
-// HANDLE A SQL DELETE REQUEST 
+// Handle A Sql Delete Request 
 // - 
 // - 
 

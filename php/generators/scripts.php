@@ -1,12 +1,12 @@
 <?php
 // ========================================================================
-// OEBBY
+// FrostByte
 // by Roland Strålberg
 // All Rights Reserved 
 // Contact: rstralberg@pm.me
 // ========================================================================
 //
-// SCAN SCRIPTFILES 
+// Scan Scriptfiles 
 // - Scans script files and generate script include for header
 
 function generate_scripts() {

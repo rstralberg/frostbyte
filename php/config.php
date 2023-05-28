@@ -6,7 +6,7 @@
 // Contact: rstralberg@pm.me
 // ========================================================================
 //
-// CONSTANTS NEEDED FOR PROPER SETUP
+// Constants Needed For Proper Setup
 // - MySQL Access
 // - Default User
 // - Default Configuration
