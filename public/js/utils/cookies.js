@@ -15,7 +15,8 @@ function get_cookie(cname) {
             c = c.substring(1);
         }
         if (c.indexOf(name) == 0) {
-            return c.substring(name.length, c.length);
+            c = c.substring(name.length, c.length);
+            return c === 'null' ? false : c;
         }
     }
     return false;

@@ -10,7 +10,7 @@
 // - se public/js/upload.js
 
 
-if( $_FILES) {
+if( $_FILES ) {
 
     if( !isset($_POST['page']) ) {
         echo( json_encode( [
@@ -49,7 +49,8 @@ if( $_FILES) {
     if( !is_dir($media)) {
         mkdir($media);
     }
-    $ext = pathinfo(basename($filename), PATHINFO_EXTENSION);
+    $ext = pathinfo($filename, PATHINFO_EXTENSION);
+    $title = pathinfo($title, PATHINFO_FILENAME);
     $to = $media . $title . '.' . strtolower($ext);
     $success = move_uploaded_file($filetmp, $to) ;
     echo( json_encode([

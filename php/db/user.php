@@ -18,9 +18,7 @@ class user
     public $fullname;
     public $email;
     public $password;
-    public $pages;
-    public $system;
-    public $theme;
+    public $power;
 }
 
 function create_user_table($db)
@@ -33,9 +31,7 @@ function create_user_table($db)
 				`fullname` VARCHAR(50) NOT NULL,
 				`email` VARCHAR(50) NOT NULL,
                 `password` VARCHAR(256) NOT NULL,
-                `pages` TINYINT NOT NULL,
-                `system` TINYINT NOT NULL,
-                `theme` TINYINT NOT NULL,
+                `power` TINYINT NOT NULL,
                 PRIMARY KEY (`username`) USING BTREE,
                 INDEX `pk` (`username`) USING BTREE
 			)
@@ -52,9 +48,7 @@ function result_to_user($db, $res)
     $user->fullname = $res['fullname'];
     $user->email = $res['email'];
     $user->password = $res['password'];
-    $user->pages = $res['pages'] == '1';
-    $user->system = $res['system'] == '1';
-    $user->theme = $res['theme'] == '1';
+    $user->power = $res['power'] == '1';
     return $user;
 }
 
@@ -83,9 +77,7 @@ function write_user($db, $user, $where)
             . '`fullname`=' . db::string($user->fullname) . ','
             . '`email`=' . db::string($user->email) . ','
             . '`password`=' . db::string(password_hash($user->password, PASSWORD_DEFAULT)) . ','
-            . '`pages`=' . ($user->pages ? 1 : 0) . ','
-            . '`system`=' . ($user->system ? 1 : 0) . ','
-            . '`theme`=' . ($user->theme ? 1 : 0) . ' '
+            . '`power`=' . ($user->power ? 1 : 0)  . ' '
             . 'where ' . $where);
     } else {
         $db->query('INSERT INTO `user` ('
@@ -93,17 +85,13 @@ function write_user($db, $user, $where)
             . '`fullname`,'
             . '`email`,'
             . '`password`,'
-            . '`pages`,'
-            . '`system`,'
-            . '`theme` )'
+            . '`power`)'
             . ' VALUES ('
             . db::string($user->username) . ','
             . db::string($user->fullname) . ','
             . db::string($user->email) . ','
             . db::string(password_hash($user->password, PASSWORD_DEFAULT)) . ','
-            . ($user->pages ? 1 : 0) . ','
-            . ($user->system ? 1 : 0) . ','
-            . ($user->theme ? 1 : 0) . ')');
+            . ($user->power ? 1 : 0) . ')');
     }
 }
 
@@ -113,18 +101,14 @@ function create_user(
     $fullname,
     $email,
     $password,
-    $pages,
-    $system,
-    $theme
+    $power
 ) {
     $user = new user($db);
     $user->username = $username;
     $user->fullname = $fullname;
     $user->email = $email;
     $user->password = $password;
-    $user->pages = $pages;
-    $user->system = $system;
-    $user->theme = $theme;
+    $user->power = $power;
     write_user($db, $user, '`username`=' . db::string($username));
 }
 

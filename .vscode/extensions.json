@@ -8,6 +8,7 @@
         "ms-vscode.remote-explorer",
         "quick-lint.quick-lint-js",
         "ms-vscode-remote.remote-ssh",
-        "bmewburn.vscode-intelephense-client"
+        "bmewburn.vscode-intelephense-client",
+        "jock.svg"
     ]
 }

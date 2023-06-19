@@ -8,17 +8,17 @@
 //
 // Defines A Page
 // - Has a title, position and is the container 
-//   of all Blocks in the page
+//   of all sections in the page
 //   
 require_once __DIR__ . '/db.php';
 
 class page
 {
-    public $title;
-    public $name;
+    public $id;
     public $parent;
-    public $index;
-    public $isHome;
+    public $title;
+    public $author;
+    public $pos;
 }
 
 function create_page_table($db)
@@ -26,17 +26,14 @@ function create_page_table($db)
     $create = !$db->table_exist('page');
     if ($create) {
         $db->query(
-            "CREATE TABLE IF NOT EXISTS `page`  (
-				`title` VARCHAR(50) NOT NULL,
-				`name` VARCHAR(30) NOT NULL,
-				`parent` VARCHAR(30) NOT NULL DEFAULT '',
-				`index` INT NOT NULL,
-				`ishome` TINYINT NOT NULL,
-                PRIMARY KEY (`title`) USING BTREE,
-                INDEX `pk` (`title`) USING BTREE
-			)
-			COLLATE='utf8mb4_swedish_ci'
-			ENGINE=InnoDB"
+            "CREATE TABLE `page` (
+                 `id` int(11) NOT NULL AUTO_INCREMENT,
+                `parent` int(11) DEFAULT 0,
+                `title` varchar(50) NOT NULL,
+                `author` varchar(50) NOT NULL,
+                `pos` int(11) NOT NULL,
+                PRIMARY KEY (`id`)
+              ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_swedish_ci"
         );
     }
 }
@@ -44,25 +41,25 @@ function create_page_table($db)
 function result_to_page($db, $res)
 {
     $page = new page($db);
-    $page->title = $res['title'];
-    $page->name = $res['name'];
+    $page->id = $res['id'];
     $page->parent = $res['parent'];
-    $page->index = (int)$res['index'];
-    $page->isHome = $res['ishome'] != '0';
+    $page->title = $res['title'];
+    $page->author = $res['author'];
+    $page->pos = $res['pos'];
     return $page;
 }
 
 
-function read_page($db, $where, $order, $mode)
+function read_page($db, $where, $pos, $mode)
 {
-    $result = $db->query(db::build_query('SELECT * FROM page', $where, $order), $mode);
+    $result = $db->query(db::build_query('SELECT * FROM page', $where, $pos), $mode);
     if ($result) {
         if ($mode === dbmode::single) {
             return result_to_page($db, $result);
         } else if ($mode === dbmode::multi) {
             $pages  = array();
             foreach ($result as $res) {
-                array_push($pages, result_to_page($db, $result));
+                array_push($pages, result_to_page($db, $res));
             }
             return $pages;
         }
@@ -74,43 +71,38 @@ function write_page($db, $page, $where)
 {
     if ($db->row_exist('page', $where)) {
         $db->query('UPDATE `page` SET '
+            . '`parent`=' . $page->parent . ','
             . '`title`=' . db::string($page->title) . ','
-            . '`name`=' . db::string($page->name) . ','
-            . '`parent`=' . db::string($page->parent) . ','
-            . '`index`=' . (int)$page->index . ','
-            . '`ishome`=' . $page->isHome ? 1 : 0 . ' '
+            . '`author`=' . db::string($page->author) . ','
+            . '`pos`=' . $page->pos . ' '
             . 'where ' . $where);
     } else {
         $db->query('INSERT INTO `page` ('
-            . '`title`,'
-            . '`name`,'
             . '`parent`,'
-            . '`index`,'
-            . '`ishome` )'
-            . ' VALUES ('
+            . '`title`,'
+            . '`author`,'
+            . '`pos`'        
+            . ' ) VALUES ('
+            . $page->parent . ','
             . db::string($page->title) . ','
-            . db::string($page->name) . ','
-            . db::string($page->parent) . ','
-            . (int)$page->index . ','
-            . ($page->isHome ? 1 : 0) . ')');
+            . db::string($page->author) . ','
+            . $page->pos . ')');
     }
 }
 
 function create_page(
     $db,
-    $title,
-    $name,
     $parent,
-    $index,
-    $isHome
-) {
+    $title,
+    $author,
+    $pos ) {
     $page = new page($db);
-    $page->title = $title;
-    $page->name = $name;
     $page->parent = $parent;
-    $page->index = (int)$index;
-    $page->isHome = $isHome;
-    write_page($db, $page, '`title`=' . db::string($title));
+    $page->title = $title;
+    $page->author = $author;
+    $page->pos = $pos;
+    write_page($db, $page, 'id=0');
+    return $db->get_last_id();
 }
 
 function drop_page($db)

@@ -12,18 +12,18 @@
 function sql_verify($array,$parameters ) {
     
     $count = 0;
-    foreach($parameters as $p ) {
+    foreach($parameters as $key => $value ) {
         foreach( $array as $expr) {
-            $count += $p->key === $expr ? 1 : 0;
+            $count += $key === $expr ? 1 : 0;
         }
     }
     return $count === count($array);
 }
 
 function sql_get($parameters, $name) {
-    foreach($parameters as $p ) {
-        if( $p->key === $name ) {
-            return $p->value;
+    foreach($parameters as $key => $value ) {
+        if( $key === $name ) {
+            return $value;
         }
     }
     throw new Exception('Unknown parameter ' + $name + ' requested');

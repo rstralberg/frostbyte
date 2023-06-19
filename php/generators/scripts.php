@@ -14,14 +14,8 @@ function generate_scripts() {
     $scriptfolders = [
         'js',
         'js/utils',
-        'js/db',
-        'js/form',
-        'js/ui',
-        'js/ui/editors',
-        'js/ui/forms',
-        'js/page',
-        'js/page/blocks',
-        'js/panels'
+        'js/components',
+        'js/contents',
     ];
 
     $html = '';

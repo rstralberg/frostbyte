@@ -28,7 +28,10 @@ function scaling(max_w, max_h, w, h) {
         w *= scale;
         h *= scale;
     }
-    return { w, h };
+    return { 
+        w: Math.round(w), 
+        h: Math.round(h) 
+    };
 }
 
 
@@ -58,14 +61,52 @@ function remove_all_spaces(str) {
     return str.replace(/\s/g, '');
 }
 
-function is_object_valid(obj) {
-    if( typeof obj === 'undefined') {
-        console.error('Undefined object');
+function is_valid(obj, report=false) {
+    if( typeof obj === 'undefined' || obj === 'undefined') {
+        logg(`${is_valid.caller}: Undefined object`, false, report);
         return false;
     }
     if( obj === null) {
-        console.error('null object');
+        logg(`${is_valid.caller}: NULL object`, false, report);
         return false;
     }
     return obj;
+}
+
+function safe_boolean(v) {
+    if( typeof v === 'boolean') return v;
+    if( typeof v === 'number') return v != 0;
+    if( typeof v === 'string') return v==='true';
+    return v;
+}
+
+function add_quotes(str) {
+    return `"${str}"`;
+}
+
+function htmlDecode(input) {
+    var doc = new DOMParser().parseFromString(input, "text/html");
+    return doc.documentElement.textContent === null ? '' : doc.documentElement.textContent;
+}
+
+function get_height_as_vh(div) {
+    return Math.round((div.clientHeight/get_app_dimension().height)*100);
+}
+
+function get_app_dimension() {
+    return {
+        width: document.querySelector('body').clientWidth,
+        height: document.querySelector('.left').clientHeight
+    };
+}
+
+
+function format_selection(tag) {
+    let selection = window.getSelection();
+    if (selection.rangeCount) {
+        let range = selection.getRangeAt(0);
+        let span = document.createElement(tag);
+        span.appendChild(range.extractContents());
+        range.insertNode(span);
+    }
 }

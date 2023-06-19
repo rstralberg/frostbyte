@@ -14,21 +14,18 @@ require_once __DIR__ . '/sql_utils.php';
 require_once __DIR__ . '/../db/db.php';
 require_once __DIR__ . '/../db/user.php';
 
-function verify_user($args)
+function verify_user($req)
 {
-    $params = json_decode(json_encode($args));
-    if (!sql_verify(['username', 'password'], $params)) {
-        return sql_fail('Parameters missing in verify_user');
-    }
-
-    $username = sql_get($params, 'username');
-    $password =  sql_get($params, 'password');
+    $params = json_decode(json_encode($req));
     
     $result = sql_fail('Login failed');
     $db = new DB();
     $db->connect();
-    if( verifyPassword($db, $username, $password) ) {
-        $result = sql_success('');
+    if( verifyPassword($db, $params->username, $params->password) ) {
+        $user = read_user($db, null, null, dbmode::single);
+        if( $user ) {
+            $result = sql_success($user->username);
+        }
     }
     $db->disconnect();
     return $result;

@@ -20,20 +20,35 @@ function generate_style($db, $name)
     }
 
     $style .= '--theme_name:' . db::string($theme->name) . ';';
-    $style .= generate_style_part('body', $theme->body);
-    $style .= generate_style_part('navbar', $theme->navbar);
-    $style .= generate_style_part('navlinks', $theme->navlinks);
-    $style .= generate_style_part('footer', $theme->footer);
-    $style .= generate_style_part('controls', $theme->controls);
-    $style .= generate_style_part('inputs', $theme->inputs);
-    $style .= generate_style_part('block', $theme->block);
-    $style .= generate_style_part('left', $theme->left);
-    $style .= generate_style_part('right', $theme->right);
-    $style .= generate_style_part('panelarea', $theme->panelarea);
-    $style .= generate_style_part('centerpanel', $theme->centerpanel);
-    $style .= generate_style_part('sidepanels', $theme->sidepanels);
-    $style .= generate_style_part('toolbar', $theme->toolbar);
-    $style .= generate_style_part('tools', $theme->tools);
+    $style .= '--bg1:' . $theme->bg1 . ';';
+    $style .= '--fg1:' . $theme->fg1 . ';';
+    $style .= '--bg2:' . $theme->bg2 . ';';
+    $style .= '--fg2:' . $theme->fg2 . ';';
+    $style .= '--bg3:' . $theme->bg3 . ';';
+    $style .= '--fg3:' . $theme->fg3 . ';';
+    $style .= '--font:' . $theme->font . ';';
+    $style .= '--fsize:' . $theme->fsize . ';';
+    $style .= '--links:' . $theme->links . ';';
+    $style .= '--bg4:' . $theme->bg4 . ';';
+    $style .= '--fg4:' . $theme->fg4 . ';';
+    $style .= '--bg4h:' . $theme->bg4h . ';';
+    $style .= '--fg4h:' . $theme->fg4h . ';';
+    $style .= '--bg5:' . $theme->bg5 . ';';
+    $style .= '--fg5:' . $theme->fg5 . ';';
+    $style .= '--bg5s:' . $theme->bg5s . ';';
+    $style .= '--fg5s:' . $theme->fg5s . ';';
+    $style .= '--nav_fsize:' . $theme->nav_fsize . ';';
+    $style .= '--nav_fweight:' . $theme->nav_fweight . ';';
+    $style .= '--nav_border:' . $theme->nav_border . ';';
+    $style .= '--footer_border:' . $theme->footer_border . ';';
+    $style .= '--main_border:' . $theme->main_border . ';';
+    $style .= '--nav_shadow:' . $theme->nav_shadow . ';';
+    $style .= '--footer_shadow:' . $theme->footer_shadow . ';';
+    $style .= '--main_shadow:' . $theme->main_shadow . ';';
+    $style .= '--footer_fsize:' . $theme->footer_fsize . ';';
+    $style .= '--footer_fstyle:' . $theme->footer_fstyle . ';';
+    $style .= '--title_fg:' . $theme->title_fg . ';';
+    $style .= '--shadow-size: 18px;';
     $style .= '}';
 
     // debugging
@@ -44,25 +59,16 @@ function generate_style($db, $name)
     return '<style>' . $style . '</style>';
 }
 
-function generate_style_part($part, $json)
+function scanCss()
 {
-    $html = '';
-    $obj = json_decode($json);
-    $vars = get_object_vars($obj);
-    foreach ($vars as $key => $value) {
-        if( strstr($value,'@'))  {
-            $values = split_in_two($value, '@');
-            $html .= '--' . $part . '-' . $key . ':' . $values['first'] . ';' . PHP_EOL;
-            $html .= '--' . $part . '-' . $key . '-media:' . $values['second'] . ';' . PHP_EOL;
-        }
-        else if( strstr($key,':')) {
-            $split = split_in_two($key,':');
-            $html .= '--' . $part . '-' . $split['second'] . '-' . $split['first'] . ':' . $value . ';' . PHP_EOL;
-        }
-        else 
-            $html .= '--' . $part . '-' . $key . ':' . $value . ';' . PHP_EOL;
+    $cssfiles = glob('../public/css/*.css');
+    $css = '';
+    foreach ($cssfiles as $font) {
+        $parts = pathinfo($font);
+        $css .= '<link rel="stylesheet" type="text/css" href="css/' . $parts['basename'] . '">' . PHP_EOL;
     }
-    return $html;
+
+    return $css;
 }
 
 ?>

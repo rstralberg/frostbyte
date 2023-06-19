@@ -18,7 +18,6 @@ require_once __DIR__ . '/../db/theme.php';
 require_once __DIR__ . '/favicons.php';
 require_once __DIR__ . '/scripts.php';
 require_once __DIR__ . '/style.php';
-require_once __DIR__ . '/css.php';
 
 function generate_head($db, $config)
 {
@@ -29,7 +28,7 @@ function generate_head($db, $config)
 
     $html .= generate_favicons($config);
     $html .= generate_style($db, 'Dark');
-    $html .= generate_scripts();
+    $html .= generate_scripts();    
     $html .= scanCss();
 
     $html .= '</head>';

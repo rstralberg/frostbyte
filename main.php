@@ -14,6 +14,7 @@
 // - Sends parameters to JScript 'main' which then creates the main page
 //
 
+require_once __DIR__ . '/php/logger.php';
 require_once __DIR__ . '/php/config.php';
 require_once __DIR__ . '/php/error.php';
 require_once __DIR__ . '/php/db/db.php';
@@ -21,7 +22,6 @@ require_once __DIR__ . '/php/db/tables.php';
 require_once __DIR__ . '/php/db/config.php';
 require_once __DIR__ . '/php/db/theme.php';
 require_once __DIR__ . '/php/generators/head.php';
-require_once __DIR__ . '/php/generators/css.php';
 require_once __DIR__ . '/php/generators/fonts.php';
 
 
@@ -40,10 +40,10 @@ if( $config == null) {
 }
 
 // Default page if nothing else given
-$page = CONF_HOME;
-$homePage = read_page($db, '`ishome`=1', null, dbmode::single);
+$page = CONF_HOME_TITLE;
+$homePage = read_page($db, '`title`=' . db::string($page), null, dbmode::single);
 if( $homePage ) {
-    $page = $homePage->name;
+    $page = $homePage->id;
 }
 
 // Whats given from browser
@@ -55,14 +55,11 @@ if( array_key_exists('REQUEST_URI', $_SERVER) )
     if( strlen($reqPage) > 0 ) {
         if( $reqPage === 'login') {
             $login = true; // not a page!
-        } else if ($reqPage[0] !== '?' ){
+        } else if ($reqPage[0] !== '?' && $reqPage[strlen($reqPage)-1] !== '?' ){
             $page = $reqPage; // arg was a page!        
         }
     }
 }
-
-// Generate a theme.css from database
-generate_css($db, $config->theme);
 
 // Scan and generate font declarations
 $fonts = generate_fonts();
@@ -78,9 +75,6 @@ if( array_key_exists('username', $_GET) && array_key_exists('password',$_GET)) {
     $user = read_user($db, '`username`=' . db::string($_GET['username']), null, dbmode::single);
 }
 
-// Create skeleton. Jscript will do the rest
-$html .= '<body></body>';
-
 $main_args = json_encode( [
     'lang' => $config->language,
     'login' => $login,
@@ -89,11 +83,14 @@ $main_args = json_encode( [
     'fonts' => $fonts
  ]);
 
-// Call scrips Main to create the site
-$html .= '<script type="module">addEventListener("DOMContentLoaded", (event) => { '
-    . 'main('. $main_args . ')' . PHP_EOL
-    . '})' . PHP_EOL
-    . '</script></html>';
+
+// Create skeleton. Jscript will do the rest
+$html .= 
+'<body><div class="left"></div><nav></nav>
+<main></main><footer></footer><div class="right"></div>
+</body><script type="module">addEventListener("DOMContentLoaded", (event) => {
+main('. $main_args . ');})</script></html>';
 
 echo( $html );
 $db->disconnect();
+

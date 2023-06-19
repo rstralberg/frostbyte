@@ -1,6 +1,5 @@
 {
     "configurations": [
-    
         {
             "name": "Launch Built-in web server",
             "type": "php",
