@@ -46,12 +46,12 @@ function create_form(title, action, fields) {
 
     return new Promise(function (resolve, reject = null) {
 
-        console.log( `Entering form ${title}`);
+        console.log(`Entering form ${title}`);
 
         var map = new Array();
         let form = document.createElement('form');
         form.classList.add('iform');
-        form.id = `form-${parseInt(Math.random()*100)}`;
+        form.id = `form-${parseInt(Math.random() * 100)}`;
         form.enctype = 'multipart/form-data';
 
 
@@ -87,13 +87,14 @@ function create_form(title, action, fields) {
         }, true);
 
         form.addEventListener('keypress', (ev) => {
-            if(ev.key === 'Enter') {
+            if (ev.key === 'Enter') {
                 ev.preventDefault();
-            } });
+            }
+        });
 
         fields.forEach(field => {
 
-            if(!is_valid(field.listener, false)) field.listener = null;
+            if (!is_valid(field.listener, false)) field.listener = null;
 
             let div = document.createElement('div');
             div.classList.add('icol-40-60');
@@ -117,7 +118,7 @@ function create_form(title, action, fields) {
                     inp.addEventListener('click', (e) => {
                         field.listener(field);
                     });
-                    map[field.name]=field.name;
+                    map[field.name] = field.name;
 
                     break;
                 case FormType.Checkbox:
@@ -127,10 +128,10 @@ function create_form(title, action, fields) {
                     inp.id = field.name;
                     inp.type = 'checkbox';
                     inp.addEventListener('change', (e) => {
-                        map[field.name]=field.value=e.target.checked;
+                        map[field.name] = field.value = e.target.checked;
                         if (field.listener) field.listener(field);
                     });
-                    map[field.name]=field.value;
+                    map[field.name] = field.value;
                     break;
                 case FormType.Color:
                     div.style.display = 'grid';
@@ -146,7 +147,7 @@ function create_form(title, action, fields) {
                         map[field.name] = field.value = hexcolor_to_style(e.target.value);
                         if (field.listener) field.listener(field);
                     });
-                    map[field.name]=field.value;
+                    map[field.name] = field.value;
                     break;
                 case FormType.File:
                     inp = document.createElement('input');
@@ -156,15 +157,16 @@ function create_form(title, action, fields) {
                     inp.addEventListener('change', (e) => {
                         if (e.target.files && e.target.files[0]) {
                             field.value = e.target.files[0].name;
-                            if( !is_valid(field.title)) field.title = e.target.files[0].name;
-                            upload(field.title, e.target.files[0], window['frostbyte'].page.id )
-                            .then(
-                                (resolve) => {
-                                    map[field.name]= resolve;
-                                    if (field.listener) field.listener(e);
-                                });
-                        }});
-                    map[field.name]=field.value;
+                            if (!is_valid(field.title)) field.title = e.target.files[0].name;
+                            upload(field.title, e.target.files[0], window['frostbyte'].page.id)
+                                .then(
+                                    (resolve) => {
+                                        map[field.name] = resolve;
+                                        if (field.listener) field.listener(e);
+                                    });
+                        }
+                    });
+                    map[field.name] = field.value;
                     break;
                 case FormType.Number:
                     inp = document.createElement('input');
@@ -176,34 +178,39 @@ function create_form(title, action, fields) {
                     inp.min = field.min;
                     inp.max = field.max;
                     inp.addEventListener('change', (e) => {
-                        map[field.name]=field.value = e.target.value;
+                        map[field.name] = field.value = e.target.value;
                         if (field.listener) field.listener(field);
                     });
-                    map[field.name]=field.value;
+                    map[field.name] = field.value;
                     break;
                 case FormType.Image:
+
                     load_image_to_div(div, field.url, field.title, field.shadow, field.size);
+
                     inp = document.createElement('input');
                     inp.classList.add('ifile');
                     inp.id = field.id;
                     inp.type = 'file';
+                    inp.accept = 'image/png, image/jpeg';
                     inp.addEventListener('change', (e) => {
-                        if (e.target.files && e.target.files[0]) {
-                            let canvas = div.querySelector('canvas');
-                            if (canvas) {
-                                div.removeChild(canvas);
-                            }
-                            field.value = e.target.files[0].name;
-                            if( !is_valid(field.title)) field.title = e.target.files[0].name;
-                            upload(field.title, e.target.files[0], Global.page.id )
-                            .then(
-                                (resolve) => {
-                                    load_image_to_div(div, resolve, field.title, field.shadow, field.size);
-                                    map[field.name]= resolve;
-                                    if (field.listener) field.listener(e);
-                                });
-                        }});
-                    map[field.name]=field.value;
+
+                        if (is_valid(e.target.files) && is_valid(e.target.files[0])) {
+                            var file = e.target.files[0];
+                            resize_image(file, Global.MAX_IMAGE_SIZE)
+                                .then(
+                                    (resized_image) => {
+                                        upload(field.title, resized_image, Global.page.id)
+                                            .then(
+                                                (resolve) => {
+                                                    load_image_to_div(div, resolve, field.title, field.shadow, field.size);
+                                                    map[field.name] = resolve;
+                                                    if (field.listener) field.listener(e);
+                                                });
+
+                                    });
+                        }
+                    });
+                    map[field.name] = field.value;
                     break;
                 case FormType.Label:
                     div.removeChild(label);
@@ -229,7 +236,7 @@ function create_form(title, action, fields) {
                             div.appendChild(label);
                             break;
                     }
-                    map[field.name]=field.label;
+                    map[field.name] = field.label;
                     break;
                 case FormType.List:
                     inp = document.createElement('select');
@@ -260,7 +267,7 @@ function create_form(title, action, fields) {
                             if (field.listener) field.listener(field);
                         }
                     });
-                    map[field.name]= field.selected;
+                    map[field.name] = field.selected;
                     break;
 
                 case FormType.Slider:
@@ -277,12 +284,12 @@ function create_form(title, action, fields) {
                     inp.id = field.name;
                     inp.value = field.value === null ? (field.max - field.min) / 2 : field.value;
                     inp.addEventListener('input', (e) => {
-                        map[field.name]=field.value = e.target.value;
+                        map[field.name] = field.value = e.target.value;
                         if (field.listener) field.listener(field);
                         val.innerText = e.target.value;
                     });
                     div.appendChild(val);
-                    map[field.name]=field.value;
+                    map[field.name] = field.value;
                     break;
                 case FormType.Text:
                     inp = document.createElement('input');
@@ -290,10 +297,10 @@ function create_form(title, action, fields) {
                     inp.value = field.value === null ? '' : field.value;
                     inp.id = field.name;
                     inp.addEventListener('change', (e) => {
-                        map[field.name]=field.value = e.target.value;
+                        map[field.name] = field.value = e.target.value;
                         if (field.listener) field.listener(field);
                     });
-                    map[field.name]=field.value;
+                    map[field.name] = field.value;
                     break;
                 case FormType.Email:
                     inp = document.createElement('input');
@@ -301,10 +308,10 @@ function create_form(title, action, fields) {
                     inp.value = field.value === null ? '' : field.value;
                     inp.id = field.name;
                     inp.addEventListener('change', (e) => {
-                        map[field.name]=field.value = e.target.value;
+                        map[field.name] = field.value = e.target.value;
                         if (field.listener) field.listener(field);
                     });
-                    map[field.name]=field.value;
+                    map[field.name] = field.value;
                     break;
                 case FormType.Password:
                     inp = document.createElement('input');
@@ -312,17 +319,17 @@ function create_form(title, action, fields) {
                     inp.value = field.value === null ? '' : field.value;
                     inp.id = field.name;
                     inp.addEventListener('change', (e) => {
-                        map[field.name]=field.value = e.target.value;
+                        map[field.name] = field.value = e.target.value;
                         if (field.listener) field.listener(field);
                     });
-                    map[field.name]=field.value;
+                    map[field.name] = field.value;
                     break;
 
                 default:
                     logg(`Okänd typ ${field.type} i ${title}`);
                     break;
             }
-            if( inp ) {
+            if (inp) {
                 div.appendChild(inp);
                 form.appendChild(div);
             }
@@ -333,16 +340,16 @@ function create_form(title, action, fields) {
         button.classList.add('ibutton');
         button.innerHTML = 'Avbryt';
         button.addEventListener('click', (e) => {
-            if( reject ) reject();
+            if (reject) reject();
             close(form);
         });
         div.appendChild(button);
-        
+
         button = document.createElement('button');
         button.classList.add('ibutton');
         button.innerHTML = action;
         button.addEventListener('click', (e) => {
-            console.log( `Resolving form ${title}`);
+            console.log(`Resolving form ${title}`);
             resolve(map);
             close(form);
         });
@@ -351,12 +358,12 @@ function create_form(title, action, fields) {
 
         let html = document.querySelector('html');
         html.insertBefore(form, html.firstChild);
-                
+
         div.firstChild.nextSibling.focus();
 
         function close(form) {
             let html = document.querySelector('html');
-            if (is_valid(form,false) && html.querySelector(`#${form.id}`) !== null) {
+            if (is_valid(form, false) && html.querySelector(`#${form.id}`) !== null) {
                 remove_childs(form);
                 html.removeChild(form);
             }

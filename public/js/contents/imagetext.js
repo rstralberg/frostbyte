@@ -45,7 +45,7 @@ function create_imagetext() {
                 url: encodeURIComponent(resolve['url']),
                 shadow: resolve['shadow'],
                 title: resolve['title'],
-                text: resolve['text'],
+                text: encodeURIComponent(resolve['text']),
                 img_align: resolve['imageposition']
             };
 
@@ -69,23 +69,10 @@ function create_imagetext() {
                         section.setAttribute('data-type', 'imagetext');
                         section.setAttribute('data-page-id', Global.page.id);
 
-                        let image = document.createElement('div');
-                        image.style.flex = '0 1 30%';
-                        image.style.margin = '4px';
-                        set_section_id(image, `${id}-image`);
-                        section.appendChild( image) ;
-
-                        let text = document.createElement('div');
-                        text.style.flex = '1 1 70%';
-                        text.style.margin = '4px';
-                        text.contentEditable = true;
-                        set_section_id(text, `${id}-text`);
-                        section.appendChild( text );
-                        
                         set_section_id(section,id);
                         container.appendChild(section);
                         
-                        draw_imagetext(image, content);
+                        draw_imagetext(section, content);
                     }
                 );
         });
@@ -97,10 +84,20 @@ function draw_imagetext(section, content) {
     });
    
     let id = parse_section_id(section);
-    var image = section.querySelector(`s-${id}-image`);
-    var text = section.querySelector(`s-${id}-text`);
-    
-    
+  
+    let image = document.createElement('div');
+    image.style.flex = '0 1 30%';
+    image.style.margin = '4px';
+    set_section_id(image, `${id}-image`);
+    section.appendChild( image) ;
+
+    let text = document.createElement('div');
+    text.style.flex = '1 1 70%';
+    text.style.margin = '4px';
+    text.contentEditable = true;
+    set_section_id(text, `${id}-text`);
+    section.appendChild( text );
+
     var img = document.createElement('img');
     img.addEventListener('load', (e) => {
         draw_image(image, img, content.shadow, content.title, content.align);
@@ -197,18 +194,26 @@ function leaving_imagetext(section) {
 }
 
 function on_imagetext_resize(section) {
+
     let figure = section.querySelector('figure');
     figure.style.height = section.clientHeight + 'px';
+
     let img = section.querySelector('img');
+    
     let containerWidth = figure.offsetWidth;
     let containerHeight = figure.offsetHeight - DRAW_IMAGE_SHADOW_SPACE;
+    
     let imgWidth = img.width;
     let imgHeight = img.height;
+    
     let widthRatio = containerWidth / imgWidth;
     let heightRatio = containerHeight / imgHeight;
+    
     let scale = Math.min(widthRatio, heightRatio);
+    
     let newWidth = imgWidth * scale;
     let newHeight = imgHeight * scale;
+    
     img.style.marginTop = '8px';
     img.style.width = newWidth + 'px';
     img.style.height = newHeight + 'px';

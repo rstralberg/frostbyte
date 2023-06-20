@@ -145,7 +145,6 @@ function delete_picture(section) {
     .then( 
         () => {
             document.querySelector('main').removeChild(section);
-            update_sections_pos_and_height();
         }
     );
 }
