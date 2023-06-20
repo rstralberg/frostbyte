@@ -172,7 +172,7 @@ function create_form(title, action, fields) {
                         if (e.target.files && e.target.files[0]) {
                             field.value = e.target.files[0].name;
                             if (!is_valid(field.title)) field.title = e.target.files[0].name;
-                            upload(field.title, e.target.files[0], window['frostbyte'].page.id)
+                            upload(field.title, e.target.files[0], Global.page.id)
                                 .then(
                                     (resolve) => {
                                         map[field.name] = resolve;
