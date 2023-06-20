@@ -1,6 +1,12 @@
 
 function create_picture() {
 
+    const aligns = [
+        { value: 'left', text: 'Vänster' },
+        { value: 'center', text: 'Mitten' },
+        { value: 'right', text: 'Höger' }
+    ];
+
     create_form('Bild', 'Ladda upp', [
         {
             type: FormType.Image,
@@ -21,6 +27,13 @@ function create_picture() {
             name: 'shadow',
             label: 'Skugga',
             value: true
+        },
+        {
+            type: FormType.List,
+            name: 'align',
+            label: 'Postion',
+            items: aligns,
+            selected: 'left'
         }
     ]).then(
         (resolve) => {
@@ -28,7 +41,8 @@ function create_picture() {
             let content = {
                 url: encodeURIComponent(resolve['url']),
                 shadow: resolve['shadow'],
-                title: resolve['title']
+                title: resolve['title'],
+                align: resolve['align']
             };
 
             sql_insert('section',
@@ -47,7 +61,7 @@ function create_picture() {
                         section.classList.add('section-edit');
                         section.setAttribute('data-type', 'picture');
                         section.setAttribute('data-page-id', Global.page.id);
-                        section.contentEditable = true;
+                        section.contentEditable = false;
                         set_section_id(section,id);
                         container.appendChild(section);
                         
@@ -63,13 +77,13 @@ function draw_picture(section, content) {
     });
    
     section.style.textAlign = content.align;
+    section.contentEditable = false;
     
     var img = document.createElement('img');
     img.addEventListener('load', (e) => {
         draw_image(section, img, content.shadow, content.title, content.align);
         on_picture_resize(section);
-        let figcap = verify_object(section.querySelector('figcaption'), 'object');
-        figcap.style.textAlign = content.align;        
+        align_picture(section,content.align);
     });
     
     section.addEventListener('dblclick', () => {
@@ -118,25 +132,13 @@ function show_picture_tools(section) {
 
     }
     function on_left() {
-        section.style.textAlign = 'left';
-        let caption = section.querySelector('figcaption');
-        if( is_valid(caption)) {
-            caption.style.textAlign = 'left';
-        }
+        align_picture(section,'left');
     }
     function on_center() {
-        section.style.textAlign = 'center';
-        let caption = section.querySelector('figcaption');
-        if( is_valid(caption)) {
-            caption.style.textAlign = 'center';
-        }
+        align_picture(section,'center');
     }
     function on_right() {
-        section.style.textAlign = 'right';
-        let caption = section.querySelector('figcaption');
-        if( is_valid(caption)) {
-            caption.style.textAlign = 'right';
-        }
+        align_picture(section,'right');
     }
 }
 
@@ -151,7 +153,7 @@ function delete_picture(section) {
 
 function entering_picture(section) {
     show_picture_tools(section);
-    section.contentEditable = Global.user.valid ? 'true' : 'false';
+    section.contentEditable = false;
 }
 
 function leaving_picture(section) {
@@ -214,4 +216,13 @@ function show_fullsize(url) {
     view.appendChild(close);
     document.querySelector('html').appendChild(view);
     img.src = url;
+}
+
+function align_picture(section, align) {
+    section.style.textAlign = align;
+    let caption = section.querySelector('figcaption');
+    if( is_valid(caption)) {
+        caption.style.textAlign = align;
+    }
+
 }

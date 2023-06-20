@@ -112,6 +112,10 @@ function create_form(title, action, fields) {
                     inp.classList.add('ibutton');
                     inp.innerHTML = field.label;
                     inp.id = field.name;
+                    if( is_valid(field.required) ) {
+                        inp.required = field.required;
+                    }
+                    
                     if (field.listener === null) {
                         logg(`Buttons must have a listener in form "${title}"`);
                     }
@@ -127,6 +131,9 @@ function create_form(title, action, fields) {
                     inp.checked = field.value === null ? false : field.value;
                     inp.id = field.name;
                     inp.type = 'checkbox';
+                    if( is_valid(field.required) ) {
+                        inp.required = field.required;
+                    }
                     inp.addEventListener('change', (e) => {
                         map[field.name] = field.value = e.target.checked;
                         if (field.listener) field.listener(field);
@@ -143,6 +150,9 @@ function create_form(title, action, fields) {
                     inp.type = 'color';
                     inp.value = field.value === null ? '#7f7f7f' : field.value;
                     inp.id = field.name;
+                    if( is_valid(field.required) ) {
+                        inp.required = field.required;
+                    }
                     inp.addEventListener('input', (e) => {
                         map[field.name] = field.value = hexcolor_to_style(e.target.value);
                         if (field.listener) field.listener(field);
@@ -153,6 +163,10 @@ function create_form(title, action, fields) {
                     inp = document.createElement('input');
                     inp.classList.add('ifile');
                     inp.id = field.id;
+                    if( is_valid(field.required) ) {
+                        inp.required = field.required;
+                    }
+                    
                     inp.type = 'file';
                     inp.addEventListener('change', (e) => {
                         if (e.target.files && e.target.files[0]) {
@@ -172,8 +186,12 @@ function create_form(title, action, fields) {
                     inp = document.createElement('input');
                     inp.classList.add('inumber');
                     inp.id = field.name;
+                    inp.required = true;
                     inp.type = 'number';
                     inp.step = field.step;
+                    if( is_valid(field.required) ) {
+                        inp.required = field.required;
+                    }
                     inp.value = field.value === null ? (field.max - field.min) / 2 : field.value;
                     inp.min = field.min;
                     inp.max = field.max;
@@ -185,12 +203,16 @@ function create_form(title, action, fields) {
                     break;
                 case FormType.Image:
 
-                    load_image_to_div(div, field.url, field.title, field.shadow, field.size);
+                    load_image_to_div(div, field.url, field.size);
 
                     inp = document.createElement('input');
                     inp.classList.add('ifile');
+                    inp.required = true;
                     inp.id = field.id;
                     inp.type = 'file';
+                    if( is_valid(field.required) ) {
+                        inp.required = field.required;
+                    }
                     inp.accept = 'image/png, image/jpeg';
                     inp.addEventListener('change', (e) => {
 
@@ -202,7 +224,7 @@ function create_form(title, action, fields) {
                                         upload(field.title, resized_image, Global.page.id)
                                             .then(
                                                 (resolve) => {
-                                                    load_image_to_div(div, resolve, field.title, field.shadow, field.size);
+                                                    load_image_to_div(div, resolve, field.size);
                                                     map[field.name] = resolve;
                                                     if (field.listener) field.listener(e);
                                                 });
@@ -242,6 +264,9 @@ function create_form(title, action, fields) {
                     inp = document.createElement('select');
                     inp.classList.add('iselect');
                     inp.id = field.name;
+                    if( is_valid(field.required) ) {
+                        inp.required = field.required;
+                    }
 
                     for (let i = 0; i < field.items.length; i++) {
                         let opt = field.items[i];
@@ -282,6 +307,10 @@ function create_form(title, action, fields) {
                     inp.min = field.min;
                     inp.max = field.max;
                     inp.id = field.name;
+                    if( is_valid(field.required) ) {
+                        inp.required = field.required;
+                    }
+
                     inp.value = field.value === null ? (field.max - field.min) / 2 : field.value;
                     inp.addEventListener('input', (e) => {
                         map[field.name] = field.value = e.target.value;
@@ -296,6 +325,9 @@ function create_form(title, action, fields) {
                     inp.type = 'text';
                     inp.value = field.value === null ? '' : field.value;
                     inp.id = field.name;
+                    if( is_valid(field.required) ) {
+                        inp.required = field.required;
+                    }
                     inp.addEventListener('change', (e) => {
                         map[field.name] = field.value = e.target.value;
                         if (field.listener) field.listener(field);
@@ -307,6 +339,9 @@ function create_form(title, action, fields) {
                     inp.type = 'email';
                     inp.value = field.value === null ? '' : field.value;
                     inp.id = field.name;
+                    if( is_valid(field.required) ) {
+                        inp.required = field.required;
+                    }
                     inp.addEventListener('change', (e) => {
                         map[field.name] = field.value = e.target.value;
                         if (field.listener) field.listener(field);
@@ -318,6 +353,9 @@ function create_form(title, action, fields) {
                     inp.type = 'password';
                     inp.value = field.value === null ? '' : field.value;
                     inp.id = field.name;
+                    if( is_valid(field.required) ) {
+                        inp.required = field.required;
+                    }
                     inp.addEventListener('change', (e) => {
                         map[field.name] = field.value = e.target.value;
                         if (field.listener) field.listener(field);
