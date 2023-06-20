@@ -62,7 +62,7 @@ function create_picture() {
                         section.setAttribute('data-type', 'picture');
                         section.setAttribute('data-page-id', Global.page.id);
                         section.contentEditable = false;
-                        set_section_id(section,id);
+                        create_section_id(section,id);
                         container.appendChild(section);
                         
                         draw_picture(section, content);

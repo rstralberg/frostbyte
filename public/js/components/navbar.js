@@ -1,7 +1,10 @@
 
+const NAV_LOGIN_ID = 'nav-login';
+const NAV_LOGOUT_ID = 'nav-logout';
+
 function navbar_logged_in(logged_in) {
-    document.getElementById('navbar-log-in').style.display = logged_in ? 'none': 'inline';
-    document.getElementById('navbar-log-out').style.display = logged_in ? 'inline':'none'
+    document.getElementById(NAV_LOGIN_ID).style.display = logged_in ? 'none': 'inline';
+    document.getElementById(NAV_LOGOUT_ID).style.display = logged_in ? 'inline':'none'
 }
 
 function load_navbar() {
@@ -41,7 +44,7 @@ function load_navbar() {
             }
 
             let a = document.createElement('a');
-            a.id = 'navbar-log-out';
+            a.id =  NAV_LOGOUT_ID;
             a.classList.add('nav-right');
             a.innerHTML = 'Logga ut';
             a.href = '#';
@@ -49,7 +52,7 @@ function load_navbar() {
             container.appendChild(a);
 
             a = document.createElement('a');
-            a.id = 'navbar-log-in';
+            a.id = NAV_LOGIN_ID;
             a.classList.add('nav-right');
             a.innerHTML = 'Logga in';
             a.href = '#';

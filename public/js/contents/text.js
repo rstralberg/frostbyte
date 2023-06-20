@@ -46,7 +46,7 @@ function create_text() {
                             section.setAttribute('data-type', 'text');
                             section.setAttribute('data-page-id', Global.page.id);
                             section.contentEditable = true;
-                            set_section_id(section,id);
+                            create_section_id(section,id);
                             container.appendChild(section);
                             
                             draw_text(section, content);

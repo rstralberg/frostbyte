@@ -138,8 +138,8 @@ function parse_section_id(section) {
     return parseInt(section.id.slice('s-'.length));
 }
 
-function set_section_id(section, id) {
-    section.id = `s-${id}`;
+function create_section_id( id) {
+    return `s-${id}`;
 }
 
 function is_same_section(s1, s2) {

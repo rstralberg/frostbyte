@@ -33,14 +33,14 @@ function create_imagetext() {
             name: 'imageposition',
             label: 'Bildens position',
             items: [
-                { value:'left', text:'Bild till vänster om text'},
-                { value:'right', text:'Bild till höger om text'},
+                { value: 'left', text: 'Bild till vänster om text' },
+                { value: 'right', text: 'Bild till höger om text' },
             ],
             selected: 'left'
         }
     ]).then(
         (resolve) => {
-            
+
             let content = {
                 url: encodeURIComponent(resolve['url']),
                 shadow: resolve['shadow'],
@@ -60,7 +60,7 @@ function create_imagetext() {
                     (id) => {
                         let container = document.querySelector('main');
                         let section = document.createElement('section');
-                        
+
                         section.style.height = `${DEFAULT_HEIGHT}vh`;
                         section.classList.add('section-edit');
                         section.style.display = 'flex';
@@ -69,9 +69,9 @@ function create_imagetext() {
                         section.setAttribute('data-type', 'imagetext');
                         section.setAttribute('data-page-id', Global.page.id);
 
-                        set_section_id(section,id);
+                        section.id = create_section_id(id);
                         container.appendChild(section);
-                        
+
                         draw_imagetext(section, content);
                     }
                 );
@@ -82,52 +82,72 @@ function draw_imagetext(section, content) {
     section.addEventListener('mouseup', (e) => {
         mark_section_selected(section);
     });
-   
-    let id = parse_section_id(section);
-  
+
+    section.style.display = 'flex';
+
     let image = document.createElement('div');
     image.style.flex = '0 1 30%';
     image.style.margin = '4px';
-    set_section_id(image, `${id}-image`);
-    section.appendChild( image) ;
+    image.id = `${section.id}-image`;
+    image.addEventListener('mouseup', (e) => {
+        image.style.outline = '2px solid white';
+        text.style.outline = 'none';
+        show_imagetext_image_tools(section);
+    });
 
     let text = document.createElement('div');
     text.style.flex = '1 1 70%';
     text.style.margin = '4px';
+    text.style.textAlign = content.align;
     text.contentEditable = true;
-    set_section_id(text, `${id}-text`);
-    section.appendChild( text );
+    text.id = `${section.id}-text`;
+    text.addEventListener('mousedown', (e) => {
+        image.style.outline = 'none';
+        text.style.outline = '2px solid white';
+        show_imagetext_text_tools(section);
+    });
+
+    if (content.image_align === 'left') {
+        section.appendChild(image);
+        section.appendChild(text);
+    } else {
+        section.appendChild(text);
+        section.appendChild(image);
+    }
+
+    
 
     var img = document.createElement('img');
     img.addEventListener('load', (e) => {
         draw_image(image, img, content.shadow, content.title, content.align);
         on_imagetext_resize(image);
         let figcap = verify_object(image.querySelector('figcaption'), 'object');
-        figcap.style.textAlign = content.align;        
+        figcap.style.textAlign = content.align;
     });
-    
-    text.innerHTML = content.text;
-    
+
+    text.innerHTML = decodeURIComponent(content.text);
+
     section.addEventListener('dblclick', () => {
         show_fullsize(decodeURIComponent(content.url));
     });
 
     img.src = decodeURIComponent(content.url);
-    
+
 }
 
-function show_imagetext_tools(section) {
+function show_imagetext_image_tools(section) {
 
+    var image_element = section.querySelector(`#${section.id}-image`);
     show_tools('Bild', [
-            { title: 'Skugga', func: on_shadow },
-            { title: 'Titel', func: on_title },
-            { title: 'Vänster', func: on_left },
-            { title: 'Höger', func: on_right }]);
-    
+        { title: 'Skugga', func: on_shadow },
+        { title: 'Titel', func: on_title },
+        { title: 'Vänster', func: on_left },
+        { title: 'Höger', func: on_right }]);
+
     function on_shadow() {
-        let img = section.querySelector('img');
-        if( is_valid(img)) {
-            if( img.classList.contains('shadow') ) {
+        let img = image_element.querySelector('img');
+        if (is_valid(img)) {
+            if (img.classList.contains('shadow')) {
                 img.classList.remove('shadow');
             }
             else {
@@ -141,56 +161,131 @@ function show_imagetext_tools(section) {
             {
                 type: FormType.Text,
                 name: 'title',
-                value: section.querySelector('figcaption').innerText,
+                value: image_element.querySelector('figcaption').innerText,
                 label: 'Titel'
             }
         ])
-        .then(
-            (result) => {
-                section.querySelector('figcaption').innerText = result['title'];
-            }
-        );  
+            .then(
+                (result) => {
+                    image_element.querySelector('figcaption').innerText = result['title'];
+                }
+            );
 
     }
     function on_left() {
-        section.style.textAlign = 'left';
-        let caption = section.querySelector('figcaption');
-        if( is_valid(caption)) {
-            caption.style.textAlign = 'left';
+        let img_element = section.querySelector(`#${section.id}-image`);
+        if (is_valid(img_element.previousElementSibling, false)) {
+            let prev = img_element.previousElementSibling;
+            prev.parentNode.insertBefore(img_element, prev);
         }
+        img_element.focus();
     }
     function on_right() {
-        section.style.textAlign = 'right';
-        let caption = section.querySelector('figcaption');
-        if( is_valid(caption)) {
-            caption.style.textAlign = 'right';
+        let img_element = section.querySelector(`#${section.id}-image`);
+        if (is_valid(img_element.nextElementSibling, false)) {
+            let next = img_element.nextElementSibling;
+            next.parentNode.insertBefore(img_element, next.nextSibling);
         }
+        img_element.focus();
+    }
+}
+
+function show_imagetext_text_tools(section) {
+
+    var text_element = section.querySelector(`#${section.id}-text`);
+    show_tools('Text', [
+        { title: 'Fet', func: on_bold },
+        { title: 'Kursiv', func: on_italic },
+        { title: 'Stryk', func: on_underline },
+        { title: 'Stor', func: on_h1 },
+        { title: 'Liten', func: on_h3 },
+        { title: 'Markering', func: on_mark },
+        { title: 'Normal', func: on_normal },
+        { title: 'Länk', func: on_link },
+        { title: 'Vänster', func: on_left },
+        { title: 'Mitten', func: on_center },
+        { title: 'Höger', func: on_right }]);
+
+    function on_bold() { format_selection('b'); }
+    function on_italic() { format_selection('i'); }
+    function on_underline() { format_selection('u'); }
+    function on_h1() { format_selection('h1'); }
+    function on_h3() { format_selection('h3'); }
+    function on_mark() { format_selection('mark'); }
+    function on_normal() { text_element.innerHTML = text_element.innerText; }
+    function on_link() {
+        let selection = window.getSelection();
+        if (selection.rangeCount) {
+            var range = selection.getRangeAt(0);
+            var text = range.extractContents();
+            if (text.textContent.length > 0) {
+
+                create_form('Länk', 'Spara', [
+                    {
+                        type: FormType.Label,
+                        name: 'text',
+                        label: text,
+                    },
+                    {
+                        type: FormType.Text,
+                        name: 'link',
+                        label: 'Länk',
+                        value: 'https://'
+                    }
+                ]).then(
+                    function (resolve) {
+                        let a = document.createElement('a');
+                        a.classList.add('link');
+                        a.href = resolve['link'];
+                        a.appendChild(text);
+                        range.insertNode(a);
+                    }
+                );
+            }
+        }
+    }
+    function on_left() {
+
+        text_element.style.textAlign = 'left';
+    }
+    function on_center() {
+        text_element.style.textAlign = 'center';
+    }
+    function on_right() {
+        text_element.style.textAlign = 'right';
     }
 }
 
 function delete_imagetext(section) {
     sql_delete('section', `id=${parse_section_id(section)}`)
-    .then( 
-        () => {
-            document.querySelector('main').removeChild(section);
-            update_sections_pos_and_height();
-        }
-    );
+        .then(
+            () => {
+                document.querySelector('main').removeChild(section);
+                update_sections_pos_and_height();
+            }
+        );
 }
 
 function entering_imagetext(section) {
-    show_imagetext_tools(section);
-    section.contentEditable = Global.user.valid ? 'true' : 'false';
+
+    let text = section.querySelector(`#${section.id}-text`);
+    text.contentEditable = Global.user.valid;
 }
 
 function leaving_imagetext(section) {
-    section.contentEditable = 'false';
+    var text = section.querySelector(`#${section.id}-text`);
+    text.contentEditable = false;
+
+    let first = section.children[0];
+
     leaving_section(section, {
-        align: section.style.textAlign,
-        url:encodeURIComponent(section.querySelector('img').src),
+        align: text.style.textAlign,
+        image_align: first.id.includes('text') ? 'right' : 'left',
+        url: encodeURIComponent(section.querySelector('img').src),
         shadow: section.querySelector('img').classList.contains('shadow'),
         title: section.querySelector('figcaption').innerText,
-        text: encodeURIComponent(section.innerHTML)});
+        text: encodeURIComponent(text.innerHTML)
+    });
 }
 
 function on_imagetext_resize(section) {
@@ -199,21 +294,21 @@ function on_imagetext_resize(section) {
     figure.style.height = section.clientHeight + 'px';
 
     let img = section.querySelector('img');
-    
+
     let containerWidth = figure.offsetWidth;
     let containerHeight = figure.offsetHeight - DRAW_IMAGE_SHADOW_SPACE;
-    
+
     let imgWidth = img.width;
     let imgHeight = img.height;
-    
+
     let widthRatio = containerWidth / imgWidth;
     let heightRatio = containerHeight / imgHeight;
-    
+
     let scale = Math.min(widthRatio, heightRatio);
-    
+
     let newWidth = imgWidth * scale;
     let newHeight = imgHeight * scale;
-    
+
     img.style.marginTop = '8px';
     img.style.width = newWidth + 'px';
     img.style.height = newHeight + 'px';
@@ -231,9 +326,9 @@ function show_fullsize(url) {
     var img = document.createElement('img');
     img.addEventListener('load', () => {
         let appdim = get_app_dimension();
-        let dim = scaling(appdim.width, appdim.height-24, img.width, img.height);
-        canvas.width = dim.w ;
-        canvas.height = dim.h ;
+        let dim = scaling(appdim.width, appdim.height - 24, img.width, img.height);
+        canvas.width = dim.w;
+        canvas.height = dim.h;
         let ctx = canvas.getContext('2d');
         ctx.clearRect(0, 0, canvas.width, canvas.height);
         ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
@@ -254,3 +349,4 @@ function show_fullsize(url) {
     document.querySelector('html').appendChild(view);
     img.src = url;
 }
+
