@@ -2,6 +2,7 @@
 class Global 
 {
     static MAX_IMAGE_SIZE = 1024;
+    static DEFAULT_HEIGHT = 12;
 
     static get config()   { return Global._config; }
     static set config(c)  { Global._config = c; }

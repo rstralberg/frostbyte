@@ -93,6 +93,13 @@ function get_height_as_vh(div) {
     return Math.round((div.clientHeight/get_app_dimension().height)*100);
 }
 
+function calc_pixel_height_as_vh(pixels) {
+    return Math.round((pixels/get_app_dimension().height)*100);
+}
+
+function vh_to_pixels(vh) {
+    return Math.round( (vh/100) * get_app_dimension().height);
+}
 function get_app_dimension() {
     return {
         width: document.querySelector('body').clientWidth,
