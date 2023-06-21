@@ -2,12 +2,6 @@
 
 function create_soundcloud() {
 
-    const aligns = [
-        { value: 'left', soundcloud: 'Vänster' },
-        { value: 'center', soundcloud: 'Mitten' },
-        { value: 'right', soundcloud: 'Höger' }
-    ];
-
     create_form('Skapa soundcloud', 'Klar', [
         {
             type: FormType.TextArea,
@@ -23,7 +17,7 @@ function create_soundcloud() {
         {
             type: FormType.Text,
             name: 'soundcloud',
-            label: 'Code',
+            label: 'Klistra in',
             value: ''
         },
         {

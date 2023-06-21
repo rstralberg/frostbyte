@@ -132,7 +132,6 @@ function delete_text(section) {
     .then( 
         () => {
             document.querySelector('main').removeChild(section);
-            update_sections_pos_and_height();
         }
     );
 }

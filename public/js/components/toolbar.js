@@ -124,7 +124,8 @@ function load_toolbar() {
         // -----------------------
         tb_add(fieldset, '#c0c0ff', 'Större', () => {
             let section = Global.selected;
-            section.style.height = `${section.clientHeight + 10}px`;
+            let h = vh_to_pixels(parseInt(section.style.height))+10;
+            section.style.height = `${pixels_to_vh(h)}vh`;
             let func = window[`on_${section.getAttribute('data-type')}_resize`];
             if (is_valid(func)) {
                 func(section);
@@ -137,7 +138,8 @@ function load_toolbar() {
         tb_add(fieldset, '#c0c0ff', 'Mindre', () => {
             let section = Global.selected;
             if (section.clientHeight > 32) {
-                section.style.height = `${section.clientHeight - 10}px`;
+                let h = vh_to_pixels(parseInt(section.style.height))-10;
+                section.style.height = `${pixels_to_vh(h)}vh`;
                 let func = window[`on_${section.getAttribute('data-type')}_resize`];
                 if (is_valid(func)) {
                     func(section);
