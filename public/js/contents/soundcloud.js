@@ -70,7 +70,7 @@ function draw_soundcloud(section, content) {
     
 
     if( content.shadow ) {
-        section.classList.add('shadow');
+        section.querySelector('iframe').classList.add('shadow');
     }
                             
     section.addEventListener('mouseup', (e) => {
