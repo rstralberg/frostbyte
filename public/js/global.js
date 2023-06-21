@@ -3,6 +3,9 @@ class Global
 {
     static MAX_IMAGE_SIZE = 1024;
     static DEFAULT_HEIGHT = 12;
+    static YOUTUBE_MARGIN = 32;
+    static YOUTUBE_HEIGHT = 60;
+    static YOUTUBE_ASPECT = 1.77;
 
     static get config()   { return Global._config; }
     static set config(c)  { Global._config = c; }
