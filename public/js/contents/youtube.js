@@ -30,7 +30,7 @@ function create_youtube() {
             (result) => {
 
                 var content = {
-                    url : encodeURIComponent( extract_youtube_track(result['url'])),
+                    url : encodeURIComponent( extract_youtube_track(result['url']) ),
                     shadow: result['shadow']
                 };
 
@@ -62,33 +62,18 @@ function create_youtube() {
 
 function draw_youtube(section, content) {
 
-{/* <iframe 
-    width="560" 
-    height="315" 
-    src="https://www.youtube.com/embed/65it0Slapwk?controls=0" 
-    title="YouTube video player"
-    frameborder="0"
-    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-    allowfullscreen>
-</iframe> */}
-
-
     let iframe = document.createElement('iframe');
-    iframe.width = section.clientWidth-2*Global.YOUTUBE_MARGIN;
-    iframe.height = Math.round(parseInt(iframe.width)/1.77);
-    iframe.src =`https://www.youtube.com/embed/${decodeURIComponent(content.url)}`;
-    iframe.title = decodeURIComponent(content.title);
-    iframe.style.border = 'none';
-    iframe.allow = 'accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture';
-    iframe.allowFullscreen = true;
-    iframe.style.margin = `${Global.YOUTUBE_MARGIN}px`;
-
-    section.style.height =`${pixels_to_vh(parseInt(iframe.height)+Global.YOUTUBE_MARGIN)}vh`;
-    if( content.shadow ) {
-        iframe.classList.add('shadow');
-    }
+    iframe.setAttribute('width','560');
+    iframe.setAttribute('height','315');
+    iframe.setAttribute('src',`https://www.youtube.com/embed/${decodeURIComponent(content.url)}`);
+    iframe.setAttribute('title','YouTube video player');
+    iframe.setAttribute('frameborder','0');
+    iframe.setAttribute('allow','accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share');
+    iframe.setAttribute('allowfullscreen','true');
+    iframe.style.margin = '16px';
     section.appendChild(iframe);
-    
+    section.style.height = `${pixels_to_vh(315+32)}vh`
+
     section.addEventListener('mouseup', (e) => {
         mark_section_selected(section);
     });
@@ -96,10 +81,23 @@ function draw_youtube(section, content) {
 
 function show_youtube_tools(section) {
 
-    show_tools('youtube', [
+    show_tools('YouTube', [
         { title: 'Skugga', func: on_shadow },
-        { title: 'Titel', func: on_title }]);
+        { title: 'Titel', func: on_title },
+        { title: 'Vänster', func: on_left },
+        { title: 'Mitten', func: on_center },
+        { title: 'Höger', func: on_right }]);
 
+       function on_left() {
+          section.style.textAlign = 'left';
+      }
+      function on_center() {
+          section.style.textAlign = 'center';
+      }
+      function on_right() {
+          section.style.textAlign = 'right';
+      }
+  
     function on_shadow() {
         let iframe = section.querySelector('iframe');
         if( iframe.classList.contains('shadow')) {
@@ -142,3 +140,4 @@ function extract_youtube_track(url) {
     else
         return url;
 }
+

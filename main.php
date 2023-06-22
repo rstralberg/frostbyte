@@ -40,11 +40,17 @@ if( $config == null) {
 }
 
 // Default page if nothing else given
-$page = CONF_HOME_TITLE;
-$homePage = read_page($db, '`title`=' . db::string($page), null, dbmode::single);
-if( $homePage ) {
-    $page = $homePage->id;
+
+// Or maybe some other page 
+$homePage = get_first_page($db, '`title`=' . db::string(CONF_HOME_TITLE), null, dbmode::single);
+$page = $homePage->id;
+if(isset($_SERVER['REQUEST_URI'])) {
+    $req = $_SERVER['REQUEST_URI'];
+    if( strlen($req) > 1 ) {
+        $page = substr($req,1);
+    }
 }
+
 
 // Whats given from browser
 $login = false; // by default

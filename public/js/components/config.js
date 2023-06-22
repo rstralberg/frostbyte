@@ -41,33 +41,33 @@ function edit_config() {
                         items: [
                             { value: 'sv', text: 'Svenska' },
                             { value: 'en', text: 'English' }],
-                        selected: App.config.language,
+                        selected: Global.config.language,
                     },
                     {
                         type: FormType.Text,
                         name: 'sitename',
                         label: 'Websidans namn',
-                        value: App.config.sitename,
+                        value: Global.config.sitename,
                     },
                     {
                         type: FormType.Text,
                         name: 'siteowner',
                         label: 'Ägare',
-                        value: App.config.siteowner,
+                        value: Global.config.siteowner,
                     },
                     {
                         type: FormType.List,
                         name: 'theme',
                         label: 'Tema',
                         items: theme_names,
-                        selected: App.config.theme,
+                        selected: Global.config.theme,
                     },
                     {
                         type: FormType.Image,
                         name: 'logo',
                         label: 'Logga',
-                        title: App.config.sitename,
-                        url: App.config.logo,
+                        title: Global.config.sitename,
+                        url: Global.config.logo,
                         size: 256,
                         shadow: true,
                     },
@@ -75,7 +75,7 @@ function edit_config() {
                         type: FormType.Checkbox,
                         name: 'showheaders',
                         label: 'Visa sidrubriker',
-                        value: App.config.showheaders,
+                        value: Global.config.showheaders,
                     }])
                     .then(
                         (resolve) => {

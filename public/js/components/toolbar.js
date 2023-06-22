@@ -149,6 +149,10 @@ function load_toolbar() {
         });
     }
     container.appendChild(toolbar);
+    if (Global.user.valid) {
+        let toolbar = document.getElementById('toolbar');
+        toolbar.style.display = 'grid';
+    } 
 }
 
 function tb_add(container, color, text, func) {
@@ -169,7 +173,6 @@ function show_tools(title, tools) {
 
     if (Global.user.valid) {
         let toolbar = document.getElementById('toolbar');
-        toolbar.style.display = 'grid';
 
         let fieldset = document.getElementById('added-tools');
         if (is_valid(fieldset)) {

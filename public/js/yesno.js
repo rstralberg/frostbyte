@@ -1,9 +1,9 @@
 
 function yesno(title,text, on_yes, on_no = null) {
 
-    const FORM_ID = 'yes-no-form';
-    create_form(FORM_ID, title, 'Ja', [
-        {   type: FormType.Label,
+    create_form(title, 'Ja', [
+        {   
+            type: FormType.Label,
             name: 'text',
             value: text 
         }])

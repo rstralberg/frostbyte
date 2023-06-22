@@ -5,19 +5,21 @@ function create_page() {
             name: 'title',
             type: 'text',
             label: 'Titel',
-            value: '?',
+            value: '',
         }])
         .then(
             (result) => {
                 sql_insert('page',
                     [`title`, `parent`, `pos`, `author`],
-                    [sql(result['title']),
-                    sql(null),
-                    sql(App.navbar.clientElementCount - 1),
-                    sql(Global.user.username)])
+                    [
+                        sql(encodeURIComponent(result['title'])),
+                        sql(0),
+                        sql(Global.navbar.childElementCount - 1),
+                        sql(Global.user.username)
+                    ])
                     .then(
-                        () => {
-                            window.location = '/';
+                        (id) => {
+                            window.location = `/${id}`;
                         },
                         (error) => { logg(`new_page: ${error}`); }
                     );

@@ -1,6 +1,7 @@
 
 function main(args) {
 
+    console.log('page' + args.page);
     load_config().then(
         () => {
             load_navbar();

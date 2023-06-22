@@ -11,15 +11,15 @@ function load_user(username) {
     if (!is_valid(username)) {
         resolve(); 
     }
-    sql_select('user', ['*'], `username=${sql(username)}`).
+    sql_select('user', ['*'], `username=${sql(encodeURIComponent(username))}`).
         then(
             (users) => {
                 if (users.length > 0) {
                     let user = users[0];
                     Global.user = {
-                        username: user.username,
-                        fullname: user.fullname,
-                        email: user.email,
+                        username: decodeURIComponent(user.username),
+                        fullname: decodeURIComponent(user.fullname),
+                        email: decodeURIComponent(user.email),
                         power: user.power == '1',
                         valid: true
                     };
@@ -80,7 +80,7 @@ function edit_users() {
 
                 let names = new Array();
                 usernames.forEach(name => {
-                    names.push({ value: name.username, text: name.username });
+                    names.push({ value:decodeURIComponent(name.username), text: decodeURIComponent(name.username) });
                 });
 
                 create_form('Redigera användare', 'Välj', [
@@ -94,6 +94,10 @@ function edit_users() {
                         (resolve) => {
                             sql_select('user', ['*'], `\`username\`=${sql(resolve['usernames'])}`).then(
                                 (users) => {
+                                    users[0].username = decodeURIComponent(users[0].username);
+                                    users[0].fullname = decodeURIComponent(users[0].fullname);
+                                    users[0].email = decodeURIComponent(users[0].email);
+                                    
                                     edit_user(users[0]);
                                 });
                         });
@@ -102,7 +106,7 @@ function edit_users() {
 
 function edit_user(user) {
 
-    create_form('edit_user', user.username, 'Spara', [
+    create_form(user.username, 'Spara', [
         {
             type: FormType.Text,
             name: 'fullname',
@@ -125,8 +129,10 @@ function edit_user(user) {
         (resolve) => {
             sql_update('user',
                 [`fullname`, `email`, `power`],
-                [sql(resolve['fullname']), sql(resolve['email']),
-                sql(resolve['power'])],
+                [
+                    sql(encodeURIComponent(resolve['fullname'])), 
+                    sql(encodeURIComponent(resolve['email'])),
+                    sql(resolve['power'])],
                 `\`username\`=${sql(user.username)}`);
         });
 }

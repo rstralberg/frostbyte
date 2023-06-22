@@ -18,24 +18,25 @@ så projektet ska vara 'självförsörjande'
 
 # Katalogstruktur
 
-| Katalog           | Innehåll                                              |
-| ------------------|-------------------------------------------------------|
-| `/`                | Roten för projektet                                   |
-| `/.vscode`         | Inställningar för VSCode                              |
-| `/php`             | Rot för icke publik PHP-kod                           |
-| `/php/db`          | Rutiner/klasser för databasåtkomst                    |
-| `/php/generators`  | Genererar HTML headers mm                             |
-| `/php/reply`       | Rutiner för att svara på förfrågningar från JScript   |
-| `/public`          | Rot för den publika delen                             |
-| `/public/css`      | All CSS kod                                           |
-| `/public/favicons` | Ikoner för webläsaren                                 |
-| `/public/icons`    | Övriga ikoner                                         |
-| `/public/fonts`    | Fonter/teckensnitt som används                        |
-| `/public/js`       | Rot för alla Jscripts                                 |
-| `/public/js/fields`| Allt specialiserat fältinnehåll                       |
-| `/public/js/utils` | Hjälprutiner av varierande slag                       |
-| `/public/php`      | PHP för kommunkation med servern                      |
-| `/public/uploads`  | Här laddas all bilder, videor och annat upp           |
+| Katalog                   | Innehåll                                              |
+| --------------------------|-------------------------------------------------------|
+| `/`                       | Roten för projektet                                   |
+| `/.vscode`                | Inställningar för VSCode                              |
+| `/php`                    | Rot för icke publik PHP-kod                           |
+| `/php/db`                 | Rutiner/klasser för databasåtkomst                    |
+| `/php/generators`         | Genererar HTML headers mm                             |
+| `/php/reply`              | Rutiner för att svara på förfrågningar från JScript   |
+| `/public`                 | Rot för den publika delen                             |
+| `/public/css`             | All CSS kod                                           |
+| `/public/favicons`        | Ikoner för webläsaren                                 |
+| `/public/icons`           | Övriga ikoner                                         |
+| `/public/fonts`           | Fonter/teckensnitt som används                        |
+| `/public/js`              | Rot för alla Jscripts                                 |
+| `/public/js/components`   | Baskomponenter                                        |
+| `/public/js/contents`     | Rutiner för användarinnehåll                          |
+| `/public/js/utils`        | Hjälprutiner av varierande slag                       |
+| `/public/php`             | PHP för kommunkation med servern                      |
+| `/public/uploads`         | Här laddas all bilder, videor och annat upp           |
 
 # Databas
 
@@ -77,9 +78,10 @@ Servern har egentligen bara två uppgifter
 
 # Sidstruktur
 
-En sida består av ett eller flera `section`. Ett `section` består sedan av ett eller fler `fält` 
-(i koden kallas fält för 'field'). Dessa fält har sedan olika specialiserde innehåll. För 
-närvarnde supportas förljande typer. Kod för dessa finns i `/public/js/fields`
+En sida består av ett eller flera sektioner `sections`. En `section` består sedan av användardefinierat
+innehåll av olika slag. Detta är samlat som `content` i varje sektion och är lagrat som JSON-kod. För 
+närvarnde supportas förljande typer. Kod för dessa finns i `/public/js/content`. Det är tämligen enkelt
+att lägga till nya typer vid behov. Kopiera bara en befitlig type, ändra namn och hantering
 
 | Fälttyp       | Innehåll              |
 |---------------|-----------------------|
@@ -87,49 +89,45 @@ närvarnde supportas förljande typer. Kod för dessa finns i `/public/js/fields
 | `Picture`     | En bild               |
 | `Soundcloud`  | Ljud från Soundcloud  |
 | `Spotify`     | Ljud från Spotify     |
-| `Vimeo`       | Video från Vimeo      |
 | `Youtube`     | Video Youtube         |
 | `Audio`       | Lokala ljudfiler      |
-| `Video`       | Lokala videofiler     |
 | `Empty`       | Tomt fält             |
 
 # Generellt om koden
 
-Jag ordar inget om den annat än principen om hur Sidor, section och Bält skapas. 
+Jag ordar inget om den annat än principen om hur sidor, sektioner med innehåll skapas. 
 Övrigt är tämligen enkelt och torde inte vålla några besvär att följa med i. I koden
-kallas en sida för 'Page', ett section för 'section' och ett fält för 'Field'. 
+kallas en sida för 'Page', em sektion för 'section'. 
 
-Följande gäller gemensamt för dessa tre kategorier (page, section och field). `XXXX` är
-alltså antingen `page`, `section` eller `field`
+Följande gäller gemensamt för sektionernas specialisering i `js/content`. XXXX` är
+alltså namnet på specialiseringen
 
-| Funktion      | Ansvar |
-| --------------| -------|
-| `load_XXXX`   | Laddar innehåll från databasen och presenterar HTML-kod utifrån detta
-| `create_XXXX` | Skapar nytt innehåll och sparar detta i databasen. 'load' får sedan presentera det
-| `delete_XXXX` | Raderar från databasen och tar bort presentation
-| `select_XXXX` | Markerar elementet som 'valt'
+| Funktion          | Ansvar |
+| --------------    | -------|
+| `create_XXXX`     | Skapar nytt innehåll och sparar detta i databasen. 'draw' får sedan presentera det
+| `draw_XXXX`       | Laddar innehåll från databasen och presenterar HTML-kod utifrån detta
+| `show_XXXX_tools` | Anropas när sektionen väljs och får då lägga till det 'verktyg' som behövs vid redigering
+| `delete_XXXX`     | Raderar sektionen från databasen och tar bort presentationen
+| `entering_XXXX`   | Aropas när sektionen valts
+| `leaving_XXXX`    | Aropas när sektionen lämnas
 
 
 I praktiken går det till så här då:
 
 När en sida väljs ur toppmenyn anropas `load_page` som laddar sidan. I denna procedur så laddas alla
-section som ingår i sidan genom anrop till `load_section`. Varje section laddar i sin tur alla fält som ingår
-i sectionet genom anrop till `load_field`.
+sektioner som ingår i sidan genom anrop till `load_sections`. Varje section anropar sedan den specialiserade
+`draw_XXXX` funktionen som fyller sektionen med innehåll
 
-I funktionen `load_field` söks efter en funktion som laddar en specialisering av fältet. Detta sker genom
-att det göra ett försök att hitta och anropa `load_YYYY` där YYYY är fälttypen. Så om fältet är av typen
-`Picture` sker en sökning efter rutinen `load_picture`. Hittas denna anropas den som då får fylla det skapade
-fältet med i detta fall en bild.
 
 ## Globals
 
-Det finns några globala variabler man kan använda.
+Det finns några globala variabler man kan använda. Dom är samlade i klassen `Global`
 
-window['config'] - Aktuell konfiguration (se `/php/db/config.php`)
-window['user'] - Aktuell inloggad användare eller `null` (se `/php/db/user.php`)
-window['page'] - Aktuell sida (se `/php/db/page.php`)
-window['selected_field'] - Referens till valt fält (ett `div`-element)
-window['selected_section'] - Referens till valt section (ett `div`-element)
+Global.config - Aktuell konfiguration (se `/php/db/config.php`)
+Global.user - Aktuell inloggad användare eller `null` (se `/php/db/user.php`)
+Global.page - Aktuell sida (se `/php/db/page.php`)
+Global.navbar - Referns till toppmenyn
+Globla.selected - Referens till vald sektion
 
 # Teman
 
@@ -182,4 +180,5 @@ const CONF_SHOWHEADERS = 'Ska sidrubriker visa på vald sida eller inte' (true e
 
 Hittar du fel, har önskemål eller har nått smart att tillägga så maila gärna mig 
 
-Min mail är roland.stralberg@gmail.com
+Min mail är rstralberg@pm.me
+

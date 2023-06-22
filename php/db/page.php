@@ -49,6 +49,14 @@ function result_to_page($db, $res)
     return $page;
 }
 
+function get_first_page($db) {
+    $result = $db->query('SELECT * FROM page ORDER BY `pos` LIMIT 1', dbmode::single);
+    if ($result) {
+        return result_to_page($db, $result);
+    }
+    return null;
+
+}
 
 function read_page($db, $where, $pos, $mode)
 {

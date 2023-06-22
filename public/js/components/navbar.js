@@ -18,14 +18,14 @@ function load_navbar() {
                 img.classList.add('logo');
                 img.addEventListener('load', (e) => {
                     let a = document.createElement('a');
-                    a.href = '/';
+                    a.href = `/${pages[0].id}`;
                     a.id = 'logo';
                     a.appendChild(img);
                     container.appendChild(a);
 
                     pages.forEach(p => {
                         let a = document.createElement('a');
-                        a.innerHTML = p.title;
+                        a.innerHTML = decodeURIComponent(p.title);
                         a.href = `/${p.id}`;
                         a.id = p.id;
                         container.appendChild(a);
@@ -36,7 +36,7 @@ function load_navbar() {
             else {
                 pages.forEach(p => {
                     let a = document.createElement('a');
-                    a.innerHTML = p.title;
+                    a.innerHTML = decodeURIComponent(p.title);
                     a.href = `/${p.id}`;
                     a.id = p.id;
                     container.appendChild(a);

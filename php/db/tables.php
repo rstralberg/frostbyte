@@ -35,9 +35,9 @@ function create_tables($db)
     create_user_table($db);
     if( read_user($db, null, null, dbmode::single) === null) {
         create_user($db,
-            CONF_USERNAME,
-            CONF_FULLNAME, 
-            CONF_EMAIL, 
+            rawurlencode(CONF_USERNAME),
+            rawurlencode(CONF_FULLNAME), 
+            rawurlencode(CONF_EMAIL), 
             CONF_PASSWORD,
             true);
     }

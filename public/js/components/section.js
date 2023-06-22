@@ -7,8 +7,6 @@ const SectionType = {
     spacer: 'spacer',
     spotify: 'spotify',
     text: 'text',
-    video: 'video',
-    vimeo: 'vimeo',
     youtube: 'youtube',
     textimage: 'textimage',
     imagetext: 'imagetext'
@@ -26,8 +24,6 @@ function create_section() {
         { value: SectionType.audio, text: 'Ljud' },
         { value: SectionType.soundcloud, text: 'SoundCloud' },
         { value: SectionType.spotify, text: 'Spotify' },
-        { value: SectionType.video, text: 'Video' },
-        { value: SectionType.vimeo, text: 'Vimeo' },
         { value: SectionType.youtube, text: 'YouTube' },
     ];
     create_form('Skapa sektion', 'Skapa', [
