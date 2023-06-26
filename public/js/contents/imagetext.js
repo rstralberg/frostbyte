@@ -1,7 +1,7 @@
 
 function create_imagetext() {
 
-    create_form('Bild', 'Ladda upp', [
+    create_form('imagetext-create', {title: 'Bild', action:'Ladda upp'}, [
         {
             type: FormType.Image,
             name: 'url',
@@ -53,7 +53,7 @@ function create_imagetext() {
                 ['page_id', 'type', 'height', 'pos', 'content'],
                 [sql(Global.page.id),
                 sql('imagetext'),
-                sql(DEFAULT_HEIGHT),
+                sql(20),
                 sql(document.querySelector('main').childElementCount),
                 sql(JSON.stringify(content))])
                 .then(
@@ -61,7 +61,6 @@ function create_imagetext() {
                         let container = document.querySelector('main');
                         let section = document.createElement('section');
 
-                        section.style.height = `${DEFAULT_HEIGHT}vh`;
                         section.classList.add('section-edit');
                         section.style.display = 'flex';
                         section.style.flexDirection = 'row';
@@ -157,7 +156,7 @@ function show_imagetext_image_tools(section) {
     }
     function on_title() {
 
-        create_form('Bildens titel', 'Ändra', [
+        create_form( 'image-title', { title:'Bildens titel', action: 'Ändra' }, [
             {
                 type: FormType.Text,
                 name: 'title',
@@ -220,7 +219,7 @@ function show_imagetext_text_tools(section) {
             var text = range.extractContents();
             if (text.textContent.length > 0) {
 
-                create_form('Länk', 'Spara', [
+                create_form('imagetext-link', { title:'Länk', action:'Spara' }, [
                     {
                         type: FormType.Label,
                         name: 'text',

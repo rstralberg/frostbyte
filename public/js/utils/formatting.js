@@ -41,7 +41,7 @@ function on_link() {
         var text = range.extractContents();
         if (text.textContent.length > 0) {
 
-            create_form( 'Länk', 'Spara', [
+            create_form('link-edit', { title: 'Länk', action: 'Spara' }, [
                 {
                     type: FormType.Label,
                     name: 'text',

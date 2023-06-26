@@ -1,18 +1,17 @@
-
-body{
+body {
     background: var(--bg1);
     color: var(--fg1);
-    font-family:var(--font);
-    font-size:var(--fsize);
+    font-family: var(--font);
+    font-size: var(--fsize);
     height: calc(99.5vh - var(--shadow-size));
 }
 
 main {
     width: 78vw;
     position: absolute;
-    left:10.5vw;
+    left: 10.5vw;
     height: calc(91.5vh - var(--shadow-size));
-    top:calc(5.5vh + var(--shadow-size));
+    top: calc(5.5vh + var(--shadow-size));
     border-radius: 8px;
     border-color: var(--fg1);
     border-style: solid;
@@ -22,104 +21,84 @@ main {
 
 }
 
-nav {
-    background:var(--bg2);
-    color:var(--fg2);
-    font-size: var(--nav_fsize);
-    font-weight: var(--nav_fweight);
-    border-color: var(--fg2);
-    border-style: solid;
-    border-width: var(--nav_border);
-    border-radius: 8px;
-    line-height: 8vh;
-    position:fixed;
-    top:0;
-    left:10.5vw;
-    height: 8vh;
-    width:78vw;
-    -webkit-box-shadow: 10px 10px 15px var(--nav_shadow);
-    box-shadow: 10px 10px 15px var(--nav_shadow);
-}
-
-nav > a > img {
-    width: auto;
-    height: var(--nav_fsize);
-}
-
 .left {
+    display: block;
     position: fixed;
-    top:0;
-    left:0;
+    top: 0;
+    left: 0;
     width: 10vw;
     height: calc(99.5vh - var(--shadow-size));
     border-radius: 8px;
 }
 
 .right {
+    display: block;
     position: fixed;
-    top:0;
-    right:0.5vw;
+    top: 0;
+    right: 0.5vw;
     border-radius: 8px;
     width: calc(10vw - var(--shadow-size));
     height: calc(99.5vh - var(--shadow-size));
 }
 
+@media screen and (max-width: 600px) {
+    .left {
+        display: none;
+    }
+    .right {
+        display: none;
+    }
+    main {
+        width: 98vw;
+        left: 1vw;
+    }
+    
+}
+
 footer {
-    background:var(--bg2);
-    color:var(--fg2);
-    font-size:var(--footer_fsize);
+    background: var(--bg2);
+    color: var(--fg2);
+    font-size: var(--footer_fsize);
     font-style: var(--footer_fstyle);
     border-color: var(--fg2);
     border-style: solid;
     border-width: var(--footer_border);
-    border-radius:8px;
-    height:3vh;
-    line-height:3vh;
-    text-align:center;
-    position:fixed;
-    left:10.5vw;
-    bottom:0;
-    width:78vw;
+    border-radius: 8px;
+    height: 3vh;
+    line-height: 3vh;
+    text-align: center;
+    position: fixed;
+    left: 10.5vw;
+    bottom: 0;
+    width: 78vw;
     -webkit-box-shadow: 10px 10px 15px var(--footer_shadow);
     box-shadow: 10px 10px 15px var(--footer_shadow);
 
 }
 
 .footer_shadow {
-    bottom:var(--shadow-size);
-    
-}
-nav > a {
-    background: var(--bg2);
-    color:var(--fg2);
-    margin-left:0.8em;
-    text-decoration: none;
-}
+    bottom: var(--shadow-size);
 
-nav > a:hover {
-    background: var(--bg3);
-    color: var(--fg3);
-    font-size: calc( 1.16*var(--nav_fsize));
 }
 
 input {
-    background:var(--bg4);
-    color:var(--fg4);
+    background: var(--bg4);
+    color: var(--fg4);
     border: 1px solid var(--fg4);
     border-radius: 8px;
-    font-size: calc( 1.2*var(--fsize)) ;
+    font-size: calc(1.2*var(--fsize));
     font-weight: bold;
 }
 
 input:hover {
-    background:var(--bg4h);
-    color:var(--fg4h);
+    background: var(--bg4h);
+    color: var(--fg4h);
     border: 1px solid var(--fg4h);
 }
 
 input:active {
-    background:var(--bg4h);
-    color:var(--fg4h);
+    background: var(--bg4h);
+    color: var(--fg4h);
     border: 1px solid var(--fg4h);
 }
 
@@ -148,8 +127,8 @@ figure {
     margin-left: 8px;
 }
 
-figure > img {
-    margin-top:0;
+figure>img {
+    margin-top: 0;
 }
 
 figcaption {
@@ -159,11 +138,9 @@ figcaption {
 }
 
 section {
-    display:section;
     flex-direction: row;
     background-color: var(--bg5);
     color: var(--fg5);
-    resize: none;
     overflow: hidden;
 }
 
@@ -171,20 +148,18 @@ section {
     background-color: var(--bg5s);
     color: var(--fg5s);
     outline: 2px dashed var(--fg5s);
-    resize: vertical !important;
 }
 
-.field{
+.field {
     background-color: var(--bg5);
     color: var(--fg5);
-    display: section;
-    margin:0.8em;
+    margin: 0.8em;
     width: 50%;
     overflow: auto;
     resize: none;
 }
 
-.field-edit > canvas {
+.field-edit>canvas {
     outline: 2px dotted var(--fg5s);
 }
 
@@ -196,7 +171,7 @@ section {
     resize: horizontal !important;
 }
 
-.field > a {
+.field>a {
     color: var(--links);
 }
 
@@ -204,17 +179,8 @@ section {
     color: var(--links);
 }
 
-.nav-right {
-    display: inline;
-    position: absolute;
-    right: 1em;
-}
-
-
 .edit-outline {
     outline-color: var(--fg4h);
     outline-style: solid;
     outline-width: 2px;
 }
-
-

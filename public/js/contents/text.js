@@ -8,7 +8,7 @@ function create_text() {
         { value: 'right', text: 'Höger' }
     ];
 
-    create_form('Skapa Text', 'Klar', [
+    create_form('text-create', {title: 'Skapa Text', action:'Klar' }, [
         {
             type: FormType.Text,
             name: 'text',
@@ -33,7 +33,7 @@ function create_text() {
                     ['page_id', 'type', 'height', 'pos', 'content'],
                     [sql(Global.page.id),
                     sql('text'),
-                    sql(DEFAULT_HEIGHT),
+                    sql(12),
                     sql(document.querySelector('main').childElementCount),
                     sql(JSON.stringify(content))])
                     .then(
@@ -41,10 +41,6 @@ function create_text() {
                             let container = document.querySelector('main');
                             let section = document.createElement('section');
                             
-                            section.style.height = `${DEFAULT_HEIGHT}vh`;
-                            section.classList.add('section-edit');
-                            section.setAttribute('data-type', 'text');
-                            section.setAttribute('data-page-id', Global.page.id);
                             section.contentEditable = true;
                             create_section_id(section,id);
                             container.appendChild(section);
@@ -92,7 +88,7 @@ function show_text_tools(section) {
             var text = range.extractContents();
             if (text.textContent.length > 0) {
 
-                create_form('Länk', 'Spara', [
+                create_form( 'text-link', { title:'Länk', action:'Spara' }, [
                     {
                         type: FormType.Label,
                         name: 'text',

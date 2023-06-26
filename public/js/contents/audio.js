@@ -1,7 +1,7 @@
 
 function create_audio() {
 
-    create_form('Ljud', 'Spara', [
+    create_form('audio-create', { title: 'Ljud', action: 'Spara' }, [
         {
             type: FormType.File,
             name: 'url',
@@ -42,7 +42,7 @@ function create_audio() {
                     ['page_id', 'type', 'height', 'pos', 'content'],
                     [sql(Global.page.id),
                     sql('audio'),
-                    sql(DEFAULT_HEIGHT),
+                    sql(12),
                     sql(document.querySelector('main').childElementCount),
                     sql(JSON.stringify(content))])
                     .then(
@@ -51,7 +51,6 @@ function create_audio() {
                             let section = document.createElement('section');
 
                             section.contentEditable = false;
-                            section.style.height = `${DEFAULT_HEIGHT}vh`;
                             section.classList.add('section-edit');
                             section.setAttribute('data-type', 'audio');
                             section.setAttribute('data-page-id', Global.page.id);
@@ -69,8 +68,8 @@ function draw_audio(section, content) {
         mark_section_selected(section);
     });
     section.contentEditable = false;
-                            
-    
+
+
     let audio = document.createElement('audio');
     audio.setAttribute('controls', '');
     audio.id = 'audio-player';
@@ -95,7 +94,7 @@ function draw_audio(section, content) {
     section.appendChild(titlediv);
 
     let textdiv = document.createElement('div');
-    textdiv.id =`${section.id}-text`;
+    textdiv.id = `${section.id}-text`;
     textdiv.innerHTML = decodeURIComponent(content.text);
     textdiv.style.margin = '8px';
     textdiv.style.textAlign = content.align;
@@ -106,8 +105,8 @@ function draw_audio(section, content) {
 
 function show_audio_tools(section) {
 
-    var text = section.querySelector( `#${section.id}-text`);
-    var title = section.querySelector( `#${section.id}-title`);
+    var text = section.querySelector(`#${section.id}-text`);
+    var title = section.querySelector(`#${section.id}-title`);
 
     show_tools('Ljud', [
         { title: 'Skugga', func: on_shadow },
@@ -136,7 +135,7 @@ function show_audio_tools(section) {
     }
     function on_title() {
 
-        create_form('Låtens titel', 'Ändra', [
+        create_form('audio-title', { title: 'Låtens titel', action: 'Ändra' }, [
             {
                 type: FormType.Text,
                 name: 'title',
@@ -188,8 +187,8 @@ function leaving_audio(section) {
     section.contentEditable = false;
     let audio = section.querySelector('audio');
     let source = audio.querySelector('source');
-    let text = section.querySelector( `#${section.id}-text`);
-    let title = section.querySelector( `#${section.id}-title`);
+    let text = section.querySelector(`#${section.id}-text`);
+    let title = section.querySelector(`#${section.id}-title`);
 
     leaving_section(section, {
         url: encodeURIComponent(source.src),

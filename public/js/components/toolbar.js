@@ -10,22 +10,6 @@ function load_toolbar() {
     toolbar.style.fontSize = '0.9em';
 
 
-    let fieldset = document.createElement('fieldset');
-
-    toolbar.appendChild(fieldset);
-    tb_add(fieldset, '#ffff00', 'Stäng', () => {
-        toolbar.element.style.display = 'none';
-    });
-
-    // // Spara aktuell sektion
-    // // ------------------
-    // tb_add(fieldset, '#00ff00', 'Spara', () => {
-    //     // let func = window[`save_${info.type}`];
-    //     // if (is_valid(func)) {
-    //     //     func();
-    //     // }
-    // });
-
     // Bara om du är författare eller power-user
     // ------------------
     if (Global.page.author === Global.user.username || Global.user.power) {
@@ -51,6 +35,10 @@ function load_toolbar() {
             // Redigera tema
             // ------------------
             tb_add(fieldset, '#ffc0c0', 'Tema', edit_theme);
+
+            // Redigera sidornas ordning
+            // ----------------------------
+            tb_add(fieldset, '#ffc0c0', 'Sidor', edit_pages);
         }
 
         let fieldset = document.createElement('fieldset');
@@ -84,13 +72,13 @@ function load_toolbar() {
 
         let fieldset = document.createElement('fieldset');
         let legend = document.createElement('legend');
-        legend.innerText = 'Sektion';
+        legend.innerText = 'Avsnitt';
         fieldset.appendChild(legend);
         toolbar.appendChild(fieldset);
 
         // Ny sektion
         // -----------------------
-        tb_add(fieldset, '#c0c0ff', 'Ny', create_section);
+        tb_add(fieldset, '#c0c0ff', 'Nytt', create_section);
 
         // Radera aktuell sektion
         // -----------------------

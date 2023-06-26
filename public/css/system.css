@@ -8,7 +8,7 @@
     border-radius: 8px;
     outline: 2px solid white;
     color: #ffffff;
-    display: section;
+    display: block;
     float: left;
     font-size: 1em;
     height: auto;
@@ -17,8 +17,7 @@
     min-height: 10vh;
     min-width: 20vw;
     overflow: hidden;
-    padding-right: 10px;
-    padding: 10px;
+    padding: 3%;
     position: absolute;
     top: 10%;
     width: min-content;
@@ -30,7 +29,6 @@
     color: white;
     border: 2px solid black;
     border-radius: 8px;
-    display: section;
     float: left;
     z-index: 100;
     width: min-content;
@@ -204,13 +202,14 @@
 
 }
 
+
 .iselect {
     background: #ffffff;
     color: #000000;
     border: 2px solid #ffffff;
     border-radius: 6px;
     width: fit-content;
-    height: 2em;
+    /* height: 2em; */
     min-width: 120px;
     font-size: 1em;
     font-weight: bold;
@@ -229,6 +228,38 @@
 }
 
 .ioption {
+    margin: 6px;
+    padding-left: 10px;
+}
+
+.ichecklist {
+    background: #ffffff;
+    color: #000000;
+    border: 2px solid #ffffff;
+    border-radius: 6px;
+    width: fit-content;
+    min-width: 120px;
+    font-size: 1em;
+    font-weight: bold;
+    margin: 8px;
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    overflow-y: auto;
+
+}
+
+.ichecklist:hover {
+    background: yellow;
+    color: #400000;
+}
+
+.ichecklist:focus {
+    background: orange;
+    color: black;
+}
+
+.icheckoption {
     margin: 6px;
     padding-left: 10px;
 }
@@ -297,7 +328,7 @@
 }
 
 .visible {
-    display: section;
+    display: block;
 }
 
 .iright{

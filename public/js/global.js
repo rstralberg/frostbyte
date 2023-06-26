@@ -1,25 +1,20 @@
 
-class Global 
-{
+class Global {
     static MAX_IMAGE_SIZE = 1024;
-    static DEFAULT_HEIGHT = 12;
-    static YOUTUBE_MARGIN = 32;
-    static YOUTUBE_HEIGHT = 60;
-    static YOUTUBE_ASPECT = 1.77;
 
-    static get config()   { return Global._config; }
-    static set config(c)  { Global._config = c; }
+    static get config() { return Global._config; }
+    static set config(c) { Global._config = c; }
 
-    static get user()   { return Global._user; }
-    static set user(u)  { Global._user = u; }
+    static get user() { return Global._user; }
+    static set user(u) { Global._user = u; }
 
-    static get page()   { return Global._page; }
-    static set page(p)  { Global._page = p; }
+    static get page() { return Global._page; }
+    static set page(p) { Global._page = p; }
 
-    static get navbar()   { return Global._navbar; }
-    static set navbar(n)  { Global._navbar = n; }
+    static get navbar() { return Global._navbar; }
+    static set navbar(n) { Global._navbar = n; }
 
-    static get selected() { return Global._selected;}
-    static set selected(s) {Global._selected = s;}
+    static get selected() { return Global._selected; }
+    static set selected(s) { Global._selected = s; }
 
 }

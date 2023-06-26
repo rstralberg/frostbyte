@@ -1,79 +1,167 @@
-
-const NAV_LOGIN_ID = 'nav-login';
-const NAV_LOGOUT_ID = 'nav-logout';
-
-function navbar_logged_in(logged_in) {
-    document.getElementById(NAV_LOGIN_ID).style.display = logged_in ? 'none': 'inline';
-    document.getElementById(NAV_LOGOUT_ID).style.display = logged_in ? 'inline':'none'
-}
-
 function load_navbar() {
 
-    sql_select('page', ['id', 'title'], '`parent`=0', '`pos` asc')
-    .then(
-        (pages) => {
-            var container = document.querySelector('nav');
+    return new Promise((resolve) => {
+
+
+        sql_select('page', ['id', 'parent', 'title'], null, 'pos asc').then((pages) => {
+
+
+            var parents = new Array();
+            pages.forEach(page => {
+                page.id = parseInt(page.id);
+                page.parent = parseInt(page.parent);
+                page.title = decodeURIComponent(page.title);
+                if (page.parent === 0) {
+                    parents.push({
+                        id: page.id,
+                        parent: page.parent,
+                        title: page.title,
+                        subs: new Array()
+                    });
+                }
+            });
+
+            parents.forEach(parent => {
+                pages.forEach(page => {
+                    page.id = parseInt(page.id);
+                    page.parent = parseInt(page.parent);
+                    page.title = decodeURIComponent(page.title);
+                    if (page.parent === parent.id) {
+                        parent.subs.push({
+                            id: page.id,
+                            parent: page.parent,
+                            title: page.title,
+                        });
+                    }
+
+                });
+            });
+
+            parents.forEach(parent => {
+                console.log( parent.title );
+                parent.subs.forEach(sub => {
+                    console.log( '--- ' + sub.title);
+                });
+            });
+
+            var nav = document.querySelector('nav');
+            nav.id = 'topnav';
+            if (!nav.classList.contains('topnav')) {
+                nav.classList.add('topnav');
+            }
+
+            var img = null;
             if (is_valid(Global.config.logo, false)) {
-                var img = document.createElement('img');
+                img = document.createElement('img');
                 img.classList.add('logo');
                 img.addEventListener('load', (e) => {
                     let a = document.createElement('a');
                     a.href = `/${pages[0].id}`;
                     a.id = 'logo';
                     a.appendChild(img);
-                    container.appendChild(a);
-
-                    pages.forEach(p => {
-                        let a = document.createElement('a');
-                        a.innerHTML = decodeURIComponent(p.title);
-                        a.href = `/${p.id}`;
-                        a.id = p.id;
-                        container.appendChild(a);
-                    });
-                })
-                img.src = Global.config.logo;
-            }
-            else {
-                pages.forEach(p => {
-                    let a = document.createElement('a');
-                    a.innerHTML = decodeURIComponent(p.title);
-                    a.href = `/${p.id}`;
-                    a.id = p.id;
-                    container.appendChild(a);
+                    nav.insertBefore(a, nav.firstChild);
                 });
             }
 
+            for (let i = 0; i < parents.length; i++) {
+                let parent = parents[i];
+
+                if (parent.subs.length == 0) {
+                    let a = document.createElement('a');
+                    a.href = parent.id;
+                    a.innerText = parent.title;
+                    // om aktuell a.classList.add('active');
+                    nav.appendChild(a);
+                }
+                else {
+
+                    let sub = document.createElement('div');
+                    sub.classList.add('dropdown');
+                    nav.appendChild(sub);
+
+                    let btn = document.createElement('button');
+                    sub.appendChild(btn);
+                    btn.classList.add('dropbtn');
+                    btn.innerText = parent.title;
+
+                    let i = document.createElement('i');
+                    i.classList.add('fa', 'fa-caret-down');
+                    btn.append(i);
+
+
+                    let subcontent = document.createElement('div');
+                    subcontent.classList.add('dropdown-content');
+                    sub.appendChild(subcontent);
+
+                    for (let j = 0; j < parent.subs.length; j++) {
+                        let sub = parent.subs[j];
+                        let a = document.createElement('a');
+                        a.href = sub.id;
+                        a.innerText = sub.title;
+                        subcontent.appendChild(a);
+                    }
+                }
+
+            }
+
             let a = document.createElement('a');
-            a.id =  NAV_LOGOUT_ID;
+            a.id = 'log-in-out';
             a.classList.add('nav-right');
-            a.innerHTML = 'Logga ut';
-            a.href = '#';
-            a.addEventListener('click', (e) => { logout(); });
-            container.appendChild(a);
+            a.innerHTML = is_valid(Global.user) && Global.user.valid ? 'Logga ut' : 'Logga in';
+            a.addEventListener('click', (e) => { 
+                if ( is_valid(Global.user) && Global.user.valid ) {
+                    logout(); 
+                } else {
+                    login();
+                }});
+            nav.appendChild(a);
 
             a = document.createElement('a');
-            a.id = NAV_LOGIN_ID;
-            a.classList.add('nav-right');
-            a.innerHTML = 'Logga in';
-            a.href = '#';
-            a.addEventListener('click', (e) => { login(); });
-            container.appendChild(a);
-
-            Global.navbar = container;
+            a.href = "javascript:void(0);";
+            a.classList.add("icon");
+            a.innerHTML = '&#9776;';
+            a.addEventListener('click', (e) => {
+                var top = document.getElementById('topnav');
+                if (top.classList.contains('responsive')) {
+                    top.classList.remove('responsive');
+                }
+                else {
+                    top.classList.add('responsive');
+                }
+            });
+            nav.append(a);
+            
             navbar_logged_in(Global.user.valid);
-        },
-        (error) => { logg(`navbar: ${error}`) }
-    );   
+
+            if (img) {
+                img.src = Global.config.logo;
+            }
+            resolve();
+        });
+    });
 }
 
+function navbar_logged_in(logged_in) {
+    let element = document.getElementById('log-in-out');
+    if( is_valid(element )) {
+        element.innerText = logged_in ? 'Logga ut' : 'Logga in';
+    }
+}
 
-function navbar_rename_item(id,title) {
+function navbar_rename_item(id, title) {
     let navbar = document.querySelector('nav');
-    for( let i=0; i < navbar.children.length; i++ ) {
+    for (let i = 0; i < navbar.children.length; i++) {
         let item = navbar.children[i];
-        if ( item.id === `${id}` ) {
+        if (item.id === `${id}`) {
             item.innerHTML = title;
             break;
         }
     }
 }
+
+function update_navbar() {
+    let nav = document.querySelector('nav');
+    remove_childs(nav);
+    load_navbar();
+}
+

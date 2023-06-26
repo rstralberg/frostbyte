@@ -205,7 +205,7 @@ async function sql_insert(table, cols, values) {
         query += `${value},`;
     });
     query = `${query.slice(0, -1)})`;
-    return req('sql', query);
+    return sql_query( query);
 }
 
 async function sql_update(table, cols, values, where) {
@@ -215,10 +215,10 @@ async function sql_update(table, cols, values, where) {
         query += `\`${cols[i]}\`=${values[i]},`;
     }
     query = `${query.slice(0, -1)} where ${where}`;
-    return req('sql', query);
+    return sql_query( query);
 }
 
-async function sql_select(table, cols, where = null, order=null) {
+async function sql_select(table, cols, where = null, order = null) {
 
     let query = `select `;
     for (let i = 0; i < cols.length; i++) {
@@ -232,7 +232,7 @@ async function sql_select(table, cols, where = null, order=null) {
     if (is_valid(order)) {
         query += ` order by ${order}`;
     }
-    return req('sql', query);
+    return sql_query( query);
 }
 
 async function sql_join(table1, table2, cols, on) {
@@ -241,23 +241,26 @@ async function sql_join(table1, table2, cols, on) {
         if (cols[i] === '*') query += '*,';
         else query += `\`${cols[i]}\`,`;
     }
-    query = `${query.slice(0, -1)} from \`${table1}\` join \`${table2}\`` ;
+    query = `${query.slice(0, -1)} from \`${table1}\` join \`${table2}\``;
     query = `on ${on}`;
-    return req('sql', query);
-    
+    return sql_query( query);
+
 }
 
 async function sql_delete(table, where) {
 
-    let query = `delete from \`${table}\` where ${where}`;
-    return req('sql', query );
+    return sql_query( `delete from \`${table}\` where ${where}` );
+}
+
+async function sql_query( query ) {
+    return req('sql', query);
 }
 
 function sql(v) {
-    if( typeof v === 'string') return `'${v}'`;
-    if( typeof v === 'boolean') return v?'1':'0';
-    if( typeof v === 'number') return `${v}`;
-    if( typeof v === 'undefined' || v === null) return `NULL`;
+    if (typeof v === 'string') return `'${v}'`;
+    if (typeof v === 'boolean') return v ? '1' : '0';
+    if (typeof v === 'number') return `${v}`;
+    if (typeof v === 'undefined' || v === null) return `NULL`;
     return v;
 }
 

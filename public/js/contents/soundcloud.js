@@ -2,7 +2,7 @@
 
 function create_soundcloud() {
 
-    create_form('Skapa soundcloud', 'Klar', [
+    create_form('soundcloud-create', { title:'Skapa soundcloud', action:'Klar' }, [
         {
             type: FormType.TextArea,
             name: 'info',
@@ -36,18 +36,14 @@ function create_soundcloud() {
                     ['page_id', 'type', 'height', 'pos', 'content'],
                     [sql(Global.page.id),
                     sql('soundcloud'),
-                    sql(Global.DEFAULT_HEIGHT),
+                    sql(40),
                     sql(document.querySelector('main').childElementCount),
                     sql(JSON.stringify(content))])
                     .then(
                         (id) => {
                             let container = document.querySelector('main');
                             let section = document.createElement('section');
-                            
-                            section.classList.add('section-edit');
-                            section.setAttribute('data-type', 'soundcloud');
-                            section.setAttribute('data-page-id', Global.page.id);
-                            section.contentEditable = true;
+                            section.contentEditable = false;
                             create_section_id(section,id);
                             container.appendChild(section);
                             
@@ -60,7 +56,7 @@ function create_soundcloud() {
 function draw_soundcloud(section, content) {
 
     section.innerHTML = decodeURIComponent(content.url);
-    section.style.padding = '16px';
+    section.classList.add('soundcloud');
     
 
     if( content.shadow ) {

@@ -1,26 +1,26 @@
 
 
 function load_config() {
-    return new Promise( (resolve) => {
-    sql_select('config', ['*'], `id=1`).then(
-        (cfgs) => {
-            if (cfgs.length === 0) {
-                logg('Kunde inte ladda konfiguratinen');
-            }
-            else {
-                let config = cfgs[0];
-                Global.config = {
-                    language: config.language,
-                    sitename: config.sitename,
-                    siteowner: config.siteowner,
-                    theme: config.theme,
-                    charset: config.charset,
-                    logo: config.logo,
-                    showheaders: config.showheaders == 1
-                };
-                resolve();
-            }
-        });
+    return new Promise((resolve) => {
+        sql_select('config', ['*'], `id=1`).then(
+            (cfgs) => {
+                if (cfgs.length === 0) {
+                    logg('Kunde inte ladda konfiguratinen');
+                }
+                else {
+                    let config = cfgs[0];
+                    Global.config = {
+                        language: config.language,
+                        sitename: config.sitename,
+                        siteowner: config.siteowner,
+                        theme: config.theme,
+                        charset: config.charset,
+                        logo: config.logo,
+                        showheaders: config.showheaders == 1
+                    };
+                    resolve();
+                }
+            });
     });
 }
 
@@ -33,7 +33,7 @@ function edit_config() {
                     theme_names.push({ value: theme.name, text: theme.name });
                 });
 
-                create_form('Inställningar', 'Spara', [
+                create_form('edit-config', { title: 'Inställningar', action: 'Spara' }, [
                     {
                         type: FormType.List,
                         name: 'language',

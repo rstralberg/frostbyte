@@ -37,12 +37,12 @@ function draw_image(container, img, shadow = true, title = null, title_align = '
     container.appendChild(fig);
 }
 
-function resize_image(file, maxsize ) {
-    
+function resize_image(file, maxsize) {
+
     var reader = new FileReader();
     var image = new Image();
     var canvas = document.createElement('canvas');
-    
+
     function dataURItoBlob(dataURI) {
         var bytes = dataURI.split(',')[0].indexOf('base64') >= 0 ?
             atob(dataURI.split(',')[1]) :
@@ -56,7 +56,7 @@ function resize_image(file, maxsize ) {
     };
 
     function resize() {
-        
+
         var width = image.width;
         var height = image.height;
         if (width > height) {
@@ -70,21 +70,21 @@ function resize_image(file, maxsize ) {
                 height = maxsize;
             }
         }
-        
+
         canvas.width = width;
         canvas.height = height;
         canvas.getContext('2d').drawImage(image, 0, 0, width, height);
         var dataUrl = canvas.toDataURL('image/jpeg');
         return dataURItoBlob(dataUrl);
     }
-    
+
     return new Promise(function (ok, no) {
-        
+
         if (!file.type.match(/image.*/)) {
             no(new Error("Not an image"));
             return;
         }
-        
+
         reader.onload = (readerEvent) => {
             image.onload = () => ok(resize());
             image.src = readerEvent.target.result;

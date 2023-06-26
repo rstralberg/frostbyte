@@ -182,3 +182,8 @@ Hittar du fel, har önskemål eller har nått smart att tillägga så maila gär
 
 Min mail är rstralberg@pm.me
 
+
+# Att göra 
+
+- Tools visas inte direkt efter inloggning. Måste start om först
+- Youtube uppspelning fungerar inte

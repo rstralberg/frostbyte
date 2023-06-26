@@ -7,7 +7,7 @@ function create_picture() {
         { value: 'right', text: 'Höger' }
     ];
 
-    create_form('Bild', 'Ladda upp', [
+    create_form( 'picture-create', { title: 'Bild', action: 'Ladda upp'} , [
         {
             type: FormType.Image,
             name: 'url',
@@ -116,7 +116,7 @@ function show_picture_tools(section) {
     }
     function on_title() {
 
-        create_form('Bildens titel', 'Ändra', [
+        create_form( 'picture-title', { title: 'Bildens titel', action: 'Ändra' }, [
             {
                 type: FormType.Text,
                 name: 'title',

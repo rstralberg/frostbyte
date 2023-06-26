@@ -9,7 +9,7 @@ function create_spacer() {
         ['page_id', 'type', 'height', 'pos', 'content'],
         [sql(Global.page.id),
         sql('spacer'),
-        sql(DEFAULT_HEIGHT),
+        sql(12),
         sql(document.querySelector('main').childElementCount),
         sql(JSON.stringify(content))])
         .then(
@@ -17,7 +17,6 @@ function create_spacer() {
                 let container = document.querySelector('main');
                 let section = document.createElement('section');
 
-                section.style.height = `${DEFAULT_HEIGHT}vh`;
                 section.classList.add('section-edit');
                 section.setAttribute('data-type', 'spacer');
                 section.setAttribute('data-page-id', Global.page.id);
@@ -31,8 +30,9 @@ function create_spacer() {
 }
 
 
-function draw_spacer(section, content) {
+function draw_spacer(section, _content) {
     section.contentEditable = false;
+    section.classList.add('spacer');
     section.addEventListener('mouseup', (e) => {
         mark_section_selected(section);
     });

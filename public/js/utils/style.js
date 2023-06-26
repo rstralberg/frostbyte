@@ -52,8 +52,8 @@ function get_filtered(filter) {
         if (item.startsWith(start)) {
             let name = item.slice(start.length);
             let media = name.endsWith('-media');
-            if( media ) {
-                name = name.substring(0, name.length-'-media'.length);
+            if (media) {
+                name = name.substring(0, name.length - '-media'.length);
             }
             let style = {
                 style: item,

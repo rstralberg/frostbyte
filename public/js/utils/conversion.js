@@ -16,9 +16,8 @@ function pos2polar(inPos) {
     return { ang: rad2deg(something), len: vecLen };
 }
 
-function toHex(d) 
-{
-     return (+d).toString(16); 
+function toHex(d) {
+    return (+d).toString(16);
 }
 
 function to_hexbyte(d) {

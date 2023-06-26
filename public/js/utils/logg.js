@@ -1,11 +1,11 @@
 
-async function logg(msg, cons=false, stack=false) {
+async function logg(msg, cons = false, stack = false) {
 
     return new Promise(function (resolve, reject) {
         try {
             var err = new Error();
-            var reqbody = JSON.stringify({ func: 'logg', req: (stack ? `${err.stack}:${msg}`: msg) });
-            if( cons ) {
+            var reqbody = JSON.stringify({ func: 'logg', req: (stack ? `${err.stack}:${msg}` : msg) });
+            if (cons) {
                 console.log(msg);
             }
             fetch('php/req.php', {
@@ -34,13 +34,13 @@ async function logg(msg, cons=false, stack=false) {
 }
 
 function verify_object(obj, type) {
-    if( obj === null ) {
-        logg(`${verify_object.caller}: NULL object` );
+    if (obj === null) {
+        logg(`${verify_object.caller}: NULL object`);
     }
-    if( typeof obj == 'undefined') {
-        logg(`${verify_object.caller}: Undefined object`, true );
+    if (typeof obj == 'undefined') {
+        logg(`${verify_object.caller}: Undefined object`, true);
     }
-    if( typeof obj != type ) {
+    if (typeof obj != type) {
         logg(`${verify_object.caller}: Excepted a ${type} object but got a ${typeof obj}`);
     }
     return obj;

@@ -35,7 +35,7 @@ function load_user(username) {
 
 function login() {
 
-    create_form('Logga in', 'Logga in', [
+    create_form('login', { title: 'Logga in', action: 'Logga in' }, [
         {
             type: FormType.Text,
             name: 'username',
@@ -83,7 +83,7 @@ function edit_users() {
                     names.push({ value:decodeURIComponent(name.username), text: decodeURIComponent(name.username) });
                 });
 
-                create_form('Redigera användare', 'Välj', [
+                create_form('user-edit', { title: 'Redigera användare', action: 'Välj' }, [
                     {
                         type: FormType.List,
                         name: 'usernames',
@@ -106,7 +106,7 @@ function edit_users() {
 
 function edit_user(user) {
 
-    create_form(user.username, 'Spara', [
+    create_form('user-edit-one', { title: user.username, action: 'Spara' }, [
         {
             type: FormType.Text,
             name: 'fullname',

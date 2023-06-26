@@ -1,0 +1,38 @@
+.youtube {
+    height: auto;
+    border: none;
+    margin: 16px;
+}
+
+.spotify {
+    width: auto;
+    height: 40vh;
+    border: none;
+    padding: 16px;
+}
+
+.soundcloud {
+    width: auto;
+    height: auto;
+}
+
+.spacer {
+    background: transparent;
+    min-height: 2em;
+}
+
+@media screen and (max-width: 600px) {
+
+    .youtube {
+        width: 100vw;
+        height: calc((316/560)*100vw);
+        margin: 0px;
+    }
+
+    .spotify {
+        width: auto;
+        height: 10vh;
+        border: none;
+        padding: 0;
+    }
+    }

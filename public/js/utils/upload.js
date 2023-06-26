@@ -9,7 +9,7 @@
 // - se public/php/req.php
 // - se /php/reply/upload.php
 
-async function upload(title, file, page_id ) {
+async function upload(title, file, page_id) {
 
     verify_object(title, 'string');
     verify_object(file, 'object');
@@ -25,16 +25,16 @@ async function upload(title, file, page_id ) {
             fetch('php/upload.php', {
                 method: 'POST',
                 body: form_data,
-                headers: new Headers({'content-type': 'application/json'}),
+                headers: new Headers({ 'content-type': 'application/json' }),
                 mode: 'no-cors'
             })
-            .then(response => response.json())
-            .then(data => {
-                if (data.success) {
-                    resolve(data.data);
-                } else {
-                    reject(`Error: upload ${file} returned  ${data.data} `);
-                }
+                .then(response => response.json())
+                .then(data => {
+                    if (data.success) {
+                        resolve(data.data);
+                    } else {
+                        reject(`Error: upload ${file} returned  ${data.data} `);
+                    }
                 })
                 .catch(error => {
                     reject(`Error: upload ${error}`);

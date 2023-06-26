@@ -2,7 +2,7 @@
 
 function create_youtube() {
 
-    create_form('Skapa youtube', 'Klar', [
+    create_form( 'youtube-create', {title:'Skapa youtube', action:'Klar' }, [
         {
             type: FormType.TextArea,
             name: 'info',
@@ -11,7 +11,7 @@ function create_youtube() {
 
             readonly: true,
             value: 'Gå till spotify och välj din låt. Klicka sedan på "Dela" ' +
-                'och välj sedan "Bädda in spår". Klicka senda på "Kopiera" ' +
+                'och välj sedan "Bädda in". Klicka senda på "Kopiera" ' +
                 'och klistra in här nedan'
         },
         {
@@ -30,15 +30,16 @@ function create_youtube() {
             (result) => {
 
                 var content = {
-                    url : encodeURIComponent( extract_youtube_track(result['url']) ),
-                    shadow: result['shadow']
+                    url : encodeURIComponent( result['url'] ),
+                    shadow: result['shadow'],
+                    align: 'center'
                 };
 
                 sql_insert('section',
                     ['page_id', 'type', 'height', 'pos', 'content'],
                     [sql(Global.page.id),
                     sql('youtube'),
-                    sql(DEFAULT_HEIGHT),
+                    sql(42),
                     sql(document.querySelector('main').childElementCount),
                     sql(JSON.stringify(content))])
                     .then(
@@ -46,11 +47,7 @@ function create_youtube() {
                             let container = document.querySelector('main');
                             let section = document.createElement('section');
                             
-                            section.style.height = `${DEFAULT_HEIGHT}vh`;
-                            section.classList.add('section-edit');
-                            section.setAttribute('data-type', 'youtube');
-                            section.setAttribute('data-page-id', Global.page.id);
-                            section.contentEditable = true;
+                            section.contentEditable = false;
                             create_section_id(section,id);
                             container.appendChild(section);
                             
@@ -62,17 +59,8 @@ function create_youtube() {
 
 function draw_youtube(section, content) {
 
-    let iframe = document.createElement('iframe');
-    iframe.setAttribute('width','560');
-    iframe.setAttribute('height','315');
-    iframe.setAttribute('src',`https://www.youtube.com/embed/${decodeURIComponent(content.url)}`);
-    iframe.setAttribute('title','YouTube video player');
-    iframe.setAttribute('frameborder','0');
-    iframe.setAttribute('allow','accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share');
-    iframe.setAttribute('allowfullscreen','true');
-    iframe.style.margin = '16px';
-    section.appendChild(iframe);
-    section.style.height = `${pixels_to_vh(315+32)}vh`
+    section.classList.add('youtube');
+    section.innerHTML = decodeURIComponent(content.url);
 
     section.addEventListener('mouseup', (e) => {
         mark_section_selected(section);
@@ -83,7 +71,6 @@ function show_youtube_tools(section) {
 
     show_tools('YouTube', [
         { title: 'Skugga', func: on_shadow },
-        { title: 'Titel', func: on_title },
         { title: 'Vänster', func: on_left },
         { title: 'Mitten', func: on_center },
         { title: 'Höger', func: on_right }]);
@@ -107,8 +94,6 @@ function show_youtube_tools(section) {
             iframe.classList.add('shadow');
         }
     }
-    function on_title() {
-    }
 }
 
 function delete_youtube(section) {
@@ -130,14 +115,7 @@ function leaving_youtube(section) {
     let iframe = section.querySelector('iframe');
     leaving_section(section, {
         url: encodeURIComponent(iframe.src),
-        shadow: iframe.classList.contains('shadow') });
-}
-
-function extract_youtube_track(url) {
-    let words = url.split('/');
-    if (words && words.length > 0)
-        return words[words.length - 1];
-    else
-        return url;
+        shadow: iframe.classList.contains('shadow'),
+        align: section.style.textAlign });
 }
 

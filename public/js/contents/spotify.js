@@ -2,7 +2,7 @@
 
 function create_spotify() {
 
-    create_form('Skapa spotify', 'Klar', [
+    create_form( 'spotify-create', { title:'Skapa spotify', action:'Klar'}, [
         {
             type: FormType.TextArea,
             name: 'info',
@@ -28,7 +28,7 @@ function create_spotify() {
         }]).then(
             (result) => {
                 var content = {
-                    url: encodeURIComponent(extract_spotify_track(result['spotify'])),
+                    url: encodeURIComponent(result['spotify']),
                     shadow: result['shadow']
                 };
 
@@ -43,11 +43,7 @@ function create_spotify() {
                         (id) => {
                             let container = document.querySelector('main');
                             let section = document.createElement('section');
-
-                            section.classList.add('section-edit');
-                            section.setAttribute('data-type', 'spotify');
-                            section.setAttribute('data-page-id', Global.page.id);
-                            section.contentEditable = true;
+                            section.classList.add('spotify');
                             create_section_id(section, id);
                             container.appendChild(section);
                         });
@@ -56,17 +52,9 @@ function create_spotify() {
 
 function draw_spotify(section, content) {
 
-    section.style.padding = '16px';
-
-    let iframe = document.createElement('iframe');
-    iframe.setAttribute('src', htmlDecode('https://open.spotify.com/embed/track/' + content.url ));
-    iframe.setAttribute('width', '100%');
-    iframe.setAttribute('height', '352');
-    iframe.setAttribute('frameborder', '0');
-    iframe.setAttribute('allow', 'autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture');
-    iframe.setAttribute('loading', 'lazy');
-    section.appendChild(iframe);
-
+    section.innerHTML = decodeURIComponent(content.url);
+    section.classList.add('spotify');
+    
     if (content.shadow) {
         section.querySelector('iframe').classList.add('shadow');
     }

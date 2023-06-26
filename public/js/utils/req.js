@@ -4,7 +4,7 @@ async function req(func, req) {
     return new Promise((resolve, reject) => {
         try {
             var reqbody = JSON.stringify({ func: func, req: req });
-            logg(`${func}: ${req}`);
+            // logg(`${func}: ${req}`, true);
             fetch('php/req.php', {
                 method: 'POST',
                 headers: {

@@ -28,9 +28,9 @@ function scaling(max_w, max_h, w, h) {
         w *= scale;
         h *= scale;
     }
-    return { 
-        w: Math.round(w), 
-        h: Math.round(h) 
+    return {
+        w: Math.round(w),
+        h: Math.round(h)
     };
 }
 
@@ -51,9 +51,9 @@ function clamp(min, max, val) {
     return val;
 }
 
-function for_each_child(elem,arg,func) {
-    for( let i=0; i < elem.children.length; i++) {
-        func(arg,elem.children[i]);
+function for_each_child(elem, arg, func) {
+    for (let i = 0; i < elem.children.length; i++) {
+        func(arg, elem.children[i]);
     }
 }
 
@@ -61,12 +61,12 @@ function remove_all_spaces(str) {
     return str.replace(/\s/g, '');
 }
 
-function is_valid(obj, report=false) {
-    if( typeof obj === 'undefined' || obj === 'undefined') {
+function is_valid(obj, report = false) {
+    if (typeof obj === 'undefined' || obj === 'undefined') {
         logg(`${is_valid.caller}: Undefined object`, false, report);
         return false;
     }
-    if( obj === null) {
+    if (obj === null) {
         logg(`${is_valid.caller}: NULL object`, false, report);
         return false;
     }
@@ -74,9 +74,9 @@ function is_valid(obj, report=false) {
 }
 
 function safe_boolean(v) {
-    if( typeof v === 'boolean') return v;
-    if( typeof v === 'number') return v != 0;
-    if( typeof v === 'string') return v==='true';
+    if (typeof v === 'boolean') return v;
+    if (typeof v === 'number') return v != 0;
+    if (typeof v === 'string') return v === 'true';
     return v;
 }
 
@@ -90,19 +90,19 @@ function htmlDecode(input) {
 }
 
 function get_height_as_vh(div) {
-    return Math.round((div.clientHeight/get_app_dimension().height)*100);
+    return Math.round((div.clientHeight / get_app_dimension().height) * 100);
 }
 
 function calc_pixel_height_as_vh(pixels) {
-    return Math.round((pixels/get_app_dimension().height)*100);
+    return Math.round((pixels / get_app_dimension().height) * 100);
 }
 
 function vh_to_pixels(vh) {
-    return Math.round( (vh/100) * get_app_dimension().height);
+    return Math.round((vh / 100) * get_app_dimension().height);
 }
 
 function pixels_to_vh(pixels) {
-    return Math.round( (pixels/get_app_dimension().height)*100);
+    return Math.round((pixels / get_app_dimension().height) * 100);
 }
 
 function get_app_dimension() {

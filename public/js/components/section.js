@@ -12,8 +12,6 @@ const SectionType = {
     imagetext: 'imagetext'
 };
 
-const DEFAULT_HEIGHT = 20;
-
 function create_section() {
 
     const types = [
@@ -26,10 +24,10 @@ function create_section() {
         { value: SectionType.spotify, text: 'Spotify' },
         { value: SectionType.youtube, text: 'YouTube' },
     ];
-    create_form('Skapa sektion', 'Skapa', [
+    create_form('section-create', { title: 'Skapa avsnitt', action: 'Skapa' }, [
         {
             type: FormType.List,
-            label: 'Sektionstyper',
+            label: 'Typ av avsnitt',
             name: 'type',
             items: types,
             selected: SectionType.text
@@ -106,7 +104,7 @@ function load_page_sections(id) {
     sql_select('section', ['*'], `page_id=${id}`, '`pos` asc').then(
         (sections) => {
             if (sections.length === 0) {
-                logg(`Sidan med id=${id} hade inga sektioner`);
+                logg(`Sidan med id=${id} hade inga avsnitt`);
             }
             else {
                 var container = document.querySelector('main');

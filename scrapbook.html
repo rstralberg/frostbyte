@@ -1,9 +1,59 @@
-<iframe 
-    width="560" 
-    height="315" 
-    src="https://www.youtube.com/embed/65it0Slapwk?controls=0" 
-    title="YouTube video player"
-    frameborder="0"
-    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-    allowfullscreen>
-</iframe>
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Scrollable List with Checkboxes</title>
+    <style>
+      #checkboxContainer {
+        max-height: 200px;
+        overflow-y: auto;
+      }
+      #checkboxList {
+        list-style-type: none;
+  margin: 0;
+  padding: 0;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="checkboxContainer">
+      <ul id="checkboxList">
+        <li>
+            <input type="checkbox" value="item1" /> Item 1
+          
+        </li>
+        <li>
+            <input type="checkbox" value="item2" /> Item 2
+          
+        </li>
+        <!-- Additional list items... -->
+      </ul>
+    </div>
+
+    <script>
+      // Access the checkbox list
+      var checkboxList = document.getElementById("checkboxList");
+
+      // Get all checkboxes within the list
+      var checkboxes = checkboxList.getElementsByTagName("input");
+
+      // Add event listeners to each checkbox
+      for (var i = 0; i < checkboxes.length; i++) {
+        checkboxes[i].addEventListener("change", handleCheckboxChange);
+      }
+
+      // Event handler for checkbox change
+      function handleCheckboxChange(event) {
+        var checkbox = event.target;
+        var isChecked = checkbox.checked;
+        var value = checkbox.value;
+
+        // Perform any actions based on checkbox state
+        if (isChecked) {
+          console.log(value + " is checked.");
+        } else {
+          console.log(value + " is unchecked.");
+        }
+      }
+    </script>
+  </body>
+</html>
