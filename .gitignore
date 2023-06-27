@@ -1,4 +1,4 @@
 **/*.log
 **/undefined.
 **/undefined.*
-/public/uploads/*
+public/uploads/*
