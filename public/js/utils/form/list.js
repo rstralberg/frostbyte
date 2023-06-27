@@ -5,6 +5,7 @@ field = {
     label: listans beskriving
     items: en lista med värden { value: ett id för värdet, text: som visas i listan }
     selected: det värdet som ska visas först eller null
+    rows: integer, (optional, default = 1)
     required: boolean (optional, default = false)
     readonly: boolean (optional, default = false)
     listener: callback (optional, default = null)
@@ -17,7 +18,7 @@ var dragIndex = 0;
 function create_list(field, map) {
 
     let base = create_base('select', field, map);
-    
+
     map.set(field.name, is_valid(field.selected) ? field.selected : field.items[0].value);
 
     base.inp.addEventListener('mousedown', (e) => {
@@ -49,6 +50,7 @@ function create_list(field, map) {
     if (is_valid(field.rows)) {
         base.inp.size = field.rows;
     }
+
     for (let i = 0; i < field.items.length; i++) {
         let opt = field.items[i];
         let option = document.createElement('option');
@@ -64,6 +66,7 @@ function create_list(field, map) {
 
         base.inp.appendChild(option);
     }
+
     base.inp.addEventListener('change', (e) => {
         let target = e.target;
         if (typeof target.options === 'undefined') {
