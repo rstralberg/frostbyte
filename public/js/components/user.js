@@ -40,18 +40,16 @@ function login() {
             type: FormType.Text,
             name: 'username',
             label: 'Användare',
-            value: ''
         },
         {
             type: FormType.Password,
             name: 'password',
             label: 'Lösenord',
-            value: ''
         }])
         .then(
             (result) => {
-                var username = result['username'];
-                var password = result['password'];  
+                var username = result.get('username');
+                var password = result.get('password');  
                 req('verify_user', {
                     username: username,
                     password: password
@@ -92,7 +90,7 @@ function edit_users() {
                         selected: Global.user.username
                     }]).then(
                         (resolve) => {
-                            sql_select('user', ['*'], `\`username\`=${sql(resolve['usernames'])}`).then(
+                            sql_select('user', ['*'], `\`username\`=${sql(resolve.get('usernames'))}`).then(
                                 (users) => {
                                     users[0].username = decodeURIComponent(users[0].username);
                                     users[0].fullname = decodeURIComponent(users[0].fullname);
@@ -130,9 +128,9 @@ function edit_user(user) {
             sql_update('user',
                 [`fullname`, `email`, `power`],
                 [
-                    sql(encodeURIComponent(resolve['fullname'])), 
-                    sql(encodeURIComponent(resolve['email'])),
-                    sql(resolve['power'])],
+                    sql(encodeURIComponent(resolve.get('fullname'))), 
+                    sql(encodeURIComponent(resolve.get('email'))),
+                    sql(resolve.get('power'))],
                 `\`username\`=${sql(user.username)}`);
         });
 }

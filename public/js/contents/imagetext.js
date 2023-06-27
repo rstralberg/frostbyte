@@ -1,5 +1,5 @@
 
-function create_imagetext() {
+function create_new_imagetext() {
 
     create_form('imagetext-create', {title: 'Bild', action:'Ladda upp'}, [
         {
@@ -42,11 +42,11 @@ function create_imagetext() {
         (resolve) => {
 
             let content = {
-                url: encodeURIComponent(resolve['url']),
-                shadow: resolve['shadow'],
-                title: resolve['title'],
-                text: encodeURIComponent(resolve['text']),
-                img_align: resolve['imageposition']
+                url: encodeURIComponent(resolve.get('url')),
+                shadow: resolve.get('shadow'),
+                title: resolve.get('title'),
+                text: encodeURIComponent(resolve.get('text')),
+                img_align: resolve.get('imageposition')
             };
 
             sql_insert('section',
@@ -166,7 +166,7 @@ function show_imagetext_image_tools(section) {
         ])
             .then(
                 (result) => {
-                    image_element.querySelector('figcaption').innerText = result['title'];
+                    image_element.querySelector('figcaption').innerText = result.get('title');
                 }
             );
 
@@ -232,10 +232,10 @@ function show_imagetext_text_tools(section) {
                         value: 'https://'
                     }
                 ]).then(
-                    function (resolve) {
+                    (resolve) => {
                         let a = document.createElement('a');
                         a.classList.add('link');
-                        a.href = resolve['link'];
+                        a.href = resolve.get('link');
                         a.appendChild(text);
                         range.insertNode(a);
                     }

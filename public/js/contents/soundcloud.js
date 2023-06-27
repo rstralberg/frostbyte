@@ -1,6 +1,6 @@
 
 
-function create_soundcloud() {
+function create_new_soundcloud() {
 
     create_form('soundcloud-create', { title:'Skapa soundcloud', action:'Klar' }, [
         {
@@ -28,8 +28,8 @@ function create_soundcloud() {
         }]).then(
             (result) => {
                 var content = {
-                    url: encodeURIComponent(result['soundcloud']),
-                    shadow: result['shadow']
+                    url: encodeURIComponent(result.get('soundcloud')),
+                    shadow: result.get('shadow')
                 };
 
                 sql_insert('section',

@@ -34,7 +34,7 @@ function create_section() {
         }
     ]).then(
         (result) => {
-            let func = window[`create_${result['type']}`];
+            let func = window[`create_new_${result.get('type')}`];
             if (func) {
                 func();
             }

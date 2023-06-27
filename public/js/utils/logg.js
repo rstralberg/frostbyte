@@ -1,6 +1,6 @@
 
 async function logg(msg, cons = false, stack = false) {
-
+    if( cons ) debugger;
     return new Promise(function (resolve, reject) {
         try {
             var err = new Error();
@@ -45,3 +45,16 @@ function verify_object(obj, type) {
     }
     return obj;
 }
+
+function is_valid(obj, report = false) {
+    if (typeof obj === 'undefined' || obj === 'undefined') {
+        logg(`${is_valid.caller}: Undefined object`, false, report);
+        return false;
+    }
+    if (obj === null) {
+        logg(`${is_valid.caller}: NULL object`, false, report);
+        return false;
+    }
+    return obj;
+}
+

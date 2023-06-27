@@ -1,10 +1,12 @@
 <?php
 
+const logfile = __DIR__ . '/../public/frostbyte.log';
+
 function logger_on()
 {
-    $file = '../frostbyte.log';
-    $GLOBALS['logger'] = fopen($file, 'a');
+    $GLOBALS['logger'] = fopen(logfile, 'a');
 }
+
 function logger_off()
 {
     if (isset($GLOBALS['logger'])) {
@@ -28,6 +30,10 @@ function logger($str)
         }
     }
     return false;
+}
+
+function clear_logger() {
+    unlink(logfile);
 }
 
 function dump($str) {

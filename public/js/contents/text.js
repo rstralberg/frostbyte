@@ -1,6 +1,6 @@
 
 
-function create_text() {
+function create_new_text() {
 
     const aligns = [
         { value: 'left', text: 'Vänster' },
@@ -25,8 +25,8 @@ function create_text() {
             (result) => {
 
                 var content = {
-                    align: result['align'],
-                    text: encodeURIComponent(result['text'])
+                    align: result.get('align'),
+                    text: encodeURIComponent(result.get('text'))
                 };
 
                 sql_insert('section',
@@ -104,7 +104,7 @@ function show_text_tools(section) {
                     function (resolve) {
                         let a = document.createElement('a');
                         a.classList.add('link');
-                        a.href = resolve['link'];
+                        a.href = resolve.get('link');
                         a.appendChild(text);
                         range.insertNode(a);
                     }

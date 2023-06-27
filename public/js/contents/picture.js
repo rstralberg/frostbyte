@@ -1,5 +1,5 @@
 
-function create_picture() {
+function create_new_picture() {
 
     const aligns = [
         { value: 'left', text: 'Vänster' },
@@ -20,7 +20,7 @@ function create_picture() {
             type: FormType.Text,
             name: 'title',
             label: 'Titel',
-            value: ''
+            required: true
         },
         {
             type: FormType.Checkbox,
@@ -39,17 +39,17 @@ function create_picture() {
         (resolve) => {
             
             let content = {
-                url: encodeURIComponent(resolve['url']),
-                shadow: resolve['shadow'],
-                title: resolve['title'],
-                align: resolve['align']
+                url: encodeURIComponent(resolve.get('url')),
+                shadow: resolve.get('shadow'),
+                title: resolve.get('title'),
+                align: resolve.get('align')
             };
 
             sql_insert('section',
                 ['page_id', 'type', 'height', 'pos', 'content'],
                 [sql(Global.page.id),
                 sql('picture'),
-                sql(DEFAULT_HEIGHT),
+                sql(20),
                 sql(document.querySelector('main').childElementCount),
                 sql(JSON.stringify(content))])
                 .then(
@@ -57,10 +57,6 @@ function create_picture() {
                         let container = document.querySelector('main');
                         let section = document.createElement('section');
                         
-                        section.style.height = `${DEFAULT_HEIGHT}vh`;
-                        section.classList.add('section-edit');
-                        section.setAttribute('data-type', 'picture');
-                        section.setAttribute('data-page-id', Global.page.id);
                         section.contentEditable = false;
                         section.id = create_section_id(id);
                         container.appendChild(section);
@@ -126,7 +122,7 @@ function show_picture_tools(section) {
         ])
         .then(
             (result) => {
-                section.querySelector('figcaption').innerText = result['title'];
+                section.querySelector('figcaption').innerText = result.get('title');
             }
         );  
 
@@ -167,16 +163,22 @@ function leaving_picture(section) {
 function on_picture_resize(section) {
     let figure = section.querySelector('figure');
     figure.style.height = section.clientHeight + 'px';
+
     let img = section.querySelector('img');
     let containerWidth = figure.offsetWidth;
     let containerHeight = figure.offsetHeight - DRAW_IMAGE_SHADOW_SPACE;
+    
     let imgWidth = img.width;
     let imgHeight = img.height;
+    
     let widthRatio = containerWidth / imgWidth;
     let heightRatio = containerHeight / imgHeight;
+    
     let scale = Math.min(widthRatio, heightRatio);
+    
     let newWidth = imgWidth * scale;
     let newHeight = imgHeight * scale;
+    
     img.style.marginTop = '8px';
     img.style.width = newWidth + 'px';
     img.style.height = newHeight + 'px';

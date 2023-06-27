@@ -1,6 +1,6 @@
 
 
-function create_youtube() {
+function create_new_youtube() {
 
     create_form( 'youtube-create', {title:'Skapa youtube', action:'Klar' }, [
         {
@@ -30,8 +30,8 @@ function create_youtube() {
             (result) => {
 
                 var content = {
-                    url : encodeURIComponent( result['url'] ),
-                    shadow: result['shadow'],
+                    url : encodeURIComponent( result.get('url') ),
+                    shadow: result.get('shadow'),
                     align: 'center'
                 };
 

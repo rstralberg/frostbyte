@@ -1,9 +1,9 @@
 
-function create_audio() {
+function create_new_audio() {
 
     create_form('audio-create', { title: 'Ljud', action: 'Spara' }, [
         {
-            type: FormType.File,
+            type: FormType.Upload,
             name: 'url',
             label: 'Ljudfil (mp3)',
             value: '',
@@ -32,10 +32,10 @@ function create_audio() {
             (resovle) => {
 
                 let content = {
-                    url: encodeURIComponent(resovle['url']),
-                    text: encodeURIComponent(resovle['text']),
-                    shadow: resovle['shadow'],
-                    title: encodeURIComponent(resovle['title'])
+                    url: encodeURIComponent(resovle.get('url')),
+                    text: encodeURIComponent(resovle.get('text')),
+                    shadow: resovle.get('shadow'),
+                    title: encodeURIComponent(resovle.get('title'))
                 };
 
                 sql_insert('section',
@@ -145,7 +145,7 @@ function show_audio_tools(section) {
         ])
             .then(
                 (result) => {
-                    title.innerText = result['title'];
+                    title.innerText = result.get('title');
                 }
             );
 

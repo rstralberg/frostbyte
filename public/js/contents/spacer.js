@@ -1,6 +1,6 @@
 
 
-function create_spacer() {
+function create_new_spacer() {
 
     var content = {
     };
@@ -39,7 +39,7 @@ function draw_spacer(section, _content) {
 }
 
 function show_spacer_tools(section) {
-    show_tools('spacer', []);
+    show_tools('Tomrum', []);
 }
 
 function delete_spacer(section) {

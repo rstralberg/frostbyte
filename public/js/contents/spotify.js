@@ -1,6 +1,6 @@
 
 
-function create_spotify() {
+function create_new_spotify() {
 
     create_form( 'spotify-create', { title:'Skapa spotify', action:'Klar'}, [
         {
@@ -28,8 +28,8 @@ function create_spotify() {
         }]).then(
             (result) => {
                 var content = {
-                    url: encodeURIComponent(result['spotify']),
-                    shadow: result['shadow']
+                    url: encodeURIComponent(result.get('spotify')),
+                    shadow: result.get('shadow')
                 };
 
                 sql_insert('section',

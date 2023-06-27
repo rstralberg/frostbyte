@@ -61,18 +61,6 @@ function remove_all_spaces(str) {
     return str.replace(/\s/g, '');
 }
 
-function is_valid(obj, report = false) {
-    if (typeof obj === 'undefined' || obj === 'undefined') {
-        logg(`${is_valid.caller}: Undefined object`, false, report);
-        return false;
-    }
-    if (obj === null) {
-        logg(`${is_valid.caller}: NULL object`, false, report);
-        return false;
-    }
-    return obj;
-}
-
 function safe_boolean(v) {
     if (typeof v === 'boolean') return v;
     if (typeof v === 'number') return v != 0;

@@ -58,7 +58,7 @@ function on_link() {
                     (resolve) => {
                         let a = document.createElement('a');
                         a.classList.add('link');
-                        a.href = resolve['link'];
+                        a.href = resolve.get('link');
                         a.appendChild(text);
                         range.insertNode(a);
                         Global.selected.focus(); // keep focus on the editor

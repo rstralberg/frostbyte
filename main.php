@@ -27,6 +27,8 @@ require_once __DIR__ . '/php/generators/fonts.php';
 
 session_start();
 
+clear_logger();
+
 // Start database and create 
 // tables if this is the first time
 $db = new db();

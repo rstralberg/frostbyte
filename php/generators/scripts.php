@@ -14,6 +14,7 @@ function generate_scripts() {
     $scriptfolders = [
         'js',
         'js/utils',
+        'js/utils/form',
         'js/components',
         'js/contents',
     ];

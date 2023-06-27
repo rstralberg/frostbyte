@@ -12,7 +12,7 @@ function create_page() {
                 sql_insert('page',
                     [`title`, `parent`, `pos`, `author`],
                     [
-                        sql(encodeURIComponent(result['title'])),
+                        sql(encodeURIComponent(result.get('title'))),
                         sql(0),
                         sql(Global.navbar.childElementCount - 1),
                         sql(Global.user.username)
@@ -51,7 +51,7 @@ function rename_page() {
         }])
         .then(
             (resolve) => {
-                let title = resolve['title'];
+                let title = resolve.get('title');
                 sql_update('page', [`title`], [sql(encodeURIComponent(title))], `id=${Global.page.id}`)
                     .then(
                         (_success) => {
@@ -302,3 +302,28 @@ function edit_pages() {
 
 
 
+function _edit_pages() {
+
+    function page_selector() {
+
+        // create_form('page-selector', { title: 'Sidor', action: 'Stäng' }, [
+        //     {
+        //         type: FormType.TextArea,
+        //         label: 
+        //     }
+        // ])
+
+    }
+
+    function page_hierarchy() {
+
+    }
+
+    function update_pages() {
+
+    }
+
+    function close() {
+
+    }
+}

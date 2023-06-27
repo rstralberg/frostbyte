@@ -81,12 +81,14 @@ function edit_config() {
                         (resolve) => {
                             sql_update('config',
                                 ['language', 'sitename', 'siteowner', 'theme', 'logo', 'showheaders'],
-                                [sql(resolve['language']),
-                                sql(resolve['sitename']),
-                                sql(resolve['siteowner']),
-                                sql(resolve['theme']),
-                                sql(resolve['logo']),
-                                sql(resolve['showheaders'])],
+                                [
+                                    sql(resolve.get('language')),
+                                    sql(resolve.get('sitename')),
+                                    sql(resolve.get('siteowner')),
+                                    sql(resolve.get('theme')),
+                                    sql(resolve.get('logo')),
+                                    sql(resolve.get('showheaders'))
+                                ],
                                 'id=1')
                                 .then(
                                     () => {
