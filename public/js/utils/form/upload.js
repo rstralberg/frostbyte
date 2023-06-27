@@ -12,7 +12,7 @@ field = {
 
 function create_upload(field, map) {
 
-    let base = create_base('input');
+    let base = create_base('input', field, map);
     base.inp.type = 'file';
     base.inp.addEventListener('change', (e) => {
         if (e.target.files && e.target.files[0]) {

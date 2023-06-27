@@ -8,7 +8,6 @@ function create_new_soundcloud() {
             name: 'info',
             rows: 4,
             cols: 60,
-
             readonly: true,
             value: 'Gå till Soundcloud och välj din låt. Klicka sedan på "Share" ' +
                     'och välj där fliken "Embedd". Kopiera sedan det som finns i fältet ' +
@@ -60,7 +59,8 @@ function draw_soundcloud(section, content) {
     
 
     if( content.shadow ) {
-        section.querySelector('iframe').classList.add('shadow');
+        let frame = section.querySelector('iframe');
+        if( is_valid(frame)) { frame.classList.add('shadow');}
     }
                             
     section.addEventListener('mouseup', (e) => {

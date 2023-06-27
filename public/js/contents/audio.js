@@ -6,8 +6,6 @@ function create_new_audio() {
             type: FormType.Upload,
             name: 'url',
             label: 'Ljudfil (mp3)',
-            value: '',
-            title: ''
         },
         {
             type: FormType.Checkbox,
@@ -19,7 +17,6 @@ function create_new_audio() {
             type: FormType.Text,
             name: 'title',
             label: 'Titel',
-            value: ''
         },
         {
             type: FormType.Text,
@@ -111,13 +108,6 @@ function show_audio_tools(section) {
     show_tools('Ljud', [
         { title: 'Skugga', func: on_shadow },
         { title: 'Titel', func: on_title },
-        { title: 'Fet', func: on_bold },
-        { title: 'Kursiv', func: on_italic },
-        { title: 'Stryk', func: on_underline },
-        { title: 'Stor', func: on_h1 },
-        { title: 'Liten', func: on_h3 },
-        { title: 'Markering', func: on_mark },
-        { title: 'Normal', func: on_normal },
         { title: 'Vänster', func: on_left },
         { title: 'Mitten', func: on_center },
         { title: 'Höger', func: on_right }]);
@@ -151,13 +141,6 @@ function show_audio_tools(section) {
 
     }
 
-    function on_bold() { format_selection('b'); }
-    function on_italic() { format_selection('i'); }
-    function on_underline() { format_selection('u'); }
-    function on_h1() { format_selection('h1'); }
-    function on_h3() { format_selection('h3'); }
-    function on_mark() { format_selection('mark'); }
-    function on_normal() { text.innerHTML = text.innerText; }
     function on_left() {
         text.style.textAlign = 'left';
     }

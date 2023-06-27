@@ -8,7 +8,6 @@ function create_new_spotify() {
             name: 'info',
             rows: 4,
             cols: 60,
-
             readonly: true,
             value: 'Gå till spotify och välj din låt. Klicka sedan på "Dela" ' +
                 'och välj sedan "Bädda in spår". Klicka senda på "Kopiera" ' +
@@ -56,7 +55,8 @@ function draw_spotify(section, content) {
     section.classList.add('spotify');
     
     if (content.shadow) {
-        section.querySelector('iframe').classList.add('shadow');
+        let frame = section.querySelector('iframe');
+        if( is_valid(frame)) frame.classList.add('shadow');
     }
 
     section.addEventListener('mouseup', (e) => {
