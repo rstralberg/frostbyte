@@ -35,31 +35,35 @@ function create_base(element_type, field, map) {
     verify_object(map, 'object');
     verify_object(field.type, 'string');
     verify_object(field.name, 'string');
-    
-    if( !is_valid(field.listener) ) field.listener = null;
-    if( !is_valid(field.required) ) field.required = false;
-    if( !is_valid(field.readonly) ) field.readonly = false;
-    if( !is_valid(field.value) ) field.value = '';
-    
+
+    if (!is_valid(field.listener)) field.listener = null;
+    if (!is_valid(field.required)) field.required = false;
+    if (!is_valid(field.readonly)) field.readonly = false;
+    if (!is_valid(field.value)) field.value = '';
+    if (!is_valid(field.onecol)) field.onecol = false;
+
+
     let div = document.createElement('div');
-    div.classList.add('icol-40-60');
+
+    div.classList.add(field.onecol? 'icol-100' : 'icol-40-60');
+    
 
     let label = null
-    if( is_valid(field.label) ) {
+    if (is_valid(field.label)) {
         label = document.createElement('label');
         label.classList.add('ilabel');
         label.innerText = field.label;
         label.for = field.name;
-        div.append(label); 
+        div.append(label);
     }
 
     let element = document.createElement(element_type);
     div.appendChild(element);
-    
+
     element.classList.add(`i${field.type}`);
     element.id = field.name;
 
-    if( is_valid( element.type )) {
+    if (is_valid(element.type)) {
         element.type = field.type;
     }
 
@@ -70,8 +74,8 @@ function create_base(element_type, field, map) {
     if (field.readonly) {
         element.required = true;
     }
- 
+
     map.set(field.name, is_valid(field.value) ? field.value : '');
-    
+
     return { div: div, inp: element, label: label };
 }

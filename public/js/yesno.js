@@ -1,7 +1,11 @@
 
-function yesno(title, text, on_yes, on_no = null) {
+function yesno(atitle, text, on_yes, on_no = null) {
 
-    create_form('yes-no', { title: title, action: 'Ja', }[
+    create_form('yes-no', 
+    {   title: atitle, 
+        action: 'Ja',
+        zindex: 200
+    }[
         {
             type: FormType.Label,
             name: 'text',

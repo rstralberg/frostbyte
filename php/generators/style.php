@@ -33,6 +33,8 @@ function generate_style($db, $name)
     $style .= '--fg4:' . $theme->fg4 . ';';
     $style .= '--bg4h:' . $theme->bg4h . ';';
     $style .= '--fg4h:' . $theme->fg4h . ';';
+    $style .= '--bg4l:' . $theme->bg4l . ';';
+    $style .= '--fg4l:' . $theme->fg4l . ';';
     $style .= '--bg5:' . $theme->bg5 . ';';
     $style .= '--fg5:' . $theme->fg5 . ';';
     $style .= '--bg5s:' . $theme->bg5s . ';';

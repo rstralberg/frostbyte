@@ -329,31 +329,34 @@ function edit_pages() {
             if (page.parent < 0) {
                 pages_array.push({
                     value: pages[i].id,
-                    text: pages[i].title
+                    text: pages[i].title,
+                    dclick: on_loose_dbl
                 });
             }
         }
-        if( pages_array.length === 0) {
+        if (pages_array.length === 0) {
             pages_array.push({
-                value: 0,
+                value: -1,
                 text: 'Sidor saknas'
             });
         }
 
-        create_form('non-menu-pages', { title: 'Lösa sidor', action: 'Stäng', pos: {x:' 1vw', y:'7vh'} }, [
+        create_form('loose', { title: 'Lösa sidor', action: 'Stäng', pos: { x: ' 1vw', y: '7vh' }, fixed: true }, [
             {
                 type: FormType.TextArea,
                 name: 'desc',
-                value: 'Här kan du välja sidor som ska vara med i någon meny',
-                rows: 2,
-                cols: 40
+                value: 'Här kan du välja sidor som ska vara med i någon meny. ' +
+                    'Dubbelklicka för att flytta till "Meny"',
+                rows: 4,
+                cols: 30
             },
             {
                 type: FormType.List,
                 name: 'pages',
-                label: 'Sidor',
                 items: pages_array,
-                rows: 10
+                rows: 10,
+                onecol: true,
+                width: 'inherit'
             }
         ]);
 
@@ -367,25 +370,29 @@ function edit_pages() {
             if (page.parent > -1) {
                 pages_array.push({
                     value: pages[i].id,
-                    text: pages[i].title
+                    text: pages[i].title,
+                    dclick: on_menu_dbl
                 });
             }
         }
 
-        create_form('page-selector', { title: 'Menysidor', action: 'Stäng', pos: {x:'35vw', y:'7vh'}  }, [
+        create_form('menu', { title: 'Meny', action: 'Stäng', pos: { x: '28vw', y: '7vh' }, fixed: true }, [
             {
                 type: FormType.TextArea,
                 name: 'desc',
-                value: 'Här kan du välja sidor som inte ska vara med i någon meny',
-                rows: 2,
-                cols: 40
+                value: 'Här kan du välja sidor som inte ska vara med i någon meny. ' +
+                    'Dubbelklicka för att flytta till "Lösa sidor"',
+                rows: 6,
+                cols: 30
             },
             {
                 type: FormType.List,
                 name: 'pages',
-                label: 'Sidor',
                 items: pages_array,
-                rows: 10
+                rows: 8,
+                onecol: true,
+                width: 'inherit'
+
             }
         ]);
     }
@@ -396,29 +403,170 @@ function edit_pages() {
         for (let i = 0; i < pages.length; i++) {
             let page = pages[i];
             if (page.parent > -1) {
-                pages_array.push({
-                    value: pages[i].id,
-                    text: pages[i].title
-                });
+                var item = null;
+                if (page.parent === 0) {
+                    item = {
+                        value: page.id,
+                        text: page.title,
+                    };
+                    pages_array.push(item);
+
+                    for (let j = 0; j < pages.length; j++) {
+                        let p = pages[j];
+                        if (p.parent === page.id) {
+                            if (!is_valid(item.items)) {
+                                item.items = new Array();
+                            }
+                            item.items.push({
+                                value: p.id,
+                                text: p.title,
+                            });
+                        }
+                    }
+                }
             }
         }
 
-        create_form('pages-hierachy', { title: 'Hierarki', action: 'Stäng', pos: {x:'69vw', y:'7vh'}, fixed:true  }, [
+
+        create_form('hierachy', { title: 'Hierarki', action: 'Stäng', pos: { x: '55vw', y: '7vh' }, fixed: true }, [
             {
                 type: FormType.TextArea,
                 name: 'desc',
-                value: 'Här kan du välja sidor som ska ligga var en del av andra',
+                value: 'Klicka för att flytta sidor',
                 rows: 2,
-                cols: 40
+                cols: 30
             },
             {
-                type: FormType.List,
-                name: 'pages',
-                label: 'Sidor',
-                items: pages_array, 
-                rows: 10
+                type: FormType.Tree,
+                name: 'tree',
+                items: pages_array,
+                width: 'inherit',
+                listener: on_hierarchy_click
             }
         ]);
+        function on_hierarchy_click(e) {
+            // { item: e.target, value: item.value, base_index: i, sub_index: j  }
+
+            console.log( 'CLICKED IN HIERACY: ' + e.item.innerText);
+
+
+            let tree = e.item.parentElement;
+            while( is_valid(tree) && tree.id !== 'tree' ) {
+                tree = tree.parentElement;
+            }
+
+            let pages_list = new Array();
+            for (let i = 0; i < tree.childElementCount; i++) {
+                let item = tree.children[i];
+                if (item.id !== e.item.id) {
+                    pages_list.push(
+                        {
+                            value: item.getAttribute('data-value'),
+                            text: item.getAttribute('data-text')
+                        });
+                }
+                for (let j = 0; j < item.childElementCount; j++) {
+                    let sub = item.children[j];
+                    if (sub.tagName === 'UL') {
+                        for (let n = 0; n < sub.childElementCount; n++) {
+                            let sub2 = sub.children[n];
+                            if (sub2.id !== e.item.id) {
+                                pages_list.push(
+                                    {
+                                        value: sub2.getAttribute('data-value'),
+                                        text: sub2.getAttribute('data-text')
+                                    });
+                            }
+                        }
+                    }
+                }
+            }
+
+            function dump(i, j, n, item) {
+                console.log(`${i}/${j}/${n} ${item.tagName} ${item.getAttribute('data-text')} `);
+            }
+
+            create_form('hiearchy-click', {
+                title: 'Välj vart du vill flytta',
+                action: 'Flytta',
+                pos: { x: '55vw', y: '8vh' },
+                zindex: 9999
+            }, [
+                {
+                    type: FormType.List,
+                    name: 'targets',
+                    items: pages_list,
+                    required: true
+                },
+                {
+                    type: FormType.List,
+                    name: 'dest',
+                    items: [
+                        { value: 'above', text: 'Ovanför' },
+                        { value: 'inside', text: 'Inuti' },
+                        { value: 'below', text: 'Nedaför' },
+                    ],
+                    required: true,
+                }
+            ])
+                .then((result) => {
+
+                    console.log( 'CLICKED IN SELECT: ' + result.get('targets'));
+                    let target = parseInt(result.get('targets'));
+                    let dest = result.get('dest');
+
+                    for( let i = 0; i < pages_array.length; i++) { 
+                        let page = pages_array[i];
+                        console.log( `page.value ${parseInt(page.value)} target ${target}`);
+                        if( parseInt(page.value) === target ) {
+                            console.log( 'FOUND : ' + page.text);
+                            
+                            switch( dest ) {
+                                case 'above': 
+                                break;
+                                case 'inside': break;
+                                case 'below': break;
+                            }
+                        }
+                    }
+                });
+
+        }
+
+    }
+
+    function on_loose_dbl(e) {
+
+        let source = document.getElementById('loose').querySelector('select');
+        let option = source.options[source.selectedIndex];
+        e.opt.dclick = on_menu_dbl;
+
+        let target = document.getElementById('menu').querySelector('select');
+        target.appendChild(option);
+
+        if (source.options.length === 0) {
+            let empty = document.createElement('option');
+            empty.value = -1;
+            empty.innerText = 'Sidor saknas';
+            source.appendChild(empty);
+        }
+    }
+
+    function on_menu_dbl(e) {
+
+        let source = document.getElementById('menu').querySelector('select');
+        let option = source.options[source.selectedIndex];
+        e.opt.dclick = on_loose_dbl;
+
+        let target = document.getElementById('loose').querySelector('select');
+        for (let i = 0; i < target.options.length; i++) {
+            let o = target.options[i];
+            if (parseInt(o.value) === -1) {
+                target.options.remove(i);
+                break;
+            }
+        }
+        target.appendChild(option);
     }
 
     function update_pages() {

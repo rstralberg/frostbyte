@@ -71,8 +71,10 @@ function create_tables($db)
             '#c8c880',// links
             '#f5deb3',// bg4
             '#202020',// fg4
-            '#ffffff',// bg4h
-            '#000000',// fg4h
+            '#ffeec3',// bg4h
+            '#101010',// fg4h
+            '#a89a7f',// bg4l
+            '#000000',// fg4l
             '#303030',// bg5
             '#ffffff',// fg5
             '#404040',// bg5s

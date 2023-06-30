@@ -32,13 +32,16 @@ function logger($str)
     return false;
 }
 
-function clear_logger() {
-    unlink(logfile);
+function clear_logger()
+{
+    if (file_exists(logfile)) {
+        unlink(logfile);
+    }
 }
 
-function dump($str) {
+function dump($str)
+{
     logger_on();
     logger($str);
     logger_off();
 }
-?>

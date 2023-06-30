@@ -34,7 +34,7 @@ function load_toolbar() {
 
             // Redigera tema
             // ------------------
-            tb_add(fieldset, '#ffc0c0', 'Tema', edit_theme);
+            tb_add(fieldset, '#ffc0c0', 'Teman', edit_themes);
 
             // Redigera sidornas ordning
             // ----------------------------

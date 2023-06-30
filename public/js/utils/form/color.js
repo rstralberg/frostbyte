@@ -13,11 +13,17 @@ field = {
 function create_color(field, map) {
     
     let base = create_base('input', field, map);
+    
+    if( is_valid(field.width) ) {
+        base.label.style.width = field.width;
+        base.div.style.marginBottom = 0;
+    }
 
     base.div.style.display = 'grid';
-    // label.style.height = '32px';
+    // base.label.style.height = '32px';
+    // base.inp.style.height = '32px;';
 
-    base.inp.style.height = '32px;';
+
     base.inp.addEventListener('input', (e) => {
         map.set(field.name, field.value = hexcolor_to_style(e.target.value));
         if (field.listener) field.listener(field);

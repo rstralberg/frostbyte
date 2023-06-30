@@ -279,6 +279,16 @@
     font-size: calc(var(--fsize) * 1.4);
 }
 
+.icol-40-30-30 {
+    display: grid;
+    grid-template-columns: 40% 30% 30%;
+    margin-bottom: 0.5em;
+}
+.icol-60-40 {
+    display: grid;
+    grid-template-columns: 60% 40%;
+    margin-bottom: 0.5em;
+}
 .icol-40-60 {
     display: grid;
     grid-template-columns: 40% 60%;
@@ -288,6 +298,11 @@
 .icol-50-50 {
     display: grid;
     grid-template-columns: 50% 50%;
+}
+
+.icol-100 {
+    display: grid;
+    grid-template-columns: 100% 0%;
 }
 
 .ifullscreen {

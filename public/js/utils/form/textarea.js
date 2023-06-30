@@ -18,6 +18,7 @@ function create_textarea(field, map) {
         base.div.removeChild(base.label);
     }
     base.div.classList.remove('icol-40-60');
+    base.inp.style.width= '-moz-available';
 
     base.inp.style.height = 'auto';
     base.inp.rows = field.rows;

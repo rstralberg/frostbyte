@@ -1,0 +1,53 @@
+.itree {
+    list-style-type: none;
+    margin-left: -40px;
+}
+
+.itree>li {
+    background: var(--bg4);
+    color: var(--fg4);
+}
+
+.itree>li::before {
+    content: "\25B6";
+    color: transparent;
+    display: inline-block;
+    margin-right: 6px;
+}
+
+.inested {
+    list-style-type: none;
+    display: none;
+}
+
+.inested>li {
+    background: var(--bg4l);
+    color: var(--fg4l);
+}
+
+.inested>li::before {
+    content: "\25B6";
+    color: transparent;
+    display: inline-block;
+    margin-right: 6px;
+}
+
+.icaret {
+    cursor: pointer;
+    user-select: none;
+}
+
+.icaret::before {
+    content: "\25B6";
+    color: black;
+    display: inline-block;
+    margin-right: 6px;
+}
+
+.icaret-down::before {
+    transform: rotate(90deg);
+}
+
+.iactive {
+    display: block;
+}

@@ -40,7 +40,9 @@ const FormType = {
     Email: 'email',
     Password: 'password',
     TextArea: 'textarea',
-    CheckList: 'checklist'
+    CheckList: 'checklist',
+    Tree: 'tree',
+    Color_Bg_Fg: 'color_bg_fg'
 }
 
 // returns a Promise
@@ -51,6 +53,8 @@ const FormType = {
     fixed: 'optional' boolean telling if the form can be dragged around or not
     pos: 'optional' {x,y} position 
     size: 'optional {w,h} fixed size
+    zindex: 'optional'
+    cancel: 'optional' default=true
 */
 
 function create_form(id, params, fields) {
@@ -60,18 +64,21 @@ function create_form(id, params, fields) {
     var fixed = is_valid(params.fixed) ? params.fixed : false;
     var pos = is_valid(params.pos) ? params.pos : { x: '2vw', y: '7vh' };
     var size = is_valid(params.size) ? params.size : { w: 'auto', h: 'auto' };
-
-
-    return new Promise(function (resolve, reject = null) {
+    var zindex = is_valid(params.zindex) ? params.zindex : null;
+    
+    return new Promise(function (resolve, reject) {
 
         let form = document.createElement('form');
         form.classList.add('iform');
         form.id = id;
         form.enctype = 'multipart/form-data';
-        form.style.height = size.w;
-        form.style.width = size.h;
+        form.style.height = size.h;
+        form.style.width = size.w;
         form.style.left = pos.x;
         form.style.top = pos.y;
+        if (zindex) {
+            form.style.zIndex = zindex;
+        }
 
         let titlediv = document.createElement('div');
         titlediv.classList.add('ititle');
@@ -118,23 +125,25 @@ function create_form(id, params, fields) {
             if (!is_valid(field.listener, false)) field.listener = null;
 
             let func = window[`create_${field.type}`];
-            if(is_valid(func)) {
-                form.appendChild(verify_object(func(field, map)),'objec');
+            if (is_valid(func)) {
+                form.appendChild(verify_object(func(field, map)), 'objec');
             }
         });
 
         let div = document.createElement('div');
-        let button = document.createElement('button');
-        button.classList.add('ibutton');
-        button.innerHTML = 'Avbryt';
-        button.addEventListener('click', (e) => {
-            if (reject) reject();
-            close(form);
-        });
-        div.appendChild(button);
+        if ( !is_valid(params.cancel) || params.cancel) {
+            let button = document.createElement('button');
+            button.classList.add('ibutton');
+            button.innerHTML = 'Avbryt';
+            button.addEventListener('click', (e) => {
+                reject();
+                close(form);
+            });
+            div.appendChild(button);
+        }
 
         if (action) {
-            button = document.createElement('button');
+            let button = document.createElement('button');
             button.classList.add('ibutton');
             button.innerHTML = action;
             button.addEventListener('click', (e) => {
@@ -157,4 +166,13 @@ function create_form(id, params, fields) {
             }
         }
     });
+}
+
+function close_form(id) {
+    let html = document.querySelector('html');
+    let form = document.getElementById(id);
+    if (is_valid(form, false) && html.querySelector(`#${form.id}`) !== null) {
+        remove_childs(form);
+        html.removeChild(form);
+    }
 }

@@ -42,6 +42,8 @@ class theme
     public $fg4;
     public $bg4h;
     public $fg4h;
+    public $bg4l;
+    public $fg4l;
 
     // section colors
     public $bg5;
@@ -83,6 +85,8 @@ function create_theme_table($db)
             `fg4` VARCHAR(10) NOT NULL,
             `bg4h` VARCHAR(10) NOT NULL,
             `fg4h` VARCHAR(10) NOT NULL,
+            `bg4l` VARCHAR(10) NOT NULL,
+            `fg4l` VARCHAR(10) NOT NULL,
             `bg5` VARCHAR(10) NOT NULL,
             `fg5` VARCHAR(10) NOT NULL,
             `bg5s` VARCHAR(10) NOT NULL,
@@ -124,6 +128,8 @@ function result_to_theme($db, $res)
     $theme->fg4 = $res['fg4'];
     $theme->bg4h = $res['bg4h'];
     $theme->fg4h = $res['fg4h'];
+    $theme->bg4l = $res['bg4l'];
+    $theme->fg4l = $res['fg4l'];
     $theme->bg5 = $res['bg5'];
     $theme->fg5 = $res['fg5'];
     $theme->bg5s = $res['bg5s'];
@@ -177,6 +183,8 @@ function write_theme($db, $theme, $where)
             . '`fg4`=' . db::string($theme->fg4) . ','
             . '`bg4h`=' . db::string($theme->bg4h) . ','
             . '`fg4h`=' . db::string($theme->fg4h) . ','
+            . '`bg4l`=' . db::string($theme->bg4l) . ','
+            . '`fg4l`=' . db::string($theme->fg4l) . ','
             . '`bg5`=' . db::string($theme->bg5) . ','
             . '`fg5`=' . db::string($theme->fg5) . ','
             . '`bg5s`=' . db::string($theme->bg5s) . ','
@@ -209,6 +217,8 @@ function write_theme($db, $theme, $where)
             . '`fg4`,'
             . '`bg4h`,'
             . '`fg4h`,'
+            . '`bg4l`,'
+            . '`fg4l`,'
             . '`bg5`,'
             . '`fg5`,'
             . '`bg5s`,'
@@ -239,6 +249,8 @@ function write_theme($db, $theme, $where)
             . db::string($theme->fg4) . ','
             . db::string($theme->bg4h) . ','
             . db::string($theme->fg4h) . ','
+            . db::string($theme->bg4l) . ','
+            . db::string($theme->fg4l) . ','
             . db::string($theme->bg5) . ','
             . db::string($theme->fg5) . ','
             . db::string($theme->bg5s) . ','
@@ -273,6 +285,8 @@ function create_theme(
     $fg4,
     $bg4h,
     $fg4h,
+    $bg4l,
+    $fg4l,
     $bg5,
     $fg5,
     $bg5s,
@@ -305,6 +319,8 @@ function create_theme(
     $theme->fg4 = $fg4;
     $theme->bg4h = $bg4h;
     $theme->fg4h = $fg4h;
+    $theme->bg4l = $bg4l;
+    $theme->fg4l = $fg4l;
     $theme->bg5 = $bg5;
     $theme->fg5 = $fg5;
     $theme->bg5s = $bg5s;
