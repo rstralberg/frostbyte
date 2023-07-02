@@ -1,0 +1,152 @@
+<html lang="sv">
+
+<head>
+  <title>FrostByte</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1.0">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  <link rel="apple-touch-icon" href="favicons/apple-icon-57x57.png" sizes="57x57">
+  <link rel="apple-touch-icon" href="favicons/apple-icon-60x60.png" sizes="60x60">
+  <link rel="apple-touch-icon" href="favicons/apple-icon-72x72.png" sizes="72x72">
+  <link rel="apple-touch-icon" href="favicons/apple-icon-76x76.png" sizes="76x76">
+  <link rel="apple-touch-icon" href="favicons/apple-icon-114x114.png" sizes="114x114">
+  <link rel="apple-touch-icon" href="favicons/apple-icon-120x120.png" sizes="120x120">
+  <link rel="apple-touch-icon" href="favicons/apple-icon-144x144.png" sizes="144x144">
+  <link rel="apple-touch-icon" href="favicons/apple-icon-152x152.png" sizes="152x152">
+  <link rel="apple-touch-icon" href="favicons/apple-icon-180x180.png" sizes="180x180">
+  <link rel="icon" href="favicons/android-icon-192x192.png" sizes="192x192">
+  <link rel="icon" href="favicons/favicon-16x16.png" sizes="16x16">
+  <link rel="icon" href="favicons/favicon-32x32.png" sizes="32x32">
+  <link rel="icon" href="favicons/favicon-96x96.png" sizes="96x96">
+  <style>
+    :root {
+      --theme_name: 'Dark';
+      --bg1: #202020;
+      --fg1: #ffffff;
+      --bg2: #000000;
+      --fg2: #c8c880;
+      --bg3: #202020;
+      --fg3: #ffffff;
+      --font: Arial;
+      --fsize: 1.0em;
+      --links: #c8c880;
+      --bg4: #f5deb3;
+      --fg4: #202020;
+      --bg4h: #ffeec3;
+      --fg4h: #101010;
+      --bg4l: #a89a7f;
+      --fg4l: #000000;
+      --bg5: #303030;
+      --fg5: #ffffff;
+      --bg5s: #404040;
+      --fg5s: #ffffff;
+      --nav_fsize: 1.2em;
+      --nav_fweight: bold;
+      --nav_border: 0px;
+      --footer_border: 0px;
+      --main_border: 0px;
+      --nav_shadow: transparen;
+      --footer_shadow: transparent;
+      --main_shadow: transparent;
+      --footer_fsize: 0.8em;
+      --footer_fstyle: italic;
+      --title_fg: #c8c880;
+      --shadow-size: 18px;
+    }
+  </style>
+  <script type="application/javascript" src="js/global.js"></script>
+  <script type="application/javascript" src="js/main.js"></script>
+  <script type="application/javascript" src="js/yesno.js"></script>
+  <script type="application/javascript" src="js/utils/conversion.js"></script>
+  <script type="application/javascript" src="js/utils/cookies.js"></script>
+  <script type="application/javascript" src="js/utils/formatting.js"></script>
+  <script type="application/javascript" src="js/utils/graphics.js"></script>
+  <script type="application/javascript" src="js/utils/logg.js"></script>
+  <script type="application/javascript" src="js/utils/req.js"></script>
+  <script type="application/javascript" src="js/utils/rgb.js"></script>
+  <script type="application/javascript" src="js/utils/size.js"></script>
+  <script type="application/javascript" src="js/utils/sql.js"></script>
+  <script type="application/javascript" src="js/utils/style.js"></script>
+  <script type="application/javascript" src="js/utils/upload.js"></script>
+  <script type="application/javascript" src="js/utils/utils.js"></script>
+  <script type="application/javascript" src="js/utils/form/_base.js"></script>
+  <script type="application/javascript" src="js/utils/form/button.js"></script>
+  <script type="application/javascript" src="js/utils/form/checkbox.js"></script>
+  <script type="application/javascript" src="js/utils/form/checklist.js"></script>
+  <script type="application/javascript" src="js/utils/form/color.js"></script>
+  <script type="application/javascript" src="js/utils/form/color_bg_fg.js"></script>
+  <script type="application/javascript" src="js/utils/form/email.js"></script>
+  <script type="application/javascript" src="js/utils/form/float.js"></script>
+  <script type="application/javascript" src="js/utils/form/form.js"></script>
+  <script type="application/javascript" src="js/utils/form/image.js"></script>
+  <script type="application/javascript" src="js/utils/form/label.js"></script>
+  <script type="application/javascript" src="js/utils/form/list.js"></script>
+  <script type="application/javascript" src="js/utils/form/number.js"></script>
+  <script type="application/javascript" src="js/utils/form/password.js"></script>
+  <script type="application/javascript" src="js/utils/form/slider.js"></script>
+  <script type="application/javascript" src="js/utils/form/text.js"></script>
+  <script type="application/javascript" src="js/utils/form/textarea.js"></script>
+  <script type="application/javascript" src="js/utils/form/tree.js"></script>
+  <script type="application/javascript" src="js/utils/form/upload.js"></script>
+  <script type="application/javascript" src="js/components/config.js"></script>
+  <script type="application/javascript" src="js/components/footer.js"></script>
+  <script type="application/javascript" src="js/components/navbar.js"></script>
+  <script type="application/javascript" src="js/components/page.js"></script>
+  <script type="application/javascript" src="js/components/section.js"></script>
+  <script type="application/javascript" src="js/components/toolbar.js"></script>
+  <script type="application/javascript" src="js/components/user.js"></script>
+  <script type="application/javascript" src="js/components/theme/theme.js"></script>
+  <script type="application/javascript" src="js/components/theme/theme_borders.js"></script>
+  <script type="application/javascript" src="js/components/theme/theme_colors.js"></script>
+  <script type="application/javascript" src="js/components/theme/theme_fonts.js"></script>
+  <script type="application/javascript" src="js/components/theme/theme_misc.js"></script>
+  <script type="application/javascript" src="js/components/theme/themes.js"></script>
+  <script type="application/javascript" src="js/contents/audio.js"></script>
+  <script type="application/javascript" src="js/contents/imagetext.js"></script>
+  <script type="application/javascript" src="js/contents/picture.js"></script>
+  <script type="application/javascript" src="js/contents/soundcloud.js"></script>
+  <script type="application/javascript" src="js/contents/spacer.js"></script>
+  <script type="application/javascript" src="js/contents/spotify.js"></script>
+  <script type="application/javascript" src="js/contents/text.js"></script>
+  <script type="application/javascript" src="js/contents/youtube.js"></script>
+  <link rel="stylesheet" type="text/css" href="css/content.css">
+  <link rel="stylesheet" type="text/css" href="css/fonts.css">
+  <link rel="stylesheet" type="text/css" href="css/form.css">
+  <link rel="stylesheet" type="text/css" href="css/navbar.css">
+  <link rel="stylesheet" type="text/css" href="css/system.css">
+  <link rel="stylesheet" type="text/css" href="css/theme.css">
+  <link rel="stylesheet" type="text/css"
+    href="moz-extension://daac993d-18bc-4b93-9616-0c15d7f47332/content_scripts.css">
+</head>
+
+<body>
+  <nav class="topnav" id="myTopnav">
+    <a href="#home" class="active">Home</a>
+    <a href="#news">News</a>
+    <a href="#contact">Contact</a>
+    <div class="dropdown">
+      <button class="dropbtn">Dropdown
+        <i class="fa fa-caret-down"></i>
+      </button>
+      <div class="dropdown-content">
+        <a href="#">Link 1</a>
+        <a href="#">Link 2</a>
+        <a href="#">Link 3</a>
+      </div>
+    </div>
+    <a href="#about">About</a>
+    <a href="javascript:void(0);" class="icon" onclick="myFunction()">&#9776;</a>
+  </nav> 
+</body>
+<script>
+  function myFunction() {
+  var x = document.getElementById("myTopnav");
+  if (x.className === "topnav") {
+    x.className += " responsive";
+  } else {
+    x.className = "topnav";
+  }
+} 
+</script>
+
+</html>

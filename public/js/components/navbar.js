@@ -38,14 +38,14 @@ function load_navbar() {
             });
 
             parents.forEach(parent => {
-                console.log( parent.title );
+                console.log(parent.title);
                 parent.subs.forEach(sub => {
-                    console.log( '--- ' + sub.title);
+                    console.log('--- ' + sub.title);
                 });
             });
 
             var nav = document.querySelector('nav');
-            nav.id = 'topnav';
+            nav.id = 'top-nav';
             if (!nav.classList.contains('topnav')) {
                 nav.classList.add('topnav');
             }
@@ -56,6 +56,7 @@ function load_navbar() {
                 img.classList.add('logo');
                 img.addEventListener('load', (e) => {
                     let a = document.createElement('a');
+                    a.classList.add('logo');
                     a.href = `/${pages[0].id}`;
                     a.id = 'logo';
                     a.appendChild(img);
@@ -79,7 +80,7 @@ function load_navbar() {
                     sub.classList.add('dropdown');
                     nav.appendChild(sub);
 
-                    let btn = document.createElement('button');
+                    let btn = document.createElement('dropbtn');
                     sub.appendChild(btn);
                     btn.classList.add('dropbtn');
                     btn.innerText = parent.title;
@@ -106,14 +107,15 @@ function load_navbar() {
 
             let a = document.createElement('a');
             a.id = 'log-in-out';
-            a.classList.add('nav-right');
+            a.classList.add('login', 'nav-right');
             a.innerHTML = is_valid(Global.user) && Global.user.valid ? 'Logga ut' : 'Logga in';
-            a.addEventListener('click', (e) => { 
-                if ( is_valid(Global.user) && Global.user.valid ) {
-                    logout(); 
+            a.addEventListener('click', (e) => {
+                if (is_valid(Global.user) && Global.user.valid) {
+                    logout();
                 } else {
                     login();
-                }});
+                }
+            });
             nav.appendChild(a);
 
             a = document.createElement('a');
@@ -121,7 +123,7 @@ function load_navbar() {
             a.classList.add("icon");
             a.innerHTML = '&#9776;';
             a.addEventListener('click', (e) => {
-                var top = document.getElementById('topnav');
+                var top = document.getElementById('top-nav');
                 if (top.classList.contains('responsive')) {
                     top.classList.remove('responsive');
                 }
@@ -130,7 +132,7 @@ function load_navbar() {
                 }
             });
             nav.append(a);
-            
+
             navbar_logged_in(Global.user.valid);
 
             if (img) {
@@ -143,7 +145,7 @@ function load_navbar() {
 
 function navbar_logged_in(logged_in) {
     let element = document.getElementById('log-in-out');
-    if( is_valid(element )) {
+    if (is_valid(element)) {
         element.innerText = logged_in ? 'Logga ut' : 'Logga in';
     }
 }

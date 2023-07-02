@@ -16,6 +16,7 @@ field = {
 function create_float(field, map) {
     
     let base = create_base('input', field, map);
+    base.inp.type = 'number';
     base.inp.step = field.step;
     base.inp.value = field.value === null ? (field.max - field.min) / 2 : field.value;
     base.inp.min = field.min;

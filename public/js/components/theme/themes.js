@@ -64,6 +64,8 @@ function edit_themes() {
             
         );
 
+        on_edit(Global.config.theme);;
+    
         function on_edit() {
             let select = document.getElementById('select-theme');
             let selected = select.options[select.selectedIndex];
