@@ -15,9 +15,10 @@ function create_number(field, map) {
 
     let base = create_base('input', field, map);
     base.inp.step = field.step;
-    base.inp.inp.min = field.min;
-    base.inp.inp.max = field.max;
-    base.inp.inp.addEventListener('change', (e) => {
+    base.inp.min = field.min;
+    base.inp.max = field.max;
+    base.inp.value = field.value;
+    base.inp.addEventListener('change', (e) => {
         map.set(field.name, field.value = e.target.value);
         if (field.listener) field.listener(field);
     });

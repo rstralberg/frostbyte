@@ -26,7 +26,7 @@ function generate_style($db, $name)
     $style .= '--fg2:' . $theme->fg2 . ';';
     $style .= '--bg3:' . $theme->bg3 . ';';
     $style .= '--fg3:' . $theme->fg3 . ';';
-    $style .= '--font:' . $theme->font . ';';
+    $style .= '--font:"' . $theme->font . '";';
     $style .= '--fsize:' . $theme->fsize . ';';
     $style .= '--links:' . $theme->links . ';';
     $style .= '--bg4:' . $theme->bg4 . ';';
@@ -44,13 +44,16 @@ function generate_style($db, $name)
     $style .= '--nav_border:' . $theme->nav_border . ';';
     $style .= '--footer_border:' . $theme->footer_border . ';';
     $style .= '--main_border:' . $theme->main_border . ';';
+    $style .= '--nav_radius:' . $theme->nav_radius . ';';
+    $style .= '--footer_radius:' . $theme->footer_radius . ';';
+    $style .= '--main_radius:' . $theme->main_radius . ';';
+    $style .= '--shadow_size:' . $theme->shadow_size . ';';
     $style .= '--nav_shadow:' . $theme->nav_shadow . ';';
     $style .= '--footer_shadow:' . $theme->footer_shadow . ';';
     $style .= '--main_shadow:' . $theme->main_shadow . ';';
     $style .= '--footer_fsize:' . $theme->footer_fsize . ';';
     $style .= '--footer_fstyle:' . $theme->footer_fstyle . ';';
     $style .= '--title_fg:' . $theme->title_fg . ';';
-    $style .= '--shadow-size: 18px;';
     $style .= '}';
 
     // debugging

@@ -136,7 +136,6 @@ function create_form(id, params, fields) {
             button.classList.add('ibutton');
             button.innerHTML = 'Avbryt';
             button.addEventListener('click', (e) => {
-                reject();
                 close(form);
             });
             div.appendChild(button);
@@ -147,7 +146,6 @@ function create_form(id, params, fields) {
             button.classList.add('ibutton');
             button.innerHTML = action;
             button.addEventListener('click', (e) => {
-                console.log(`Resolving form ${title}`);
                 resolve(map);
                 close(form);
             });

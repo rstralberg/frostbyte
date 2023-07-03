@@ -85,16 +85,19 @@ function hexcolor_to_style(hex) {
 
 function stylecolor_to_hex(color) {
     let rgb = parse_rgb(color);
-    return '#' + to_hexbyte(rgb.r) + to_hexbyte(rgb.g) + to_hexbyte(rgb.b);
+    return to_hexbyte(rgb.r) + to_hexbyte(rgb.g) + to_hexbyte(rgb.b);
 }
 
 function stylecolor_a_to_hex(color) {
     let rgba = parse_rgba(color);
-    return '#' + to_hexbyte(rgba.r) + to_hexbyte(rgba.g) + to_hexbyte(rgba.b + to_hexbyte(rgba.a));
+    return to_hexbyte(rgba.r) + to_hexbyte(rgba.g) + to_hexbyte(rgba.b + to_hexbyte(rgba.a));
 }
 
 function rgba_to_hex(rgba) {
-    return '#' + to_hexbyte(rgba.r) + to_hexbyte(rgba.g) + to_hexbyte(rgba.b)+ to_hexbyte(rgba.a);
+    return to_hexbyte(rgba.r) + to_hexbyte(rgba.g) + to_hexbyte(rgba.b)+ to_hexbyte(rgba.a);
+}
+function rgb_to_hex(rgb) {
+    return to_hexbyte(rgb.r) + to_hexbyte(rgb.g) + to_hexbyte(rgb.b);
 }
 function rgb_to_style(rgb) {
     return 'rgb(' + rgb.r + ',' + rgb.g + ',' + rgb.b + ')';

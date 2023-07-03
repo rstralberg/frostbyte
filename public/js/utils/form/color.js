@@ -19,6 +19,7 @@ function create_color(field, map) {
         base.div.style.marginBottom = 0;
     }
 
+    base.inp.value = field.value;
     base.div.style.display = 'grid';
     // base.label.style.height = '32px';
     // base.inp.style.height = '32px;';

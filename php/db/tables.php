@@ -81,10 +81,14 @@ function create_tables($db)
             '#ffffff',// fg5s
             '1.2em',// nav_fsize
             'bold',// nav_fweight
-            '0px',// nav_border
-            '0px',// footer_border
-            '0px',// main_border
-            'transparen',// nav_shadow
+            '0px solid #7f7f7f',// nav_border
+            '0px solid #7f7f7f',// footer_border
+            '0px solid #7f7f7f',// main_border
+            '8px',// nav_radius
+            '8px',// footer_radius
+            '8px',// main_radius
+            '32px',// shadow_size
+            'transparent',// nav_shadow
             'transparent',// footer_shadow
             'transparent',// main_shadow
             '0.8em',// footer_fsize

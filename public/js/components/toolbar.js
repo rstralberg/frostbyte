@@ -83,64 +83,74 @@ function load_toolbar() {
         // Radera aktuell sektion
         // -----------------------
         tb_add(fieldset, '#c0c0ff', 'Radera', () => {
-            delete_section(Global.selected);
+            if (is_valid(Global.selected)) {
+                delete_section(Global.selected);
+            }
         });
 
         // Flytta sektionen uppåt
         // -----------------------
         tb_add(fieldset, '#c0c0ff', 'Upp', () => {
             let section = Global.selected;
-            if (is_valid(section.previousElementSibling, false)) {
-                let prev = section.previousElementSibling;
-                prev.parentNode.insertBefore(section, prev);
+            if (is_valid(section)) {
+                if (is_valid(section.previousElementSibling, false)) {
+                    let prev = section.previousElementSibling;
+                    prev.parentNode.insertBefore(section, prev);
+                }
+                section.focus();
             }
-            section.focus();
         });
 
         // Flytta sektionen nedåt
         // -----------------------
         tb_add(fieldset, '#c0c0ff', 'Ned', () => {
-            let section = Global.selected;;
-            if (is_valid(section.nextElementSibling, false)) {
-                let next = section.nextElementSibling;
-                next.parentNode.insertBefore(section, next.nextSibling);
+            let section = Global.selected;
+            if (is_valid(section)) {
+                if (is_valid(section.nextElementSibling, false)) {
+                    let next = section.nextElementSibling;
+                    next.parentNode.insertBefore(section, next.nextSibling);
+                }
+                section.focus();
             }
-            section.focus();
         });
 
         // Öka sektiones storlek
         // -----------------------
         tb_add(fieldset, '#c0c0ff', 'Större', () => {
             let section = Global.selected;
-            let h = vh_to_pixels(parseInt(section.style.height))+10;
-            section.style.height = `${pixels_to_vh(h)}vh`;
-            let func = window[`on_${section.getAttribute('data-type')}_resize`];
-            if (is_valid(func)) {
-                func(section);
+            if (is_valid(section)) {
+                let h = vh_to_pixels(parseInt(section.style.height)) + 10;
+                section.style.height = `${pixels_to_vh(h)}vh`;
+                let func = window[`on_${section.getAttribute('data-type')}_resize`];
+                if (is_valid(func)) {
+                    func(section);
+                }
+                section.focus();
             }
-            section.focus();
         });
 
         // Minska sektiones storlek
         // -----------------------
         tb_add(fieldset, '#c0c0ff', 'Mindre', () => {
             let section = Global.selected;
-            if (section.clientHeight > 32) {
-                let h = vh_to_pixels(parseInt(section.style.height))-10;
-                section.style.height = `${pixels_to_vh(h)}vh`;
-                let func = window[`on_${section.getAttribute('data-type')}_resize`];
-                if (is_valid(func)) {
-                    func(section);
+            if (is_valid(section)) {
+                if (section.clientHeight > 32) {
+                    let h = vh_to_pixels(parseInt(section.style.height)) - 10;
+                    section.style.height = `${pixels_to_vh(h)}vh`;
+                    let func = window[`on_${section.getAttribute('data-type')}_resize`];
+                    if (is_valid(func)) {
+                        func(section);
+                    }
                 }
+                section.focus();
             }
-            section.focus();
         });
     }
     container.appendChild(toolbar);
     if (Global.user.valid) {
         let toolbar = document.getElementById('toolbar');
         toolbar.style.display = 'grid';
-    } 
+    }
 }
 
 function tb_add(container, color, text, func) {

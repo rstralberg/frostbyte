@@ -90,9 +90,11 @@ function show_text_tools(section) {
 
                 create_form( 'text-link', { title:'Länk', action:'Spara' }, [
                     {
-                        type: FormType.Label,
+                        type: FormType.Text,
                         name: 'text',
-                        label: text,
+                        label: 'text',
+                        value: text.textContent,
+                        readonly: true
                     },
                     {
                         type: FormType.Text,

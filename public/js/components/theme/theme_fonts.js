@@ -82,6 +82,6 @@ function edit_theme_fonts(theme) {
         }
 
         function on_footer_fstyle(e) {
-            set_style('nav_fweight', e.value ? 'italic' : 'normal' );
+            set_style('footer_fstyle', e.value ? 'italic' : 'normal' );
         }
     }

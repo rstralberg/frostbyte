@@ -12,6 +12,7 @@ function create_text(field, map) {
 
     let base = create_base('input', field, map);
     
+    base.inp.value = field.value;
     base.inp.addEventListener('change', (e) => {
         map.set(field.name, field.value = e.target.value);
         if (field.listener) field.listener(field);

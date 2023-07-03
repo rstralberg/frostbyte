@@ -95,6 +95,7 @@ function edit_users() {
                                     users[0].username = decodeURIComponent(users[0].username);
                                     users[0].fullname = decodeURIComponent(users[0].fullname);
                                     users[0].email = decodeURIComponent(users[0].email);
+                                    users[0].power = users[0].power === '1';
                                     
                                     edit_user(users[0]);
                                 });

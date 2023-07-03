@@ -74,3 +74,37 @@ function filtered_style_to_string(style) {
 }
 
 
+function parse_border_style(style) {
+    // 2px solid #101010
+    let border = {
+        size: 0,
+        type: 'solid',
+        color: '000000'
+    };
+
+    let words = style.split(' ');
+    for( let i=0; i < words.length; i++) {
+        let word = words[i].trim();
+        if(word.includes('px')) {
+            border.size = parseInt(word);
+        } else if ( word.includes('#') ) {
+            border.color = word.substring(1);
+        } else if ( word.includes('rgb')) {
+            word = word.substring( 'rgb('.length);
+            word = word.substring( + word.length-1);
+            let parts = word.split(',');
+            let r = parseInt(parts[0]);
+            let g = parseInt(parts[1]);
+            let b = parseInt(parts[2]);
+            border.color = to_hexbyte(r) + to_hexbyte(g) + to_hexbyte(b);
+        }
+        else {
+            border.type = word;
+        }
+    }
+    return border;
+}
+
+function build_border_style(border)  {
+    return `${border.size}px ${border.type} #${border.color}`;
+}

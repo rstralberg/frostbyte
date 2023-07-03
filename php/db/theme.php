@@ -57,6 +57,10 @@ class theme
     public $nav_border;
     public $footer_border;
     public $main_border;
+    public $nav_radius;
+    public $footer_radius;
+    public $main_radius;
+    public $shadow_size;
     public $nav_shadow;
     public $footer_shadow;
     public $main_shadow;
@@ -93,9 +97,13 @@ function create_theme_table($db)
             `fg5s` VARCHAR(10) NOT NULL,
             `nav_fsize` VARCHAR(10) NOT NULL,
             `nav_fweight` VARCHAR(10) NOT NULL,
-            `nav_border` VARCHAR(10) NOT NULL,
-            `footer_border` VARCHAR(10) NOT NULL,
-            `main_border` VARCHAR(10) NOT NULL,
+            `nav_border` VARCHAR(50) NOT NULL,
+            `footer_border` VARCHAR(50) NOT NULL,
+            `main_border` VARCHAR(50) NOT NULL,
+            `nav_radius` VARCHAR(10) NOT NULL,
+            `footer_radius` VARCHAR(10) NOT NULL,
+            `main_radius` VARCHAR(10) NOT NULL,
+            `shadow_size` VARCHAR(10) NOT NULL,
             `main_shadow` VARCHAR(30) NOT NULL,
             `nav_shadow` VARCHAR(30) NOT NULL,
             `footer_shadow` VARCHAR(30) NOT NULL,
@@ -139,6 +147,10 @@ function result_to_theme($db, $res)
     $theme->nav_border = $res['nav_border'];
     $theme->footer_border = $res['footer_border'];
     $theme->main_border = $res['main_border'];
+    $theme->nav_radius = $res['nav_radius'];
+    $theme->footer_radius = $res['footer_radius'];
+    $theme->main_radius = $res['main_radius'];
+    $theme->shadow_size = $res['shadow_size'];
     $theme->nav_shadow = $res['nav_shadow'];
     $theme->footer_shadow = $res['footer_shadow'];
     $theme->main_shadow = $res['main_shadow'];
@@ -194,6 +206,10 @@ function write_theme($db, $theme, $where)
             . '`nav_border`=' . db::string($theme->nav_border) . ','
             . '`footer_border`=' . db::string($theme->footer_border) . ','
             . '`main_border`=' . db::string($theme->main_border) . ','
+            . '`nav_radius`=' . db::string($theme->nav_radius) . ','
+            . '`footer_radius`=' . db::string($theme->footer_radius) . ','
+            . '`main_radius`=' . db::string($theme->main_radius) . ','
+            . '`shadow_size`=' . db::string($theme->shadow_size) . ','
             . '`nav_shadow`=' . db::string($theme->nav_shadow) . ','
             . '`footer_shadow`=' . db::string($theme->footer_shadow) . ','
             . '`main_shadow`=' . db::string($theme->main_shadow) . ','
@@ -228,6 +244,10 @@ function write_theme($db, $theme, $where)
             . '`nav_border`,'
             . '`footer_border`,'
             . '`main_border`,'
+            . '`nav_radius`,'
+            . '`footer_radius`,'
+            . '`main_radius`,'
+            . '`shadow_size`,'
             . '`nav_shadow`,'
             . '`footer_shadow`,'
             . '`main_shadow`,'
@@ -260,6 +280,10 @@ function write_theme($db, $theme, $where)
             . db::string($theme->nav_border) . ','
             . db::string($theme->footer_border) . ','
             . db::string($theme->main_border) . ','
+            . db::string($theme->nav_radius) . ','
+            . db::string($theme->footer_radius) . ','
+            . db::string($theme->main_radius) . ','
+            . db::string($theme->shadow_size) . ','
             . db::string($theme->nav_shadow) . ','
             . db::string($theme->footer_shadow) . ','
             . db::string($theme->main_shadow) . ','
@@ -296,6 +320,10 @@ function create_theme(
     $nav_border,
     $footer_border,
     $main_border,
+    $nav_radius,
+    $footer_radius,
+    $main_radius,
+    $shadow_size,
     $nav_shadow,
     $footer_shadow,
     $main_shadow,
@@ -327,9 +355,13 @@ function create_theme(
     $theme->fg5s = $fg5s;
     $theme->nav_fsize = $nav_fsize;
     $theme->nav_fweight = $nav_fweight;
+    $theme->shadow_size = $shadow_size;
     $theme->nav_border = $nav_border;
     $theme->footer_border = $footer_border;
     $theme->main_border = $main_border;
+    $theme->nav_radius = $nav_radius;
+    $theme->footer_radius = $footer_radius;
+    $theme->main_radius = $main_radius;
     $theme->nav_shadow = $nav_shadow;
     $theme->footer_shadow = $footer_shadow;
     $theme->main_shadow = $main_shadow;

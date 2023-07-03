@@ -9,13 +9,14 @@
 
     z-index: 40;
     overflow: visible;
+    border: var(--nav_border);
+    border-radius: var(--nav_radius);
+
+    -webkit-box-shadow: 10px 10px 15px var(--nav_shadow);
+    box-shadow: 10px 10px 15px var(--nav_shadow);
+
   }
 
-  /* .topnav  img {
-    height: 32px;
-    width: auto;
-  }
-   */
   /* Style the links inside the navigation bar */
   .topnav a {
     float: left;
@@ -24,7 +25,8 @@
     text-align: center;
     padding: 14px 16px;
     text-decoration: none;
-    font-size: 17px;
+    font-size: var(--nav_fsize);
+    font-weight: var(--nav_fweight);
   }
   
   /* Add an active class to highlight the current page */
@@ -46,7 +48,8 @@
   
   /* Style the dropdown button to fit inside the topnav */
   .dropdown .dropbtn {
-    font-size: 17px;
+    font-size: var(--nav_fsize);
+    font-weight: var(--nav_fweight);
     border: none;
     outline: none;
     color: var(--fg2);

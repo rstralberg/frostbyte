@@ -13,7 +13,7 @@ field = {
 function create_checkbox(field, map ) {
     
     let base = create_base('input', field,map)
-    base.checked = field.value === '' ? false : field.value;
+    base.inp.checked = is_valid(field.value) ? field.value : false ;
     
     base.inp.addEventListener('change', (e) => {
         map.set(field.name, field.value = e.target.checked);
