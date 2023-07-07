@@ -402,6 +402,14 @@
 	background: black;
 }
 
+.toolbar {
+	display: grid;
+	background: black;
+    position: relative;
+    left: 0vw;
+    top: 9vh;
+}
+
 .tools {
     background: black;
     font-weight: bold;

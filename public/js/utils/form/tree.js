@@ -19,23 +19,18 @@ function create_tree(field, map) {
         remove_childs(base.inp);
         for (let i = 0; i < field.items.length; i++) {
             let item = field.items[i];
-            
+
             let li = document.createElement('li');
             li.draggable = true;
-            li.id = `li-${item.value}`;
-            li.setAttribute('data-value', item.value);
-            li.setAttribute('data-text', item.text );
+            li.value = item.value;
             li.innerText = item.text;
-            if( is_valid(field.dclick) ) {
-                li.addEventListener( 'dblclick', (e) => {
-                    field.dclick({ item: e.target, value: item.value, base_index: i, sub_index: 0  } );
-                });
-            }
-            else if( is_valid(field.listener) ) {
-                li.addEventListener( 'click', (e) => {
-                    field.listener({ item: e.target, value: item.value, base_index: i, sub_index: 0  } );
-                });
-            }
+            li.addEventListener('click', (e) => {
+                e.preventDefault();
+                map.set(field.name, e.target);
+                if (is_valid(field.listener)) {
+                    field.listener(e.target);
+                }
+            });
 
             base.inp.appendChild(li);
 
@@ -49,17 +44,15 @@ function create_tree(field, map) {
                 let sp = document.createElement('span');
                 sp.classList.add('icaret');
                 sp.innerText = li.innerText;
-                sp.setAttribute('data-value', item.value);
-                sp.setAttribute('data-text', item.text );
+                sp.value = item.value;
                 sp.addEventListener('click', (e) => {
+                    e.preventDefault();
                     e.target.parentElement.querySelector(".inested").classList.toggle('iactive');
                     e.target.classList.toggle('icaret-down');
-                    if( is_valid(field.listener) ) {
-                        sp.addEventListener( 'click', (e) => {
-                            field.listener({ item: e.target, value: item.value, base_index: i, sub_index: 0  } );
-                        });
+                    map.set(field.name, e.target);
+                    if (is_valid(field.listener)) {
+                        field.listener(e.target);
                     }
-                    
                 });
 
                 li.innerText = '';
@@ -69,28 +62,23 @@ function create_tree(field, map) {
                     let sub = item.items[j];
 
                     let li = document.createElement('li');
-                    li.setAttribute('data-value', sub.value);
-                    li.setAttribute('data-text', sub.text );
                     li.draggable = true;
                     li.innerText = sub.text;
-                    li.id = `li-${sub.value}`;
-                    if( is_valid(field.dclick) ) {
-                        li.addEventListener( 'dblclick', (e) => {
-                            field.dclick({ item: e.target, value: item.value, base_index: i, sub_index: j  } );
-                        });
-                    }
-                    else if( is_valid(field.listener) ) {
-                        li.addEventListener( 'click', (e) => {
-                            field.listener({ item: e.target, value: item.value, base_index: i, sub_index: j  } );
-                        });
-                    }
-        
+                    li.value = sub.value;
+                    li.addEventListener('click', (e) => {
+                        e.preventDefault();
+                        map.set(field.name, e.target);
+                        if (is_valid(field.listener)) {
+                            field.listener(e.target);
+                        }
+                    });
+
                     ul.appendChild(li);
                 }
                 li.appendChild(ul);
             }
         }
-        if( is_valid(field.drag) ) {
+        if (is_valid(field.drag)) {
             add_drag_and_drop(base.inp);
         }
 
@@ -134,7 +122,7 @@ function create_tree(field, map) {
                         break;
                     }
                 }
-                if( is_valid(source.parentElement) && source.parentElement.tagName === 'UL') {
+                if (is_valid(source.parentElement) && source.parentElement.tagName === 'UL') {
                 }
 
                 let s = field.items[source_index];

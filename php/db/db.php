@@ -127,6 +127,14 @@ class db
 		else return "'NULL'";
 	}
 
+	public static function encode_string($str) {
+		return db::string(rawurlencode($str));
+	}
+
+	public static function decode_string($str) {
+		return rawurldecode($str);
+	}
+
 	public static function bool($value)
 	{
 		return $value ? 'true' : 'false';

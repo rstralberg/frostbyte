@@ -1,36 +1,109 @@
 
-const SectionType = {
+class Section {
 
-    audio: 'audio',
-    picture: 'picture',
-    soundcloud: 'soundcloud',
-    spacer: 'spacer',
-    spotify: 'spotify',
-    text: 'text',
-    youtube: 'youtube',
-    textimage: 'textimage',
-    imagetext: 'imagetext'
-};
+    static FORM_SECTION_CREATE = 'section-create';
+    
+    static Type = {
+        audio: 'audio',
+        picture: 'picture',
+        soundcloud: 'soundcloud',
+        spacer: 'spacer',
+        spotify: 'spotify',
+        text: 'text',
+        youtube: 'youtube',
+        textimage: 'textimage',
+        imagetext: 'imagetext'
+    };
+    
+    #_id = 0;
+    #_page_id = 0;
+    #_type = '';
+    #_height = '';
+    #_pos = 0;
+    #_content = '';
+    #_selected = null;
+    
+    set id(v) { this.#_id = v; }
+    set page_id(v) { this.#_page_id = v; }
+    set type(v) { this.#_type = v; }
+    set height(v) { this.#_height = v; }
+    set pos(v) { this.#_pos = v; }
+    set content(v) { this.#_content = v; }
+    set selected(v) { this.#_selected = v; } 
+
+
+    get id() { return this.#_id; }
+    get page_id() { return this.#_page_id; }
+    get type() { return this.#_type; }
+    get height() { return this.#_height; }
+    get pos() { return this.#_pos; }
+    get content() { return this.#_content; }
+    get selected() { return this.#_selected; } 
+
+    set section(v) {
+        this.id = v.id;
+        this.page_id = v.page_id;
+        this.type = v.type;
+        this.height = v.height;
+        this.pos = v.pos;
+        this.content = v.content;
+    }
+
+    get section() {
+        return {
+            id: this.id,
+            page_id: this.page_id,
+            type: this.type,
+            height: this.height,
+            pos: this.pos,
+            content: this.content,
+        };
+    }
+
+    sql_to_section(sql) {
+        return {
+            id: parseInt(sql.id),
+            page_id: parseInt(sql.page_id),
+            type: sql.type,
+            height: parseInt(sql.height),
+            pos: parseInt(sql.pos),
+            content: JSON.parse(decodeURIComponent(sql.content)),
+        };
+    }
+
+    section_to_sql(sec) {
+        return {
+            id: sec.id,
+            page_id: sec.page_id,
+            type: sec.type,
+            height: sec.height,
+            pos: sec.pos,
+            content: JSON.stringify(encodeURIComponent(sec.content)),
+        };
+    }
+}
+
 
 function create_section() {
 
     const types = [
-        { value: SectionType.text, text: 'Text' },
-        { value: SectionType.picture, text: 'Bild' },
-        { value: SectionType.imagetext, text: 'Bild & Text' },
-        { value: SectionType.spacer, text: 'Tomrum' },
-        { value: SectionType.audio, text: 'Ljud' },
-        { value: SectionType.soundcloud, text: 'SoundCloud' },
-        { value: SectionType.spotify, text: 'Spotify' },
-        { value: SectionType.youtube, text: 'YouTube' },
+        { value: Section.Type.text, text: 'Text' },
+        { value: Section.Type.picture, text: 'Bild' },
+        { value: Section.Type.imagetext, text: 'Bild & Text' },
+        { value: Section.Type.spacer, text: 'Tomrum' },
+        { value: Section.Type.audio, text: 'Ljud' },
+        { value: Section.Type.soundcloud, text: 'SoundCloud' },
+        { value: Section.Type.spotify, text: 'Spotify' },
+        { value: Section.Type.youtube, text: 'YouTube' },
     ];
-    create_form('section-create', { title: 'Skapa avsnitt', action: 'Skapa' }, [
-        {
+    create_form(Section.FORM_SECTION_CREATE, { 
+        title: 'Skapa avsnitt', 
+        action: 'Skapa' }, [ {
             type: FormType.List,
             label: 'Typ av avsnitt',
             name: 'type',
             items: types,
-            selected: SectionType.text
+            selected: Section.Type.text
         }
     ]).then(
         (result) => {
@@ -42,31 +115,29 @@ function create_section() {
 }
 
 function delete_section() {
-    if (is_valid(Global.selected)) {
-        let func = window[`delete_${Global.selected.getAttribute('data-type')}`];
+    if (is_valid(Section.selected)) {
+        let func = window[`delete_${Section.selected.getAttribute('data-type')}`];
         if (func) {
-            func(Global.selected);
-            Global.selected = null;
+            func(Section.selected);
+            Section.selected = null;
         }
     }
 
 }
 function mark_section_selected(section) {
-    if (Global.user.valid && is_valid(section )) {
+    if (User.valid && is_valid(section )) {
 
-        if( is_valid(Global.selected) && !is_same_section(Global.selected,section) ) {
-            let func = window[`leaving_${Global.selected.getAttribute('data-type')}`];
+        if( is_valid(Section.selected) && !is_same_section(Section.selected,section) ) {
+            let func = window[`leaving_${Section.selected.getAttribute('data-type')}`];
             if (is_valid(func)) {
-                console.log(`Leaving ${Global.selected.id}`);
-                func(Global.selected);
+                func(Section.selected);
            }
         }
 
-        Global.selected = section;
+        Section.selected = section;
         section.classList.add('section-edit');
         let func = window[`entering_${section.getAttribute('data-type')}`];
         if (is_valid(func)) {
-            console.log(`Entering ${section.id}`);
             func(section);
         }
     }

@@ -1,0 +1,27 @@
+.page-edit {
+    height: auto !important;
+    width: 20vw !important;
+    left: 7vw !important;
+    top: 7vh !important;
+}
+
+.page-all {
+    height: auto !important;
+    width: 20vw !important;
+    left: 61vw !important;
+    top: 50vh !important;
+}
+
+.page-menu {
+    height: auto !important;
+    width: 20vw !important;
+    left: 34vw !important;
+    top: 7vh !important;
+}
+
+.page-order {
+    height: auto !important;
+    width: 20vw !important;
+    left: 61vw !important;
+    top: 7vh !important;
+}

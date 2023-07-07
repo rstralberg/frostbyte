@@ -1,6 +1,6 @@
 
 function bigger() {
-    let section = Global.selected;
+    let section = Section.selected;
     section.style.height = `${section.clientHeight + 10}px`;
     let func = window[`on_${section.getAttribute('data-type')}_resize`];
     if (is_valid(func)) {
@@ -9,7 +9,7 @@ function bigger() {
 }
 
 function smaller() {
-    let section = Global.selected;
+    let section = Section.selected;
     if (section.clientHeight > 32) {
         section.style.height = `${section.clientHeight - 10}px`;
         let func = window[`on_${section.getAttribute('data-type')}_resize`];

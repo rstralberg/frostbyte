@@ -51,7 +51,7 @@ function create_new_imagetext() {
 
             sql_insert('section',
                 ['page_id', 'type', 'height', 'pos', 'content'],
-                [sql(Global.page.id),
+                [sql(Page.id),
                 sql('imagetext'),
                 sql(20),
                 sql(document.querySelector('main').childElementCount),
@@ -66,7 +66,7 @@ function create_new_imagetext() {
                         section.style.flexDirection = 'row';
 
                         section.setAttribute('data-type', 'imagetext');
-                        section.setAttribute('data-page-id', Global.page.id);
+                        section.setAttribute('data-page-id', Page.id);
 
                         section.id = create_section_id(id);
                         container.appendChild(section);
@@ -268,7 +268,7 @@ function delete_imagetext(section) {
 function entering_imagetext(section) {
 
     let text = section.querySelector(`#${section.id}-text`);
-    text.contentEditable = Global.user.valid;
+    text.contentEditable = User.valid;
 }
 
 function leaving_imagetext(section) {

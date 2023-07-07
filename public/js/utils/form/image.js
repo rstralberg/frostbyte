@@ -27,7 +27,7 @@ function create_image(field, map) {
             resize_image(file, Global.MAX_IMAGE_SIZE)
                 .then(
                     (resized_image) => {
-                        upload(file.name, resized_image, Global.page.id)
+                        upload(file.name, resized_image, Page.id)
                             .then(
                                 (resolve) => {
                                     load_image_to_div(base.div, resolve, field.size);

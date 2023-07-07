@@ -85,7 +85,7 @@ function hexcolor_to_style(hex) {
 
 function stylecolor_to_hex(color) {
     let rgb = parse_rgb(color);
-    return to_hexbyte(rgb.r) + to_hexbyte(rgb.g) + to_hexbyte(rgb.b);
+    return '#' + to_hexbyte(rgb.r) + to_hexbyte(rgb.g) + to_hexbyte(rgb.b);
 }
 
 function stylecolor_a_to_hex(color) {

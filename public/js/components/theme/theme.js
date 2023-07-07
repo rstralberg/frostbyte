@@ -1,53 +1,6 @@
 
 function edit_theme(theme_name) {
 
-    // name;
-
-    // // overall colors
-    // bg1;
-    // fg1;
-
-    // // navbar, footer 
-    // bg2;
-    // fg2;
-
-    // // hover colors
-    // bg3;
-    // fg3;
-
-    // // font
-    // font;
-    // fsize;
-
-    // // links
-    // links;
-
-    // // writable field colors
-    // bg4;
-    // fg4;
-    // bg4h;
-    // fg4h;
-    // bg4l;
-    // fg4l;
-
-    // // section colors
-    // bg5;
-    // fg5;
-    // bg5s;
-    // fg5s;
-
-    // // some specifics
-    // nav_fsize;
-    // nav_fweight;
-    // nav_border;
-    // footer_border;
-    // main_border;
-    // nav_shadow;
-    // footer_shadow;
-    // main_shadow;
-    // footer_fsize;
-    // footer_fstyle;
-    // title_fg;    
     var selects = [
         {
             value:'none',
@@ -73,6 +26,7 @@ function edit_theme(theme_name) {
         create_form('theme-editor', {
             title: 'Redigera temat "' + theme_name + '"',
             zindex: 8888,
+            cancel: false,
             pos: { x:'41vw', y:'7vh'}
         } , [
             {
@@ -100,13 +54,29 @@ function edit_theme(theme_name) {
                         if( themes.length > 0 ) {
                             let func = window['edit_theme_' + e.value];
                             if( is_valid(func)) {
+                                hide_others(e.value);
                                 func(themes[0]);
                             }
                         }
                     });
             }
         }
-        
+
+        function hide_others(this_one) {
+
+            selects.forEach( select=> {
+                let name = 'edit-theme-' + select.value;
+                if (this_one !== name ) {
+                    console.log('trying ' + name);
+                    let element =  document.getElementById(name);
+                    if( is_valid(element )) {
+                        element.style.display = 'none';
+                    }
+                }
+
+            });
+
+        }
 }
 
 

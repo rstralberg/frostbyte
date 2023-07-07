@@ -4,7 +4,7 @@ function load_toolbar() {
 
     let container = document.querySelector('.left');
     var toolbar = document.createElement('div');
-    toolbar.classList.add('vert-menu');
+    toolbar.classList.add('toolbar');
     toolbar.id = 'toolbar';
     toolbar.style.display = 'none';
     toolbar.style.fontSize = '0.9em';
@@ -12,11 +12,11 @@ function load_toolbar() {
 
     // Bara om du är författare eller power-user
     // ------------------
-    if (Global.page.author === Global.user.username || Global.user.power) {
+    if (Page.author === User.username || User.power) {
 
         // Bara om du är power-user
         // ------------------
-        if (Global.user.power) {
+        if (User.power) {
             let fieldset = document.createElement('fieldset');
             let legend = document.createElement('legend');
 
@@ -38,40 +38,28 @@ function load_toolbar() {
 
             // Redigera sidornas ordning
             // ----------------------------
-            tb_add(fieldset, '#ffc0c0', 'Sidor', edit_pages);
+            tb_add(fieldset, '#ffc0c0', 'Sidor', page_editor);
         }
-
-        let fieldset = document.createElement('fieldset');
-        let legend = document.createElement('legend');
-        legend.innerText = 'Sidor';
-        fieldset.appendChild(legend);
-        toolbar.appendChild(fieldset);
-
-        // Bara om du är power-user
-        // ------------------
-        if (Global.user.power) {
-
-            // Skapa ny sida
-            // ------------------
-            tb_add(fieldset, '#c0ffc0', 'Ny', create_page);
-
-            // Radera aktuell sida
-            // ------------------
-            tb_add(fieldset, '#c0ffc0', 'Radera', delete_page);
-
-        }
-
-        // Döp om aktuell sida
-        // ------------------
-        tb_add(fieldset, '#c0ffc0', 'Namge', rename_page);
     }
 
     // Bara om du är författare eller power-user
     // -----------------------
-    if (Global.page.author === Global.user.username || Global.user.power) {
+    if (Page.author === User.username || User.power) {
+
 
         let fieldset = document.createElement('fieldset');
         let legend = document.createElement('legend');
+        legend.innerText = 'Sida';
+        fieldset.appendChild(legend);
+        toolbar.appendChild(fieldset);
+
+        // Döp om
+        // -----------------------
+        tb_add(fieldset, '#c0c0ff', 'Titel', rename_page);
+
+
+        fieldset = document.createElement('fieldset');
+        legend = document.createElement('legend');
         legend.innerText = 'Avsnitt';
         fieldset.appendChild(legend);
         toolbar.appendChild(fieldset);
@@ -83,15 +71,15 @@ function load_toolbar() {
         // Radera aktuell sektion
         // -----------------------
         tb_add(fieldset, '#c0c0ff', 'Radera', () => {
-            if (is_valid(Global.selected)) {
-                delete_section(Global.selected);
+            if (is_valid(Section.selected)) {
+                delete_section(Section.selected);
             }
         });
 
         // Flytta sektionen uppåt
         // -----------------------
         tb_add(fieldset, '#c0c0ff', 'Upp', () => {
-            let section = Global.selected;
+            let section = Section.selected;
             if (is_valid(section)) {
                 if (is_valid(section.previousElementSibling, false)) {
                     let prev = section.previousElementSibling;
@@ -104,7 +92,7 @@ function load_toolbar() {
         // Flytta sektionen nedåt
         // -----------------------
         tb_add(fieldset, '#c0c0ff', 'Ned', () => {
-            let section = Global.selected;
+            let section = Section.selected;
             if (is_valid(section)) {
                 if (is_valid(section.nextElementSibling, false)) {
                     let next = section.nextElementSibling;
@@ -117,8 +105,9 @@ function load_toolbar() {
         // Öka sektiones storlek
         // -----------------------
         tb_add(fieldset, '#c0c0ff', 'Större', () => {
-            let section = Global.selected;
+            let section = Section.selected;
             if (is_valid(section)) {
+                
                 let h = vh_to_pixels(parseInt(section.style.height)) + 10;
                 section.style.height = `${pixels_to_vh(h)}vh`;
                 let func = window[`on_${section.getAttribute('data-type')}_resize`];
@@ -126,13 +115,14 @@ function load_toolbar() {
                     func(section);
                 }
                 section.focus();
+                
             }
         });
 
         // Minska sektiones storlek
         // -----------------------
         tb_add(fieldset, '#c0c0ff', 'Mindre', () => {
-            let section = Global.selected;
+            let section = Section.selected;
             if (is_valid(section)) {
                 if (section.clientHeight > 32) {
                     let h = vh_to_pixels(parseInt(section.style.height)) - 10;
@@ -141,13 +131,14 @@ function load_toolbar() {
                     if (is_valid(func)) {
                         func(section);
                     }
+
                 }
                 section.focus();
             }
         });
     }
     container.appendChild(toolbar);
-    if (Global.user.valid) {
+    if (User.valid) {
         let toolbar = document.getElementById('toolbar');
         toolbar.style.display = 'grid';
     }
@@ -169,7 +160,7 @@ function tb_add(container, color, text, func) {
 
 function show_tools(title, tools) {
 
-    if (Global.user.valid) {
+    if (User.valid) {
         let toolbar = document.getElementById('toolbar');
 
         let fieldset = document.getElementById('added-tools');

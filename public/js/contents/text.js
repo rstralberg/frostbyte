@@ -31,7 +31,7 @@ function create_new_text() {
 
                 sql_insert('section',
                     ['page_id', 'type', 'height', 'pos', 'content'],
-                    [sql(Global.page.id),
+                    [sql(Page.id),
                     sql('text'),
                     sql(12),
                     sql(document.querySelector('main').childElementCount),
@@ -136,7 +136,7 @@ function delete_text(section) {
 
 function entering_text(section) {
     show_text_tools(section);
-    section.contentEditable = Global.user.valid ? 'true' : 'false';
+    section.contentEditable = User.valid ? 'true' : 'false';
 }
 
 function leaving_text(section) {

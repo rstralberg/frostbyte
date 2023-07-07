@@ -18,7 +18,7 @@ function create_upload(field, map) {
         if (e.target.files && e.target.files[0]) {
             field.value = e.target.files[0].name;
             if (!is_valid(field.title)) field.title = e.target.files[0].name;
-            upload(field.title, e.target.files[0], Global.page.id)
+            upload(field.title, e.target.files[0], Page.id)
                 .then(
                     (resolve) => {
                         map.set(field.name,resolve);

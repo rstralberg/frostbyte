@@ -51,7 +51,7 @@ function load_navbar() {
             }
 
             var img = null;
-            if (is_valid(Global.config.logo, false)) {
+            if (is_valid(Config.logo, false)) {
                 img = document.createElement('img');
                 img.classList.add('logo');
                 img.addEventListener('load', (e) => {
@@ -108,9 +108,9 @@ function load_navbar() {
             let a = document.createElement('a');
             a.id = 'log-in-out';
             a.classList.add('login', 'nav-right');
-            a.innerHTML = is_valid(Global.user) && Global.user.valid ? 'Logga ut' : 'Logga in';
+            a.innerHTML = User.valid ? 'Logga ut' : 'Logga in';
             a.addEventListener('click', (e) => {
-                if (is_valid(Global.user) && Global.user.valid) {
+                if (User.valid) {
                     logout();
                 } else {
                     login();
@@ -133,10 +133,10 @@ function load_navbar() {
             });
             nav.append(a);
 
-            navbar_logged_in(Global.user.valid);
+            navbar_logged_in(User.valid);
 
             if (img) {
-                img.src = Global.config.logo;
+                img.src = Config.logo;
             }
             resolve();
         });
@@ -152,14 +152,17 @@ function navbar_logged_in(logged_in) {
 
 function navbar_rename_item(id, title) {
     let navbar = document.querySelector('nav');
-    for (let i = 0; i < navbar.children.length; i++) {
-        let item = navbar.children[i];
-        if (item.id === `${id}`) {
+    let items = navbar.querySelectorAll('a');
+    items.forEach(item => {
+        if (item.pathname === `/${id}` && 
+            !item.classList.contains('fa') && 
+            !item.classList.contains('logo')) {
             item.innerHTML = title;
-            break;
+            return;
         }
-    }
+    });
 }
+
 
 function update_navbar() {
     let nav = document.querySelector('nav');

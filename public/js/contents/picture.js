@@ -47,7 +47,7 @@ function create_new_picture() {
 
             sql_insert('section',
                 ['page_id', 'type', 'height', 'pos', 'content'],
-                [sql(Global.page.id),
+                [sql(Page.id),
                 sql('picture'),
                 sql(20),
                 sql(document.querySelector('main').childElementCount),
