@@ -1,0 +1,16 @@
+.page-toolbar {
+    background: var(--top_bg);
+    color: var(--top_fg);
+    border: var(--top_border);
+    border-radius: var(--top_radius);
+    font-family: var(--top_font);
+    font-size: var(--top_font_size);
+    font-style: var(--top_font_style);
+    font-weight: var(--top_font_weight);    
+    height: auto;
+    width: 100%;
+    text-align: left;
+    margin-top: 4px;
+    display: inline-block;
+}
+

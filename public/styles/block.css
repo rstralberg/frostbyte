@@ -1,0 +1,145 @@
+.page {
+    background: var(--main_bg);
+    color: var(--main_fg);
+    border: var(--main_border);
+    border-radius: var(--main_radius);
+    font-family: var(--main_font);
+    font-size: var(--main_font_size);
+    font-style: var(--main_font_style);
+    font-weight: var(--main_font_weight);    
+}
+
+.block-container {
+    height: inherit;
+}
+
+.block {
+    display: block;
+    -webkit-flex: 1;
+    -ms-flex: 1;
+    flex: 1;
+    margin-top: 4px;
+    margin-bottom: 4px;
+    width: 100%;
+}
+
+.block-edit {
+    display: block;
+    border: '2px solid grey';
+    -webkit-flex: 1;
+    -ms-flex: 1;
+    flex: 1;
+    width: 100%;
+    margin-top: 4px;
+    margin-bottom: 4px;
+}
+
+.block-selected {
+    border: '2px solid cyan' !important;
+}
+
+.block-resizing {
+    border: '2px solid red' !important;
+}
+
+.block-media
+{
+    background: var(--media_bg);
+    color: var(--media_fg);
+    border: var(--media_border);
+    border-radius: var(--media_radius);
+    font-family: var(--media_font);
+    font-size: var(--media_font_size);
+    font-style: var(--media_font_style);
+    font-weight: var(--media_font_weight);    
+    text-align: center;
+    height: auto;
+    width: -moz-available;
+}
+
+.block-audio-title
+{
+    text-align: center;
+    font-weight: bold;
+}
+
+.block-text
+{
+    background: var(--text_bg);
+    color: var(--text_fg);
+    border: var(--text_border);
+    border-radius: var(--text_radius);
+    font-family: var(--text_font);
+    font-size: var(--text_font_size);
+    font-style: var(--text_font_style);
+    font-weight: var(--text_font_weight);    
+    margin-bottom: 1em;
+    text-align: left;
+}
+
+.block-picture
+{
+    background: var(--picture_bg);
+    color: var(--picture_fg);
+    border: var(--picture_border);
+    border-radius: var(--picture_radius);
+    font-family: var(--picture_font);
+    font-size: var(--picture_font_size);
+    font-style: var(--picture_font_style);
+    font-weight: var(--picture_font_weight);    
+}
+
+.block-picture > img {
+    margin: 20px;
+}
+
+.block-picture > canvas {
+    margin: 4px;
+    padding: 4px;
+}
+
+.block-quote {
+    background: var(--quote_bg);
+    color: var(--quote_fg);
+    border: var(--quote_border);
+    border-radius: var(--quote_radius);
+    font-family: var(--quote_font);
+    font-size: var(--quote_font_size);
+    font-style: var(--quote_font_style);
+    font-weight: var(--quote_font_weight);    
+}
+
+.block-title {
+    background: var(--content_title_bg);
+    color: var(--content_title_fg);
+    border: var(--content_title_border);
+    border-radius: var(--content_title_radius);
+    font-family: var(--content_title_font);
+    font-size: var(--content_title_font_size);
+    font-style: var(--content_title_font_style);
+    font-weight: var(--content_title_font_weight);    
+
+}
+
+.block-code {
+    background: var(--code_bg);
+    color: var(--code_fg);
+    border: var(--code_border);
+    border-radius: var(--code_radius);
+    font-family: var(--code_font);
+    font-size: var(--code_font_size);
+    font-style: var(--code_font_style);
+    font-weight: var(--code_font_weight);    
+}
+
+.block h1 {
+    text-shadow:2px 2px 4px rgba(0, 0, 0, 0.1),
+                3px 4px 4px rgba(0, 0, 0, 0.15),
+                4px 6px 4px rgba(0, 0, 0, 0.2),
+                5px 8px 4px rgba(0, 0, 0, 0.25);
+    height: 2em;
+    line-height: 2em;
+}
+
+@media screen and (max-width: 600px) {
+}

@@ -1,0 +1,45 @@
+.dlg {
+    background: var(--dlg_bg);
+    color: var(--dlg_fg);
+    border: var(--dlg_border);
+    border-radius: var(--dlg_radius);
+    font-family: var(--dlg_font);
+    font-size: var(--dlg_font_size);
+    font-style: var(--dlg_font_style);
+    font-weight: var(--dlg_font_weight);    
+    display: inline-flex;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    margin-top: -50px;
+    margin-left: -50px;
+    z-index: 9;
+}
+
+.dlg-container {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    max-width: var(--app_width);
+    display: none;
+    padding: 10px;
+    margin-left: -50px;
+    margin-right: -50px;
+    text-align: left;
+    border: var(--dlg_border);
+}
+
+.dlg-container .cancel {
+    background-color: var(--btn_active_bg);
+}
+
+
+
+@media screen and (max-width: 600px) {
+
+    .dlg-container {
+        display: none;
+        left: 30vw;
+        top:30vh;
+    }
+}
