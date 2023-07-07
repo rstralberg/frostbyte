@@ -55,6 +55,7 @@ const FormType = {
     size: 'optional {w,h} fixed size
     zindex: 'optional'
     cancel: 'optional' default=true
+    css: optional 'css class'
 */
 
 function create_form(id, params, fields) {
@@ -65,20 +66,45 @@ function create_form(id, params, fields) {
     var pos = is_valid(params.pos) ? params.pos : { x: '2vw', y: '7vh' };
     var size = is_valid(params.size) ? params.size : { w: 'auto', h: 'auto' };
     var zindex = is_valid(params.zindex) ? params.zindex : null;
-    
+    var cancel = typeof params.cancel === 'undefined' ? true : params.cancel;
+
     return new Promise(function (resolve, reject) {
 
         let form = document.createElement('form');
-        form.classList.add('iform');
+
+        if (is_valid(params.css)) {
+            params.css.forEach(css => {
+                form.classList.add(css);
+            });
+        }
+        else {
+            form.classList.add('iform');
+        }
+
         form.id = id;
         form.enctype = 'multipart/form-data';
         form.style.height = size.h;
         form.style.width = size.w;
         form.style.left = pos.x;
         form.style.top = pos.y;
+
         if (zindex) {
             form.style.zIndex = zindex;
+        } else {
+
+            let forms = document.querySelectorAll('.iform');
+            zindex = 0;
+            forms.forEach(f => {
+                if (f.id !== id && is_valid(f.style.zIndex) && parseInt(f.style.zIndex)) {
+                    let z = parseInt(f.style.zIndex);
+                    if (z > zindex) {
+                        zindex = z;
+                    }
+                }
+            });
+            form.style.zIndex = zindex + 1;
         }
+
 
         let titlediv = document.createElement('div');
         titlediv.classList.add('ititle');
@@ -131,11 +157,12 @@ function create_form(id, params, fields) {
         });
 
         let div = document.createElement('div');
-        if ( !is_valid(params.cancel) || params.cancel) {
+        if (cancel) {
             let button = document.createElement('button');
             button.classList.add('ibutton');
             button.innerHTML = 'Avbryt';
             button.addEventListener('click', (e) => {
+                reject(map);
                 close(form);
             });
             div.appendChild(button);

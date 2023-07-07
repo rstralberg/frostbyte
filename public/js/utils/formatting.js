@@ -5,7 +5,7 @@ function format_selection(tag) {
         let span = document.createElement(tag);
         span.appendChild(range.extractContents());
         range.insertNode(span);
-        Global.selected.focus(); // keep focus on the editor
+        Section.selected.focus(); // keep focus on the editor
     }
 }
 
@@ -61,7 +61,7 @@ function on_link() {
                         a.href = resolve.get('link');
                         a.appendChild(text);
                         range.insertNode(a);
-                        Global.selected.focus(); // keep focus on the editor
+                        Section.selected.focus(); // keep focus on the editor
                     }
                 )
         }
@@ -70,18 +70,18 @@ function on_link() {
 }
 
 function on_clear_formatting() {
-    Global.selected.innerHTML = Global.selected.innerText;
+    Section.selected.innerHTML = Section.selected.innerText;
 }
 
 function on_align_left() {
-    Global.selected.style.textAlign = 'left';
+    Section.selected.style.textAlign = 'left';
 }
 
 function on_align_center() {
-    Global.selected.style.textAlign = 'center';
+    Section.selected.style.textAlign = 'center';
 }
 
 function on_align_right() {
-    Global.selected.style.textAlign = 'right';
+    Section.selected.style.textAlign = 'right';
 }
 

@@ -7,7 +7,7 @@ function create_new_spacer() {
 
     sql_insert('section',
         ['page_id', 'type', 'height', 'pos', 'content'],
-        [sql(Global.page.id),
+        [sql(Page.id),
         sql('spacer'),
         sql(12),
         sql(document.querySelector('main').childElementCount),
@@ -19,7 +19,7 @@ function create_new_spacer() {
 
                 section.classList.add('section-edit');
                 section.setAttribute('data-type', 'spacer');
-                section.setAttribute('data-page-id', Global.page.id);
+                section.setAttribute('data-page-id', Page.id);
                 section.contentEditable = false;
                 create_section_id(section, id);
                 container.appendChild(section);

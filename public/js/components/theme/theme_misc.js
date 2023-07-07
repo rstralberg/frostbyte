@@ -15,12 +15,12 @@ function edit_theme_misc(theme) {
         { value: 'black', text: 'Skugga'}
     ];
 
-    create_form('ed-theme-misc', {
+    create_form('edit-theme-misc', {
         title: 'Redigera övrigt',
-        action: 'Spara',
-        pos: { x: '2vw', y: '0vh' },
-        // size: { w: '60vw', h: 'auto' },
-        zindex: 999999
+        pos: { x: '41vw', y: '26vh' },
+        size: { w: '41vw', h: 'auto' },
+        cancel: false,
+        fixed: true
     }, [
         { 
             type: FormType.Color,
@@ -60,7 +60,17 @@ function edit_theme_misc(theme) {
             selected: get_style('footer_shadow'),
             listener: on_footer_shadow
         },
+        {
+            type: FormType.Button,
+            name: 'save',
+            value: 'Spara',
+            listener: on_save()
+        }
         ]);
+
+        function on_save(e) {
+
+        }
 
         function on_links(e) {
             set_style('links', e.value);

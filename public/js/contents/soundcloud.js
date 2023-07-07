@@ -33,7 +33,7 @@ function create_new_soundcloud() {
 
                 sql_insert('section',
                     ['page_id', 'type', 'height', 'pos', 'content'],
-                    [sql(Global.page.id),
+                    [sql(Page.id),
                     sql('soundcloud'),
                     sql(40),
                     sql(document.querySelector('main').childElementCount),

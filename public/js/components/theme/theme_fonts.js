@@ -6,12 +6,12 @@ function edit_theme_fonts(theme) {
     ]);
 
 
-    create_form('ed-theme-fonts', {
+    create_form('edit-theme-fonts', {
         title: 'Redigera teckensnitt',
-        action: 'Spara',
-        pos: { x: '2vw', y: '0vh' },
-        // size: { w: '60vw', h: 'auto' },
-        zindex: 999999
+        pos: { x: '41vw', y: '26vh' },
+        size: { w: '41vw', h: 'auto' },
+        fixed: true,
+        cancel: false
     }, [
         { 
             type: FormType.List,
@@ -58,8 +58,19 @@ function edit_theme_fonts(theme) {
             label: 'Fotrad kursiv',
             value: get_style('footer_fstyle') === 'italic',
             listener: on_footer_fstyle
-        }]);
+        },
+        {
+            type: FormType.Button,
+            name: 'save',
+            value: 'Spara',
+            listener: on_save()
+        }
+        ]);
 
+        function on_save(e) {
+
+        }
+        
 
         function on_font(e) {
             set_style('font', e.value );

@@ -19,6 +19,8 @@ class page
     public $title;
     public $author;
     public $pos;
+    public $showtitle;
+    public $host;
 }
 
 function create_page_table($db)
@@ -27,11 +29,13 @@ function create_page_table($db)
     if ($create) {
         $db->query(
             "CREATE TABLE `page` (
-                 `id` int(11) NOT NULL AUTO_INCREMENT,
+                `id` int(11) NOT NULL AUTO_INCREMENT,
                 `parent` int(11) DEFAULT 0,
                 `title` varchar(50) NOT NULL,
                 `author` varchar(50) NOT NULL,
                 `pos` int(11) NOT NULL,
+                `showtitle` tinyint NOT NULL,
+                `host` tinyint NOT NULL,
                 PRIMARY KEY (`id`)
               ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_swedish_ci"
         );
@@ -46,6 +50,8 @@ function result_to_page($db, $res)
     $page->title = $res['title'];
     $page->author = $res['author'];
     $page->pos = $res['pos'];
+    $page->showtitle = $res['showtitle'];
+    $page->host = $res['host'];
     return $page;
 }
 
@@ -82,19 +88,25 @@ function write_page($db, $page, $where)
             . '`parent`=' . $page->parent . ','
             . '`title`=' . db::string($page->title) . ','
             . '`author`=' . db::string($page->author) . ','
-            . '`pos`=' . $page->pos . ' '
+            . '`pos`=' . $page->pos . ','
+            . '`showtitle`=' . $page->showtitle . ','
+            . '`host`=' . $page->host . ' '
             . 'where ' . $where);
     } else {
         $db->query('INSERT INTO `page` ('
             . '`parent`,'
             . '`title`,'
             . '`author`,'
-            . '`pos`'        
+            . '`pos`,'        
+            . '`showtitle`,'        
+            . '`host`'        
             . ' ) VALUES ('
             . $page->parent . ','
             . db::string($page->title) . ','
             . db::string($page->author) . ','
-            . $page->pos . ')');
+            . $page->pos . ','
+            . ($page->showtitle?1:0) . ','
+            . ($page->host?1:0) . ')');
     }
 }
 
@@ -103,12 +115,16 @@ function create_page(
     $parent,
     $title,
     $author,
-    $pos ) {
+    $pos, 
+    $showtitle,
+    $host ) {
     $page = new page($db);
     $page->parent = $parent;
     $page->title = $title;
     $page->author = $author;
     $page->pos = $pos;
+    $page->showtitle = $showtitle;
+    $page->host = $host;
     write_page($db, $page, 'id=0');
     return $db->get_last_id();
 }

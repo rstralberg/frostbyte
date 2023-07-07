@@ -43,6 +43,18 @@ function get_bool_style(name) {
     return get_style(name) == 'true';
 }
 
+function get_hexcolor_style(name) {
+    let color = get_style(name);
+    if( color.includes('#')) {
+        return color;
+    }
+    else if( color.includes('rgb')) { 
+        return stylecolor_to_hex(color);
+    }
+    else {
+        console.error('Color format not supported in "' + name + '" = ' + color);
+    }
+}
 function get_filtered(filter) {
     let styles = new Array();
     let gs = getComputedStyle(document.querySelector('html'))

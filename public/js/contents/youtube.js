@@ -37,7 +37,7 @@ function create_new_youtube() {
 
                 sql_insert('section',
                     ['page_id', 'type', 'height', 'pos', 'content'],
-                    [sql(Global.page.id),
+                    [sql(Page.id),
                     sql('youtube'),
                     sql(42),
                     sql(document.querySelector('main').childElementCount),

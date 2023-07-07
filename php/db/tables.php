@@ -27,9 +27,7 @@ function create_tables($db)
             CONF_SITENAME,
             CONF_SITEOWNER,
             CONF_THEME,
-            CONF_CHARSET,
-            CONF_LOGO,
-            CONF_SHOWHEADERS);
+            CONF_LOGO);
     }    
     
     create_user_table($db);
@@ -45,7 +43,7 @@ function create_tables($db)
     create_page_table($db);
     $page_id = 0;
     if( read_page($db, null, null, dbmode::single) === null) {
-        $page_id = create_page($db, 0, CONF_HOME_TITLE, CONF_USERNAME, 0);
+        $page_id = create_page($db, 0, CONF_HOME_TITLE, CONF_USERNAME, 0, true, false);
     }
 
     create_section_table($db);

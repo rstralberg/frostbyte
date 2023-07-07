@@ -16,6 +16,7 @@ function generate_scripts() {
         'js/utils',
         'js/utils/form',
         'js/components',
+        'js/components/page',
         'js/components/theme',
         'js/contents',
     ];

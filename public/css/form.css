@@ -6,6 +6,7 @@
 .itree>li {
     background: var(--bg4);
     color: var(--fg4);
+    cursor: pointer;
 }
 
 .itree>li::before {
@@ -18,11 +19,13 @@
 .inested {
     list-style-type: none;
     display: none;
+
 }
 
 .inested>li {
     background: var(--bg4l);
     color: var(--fg4l);
+    cursor: pointer;
 }
 
 .inested>li::before {

@@ -1,12 +1,12 @@
 
 function edit_theme_colors(theme) {
 
-    create_form('ed-theme-colors', {
+    create_form('edit-theme-colors', {
         title: 'Redigera färgerna',
-        action: 'Spara',
-        pos: { x: '2vw', y: '0vh' },
-        size: { w: '60vw', h: 'auto' },
-        zindex: 999999
+        pos: { x: '41vw', y: '26vh' },
+        size: { w: '41vw', h: 'auto' },
+        cancel: false,
+        fixed: true
     }, [
         {
             type: FormType.Color_Bg_Fg,
@@ -79,6 +79,13 @@ function edit_theme_colors(theme) {
             value: get_style('title_fg'),
             listener: on_title_fg
         },
+        {
+            type: FormType.Button,
+            name: 'save',
+            value: 'Spara',
+            listener: on_save
+
+        }
     ]);
 
     function on_bg1(e) {
@@ -123,5 +130,42 @@ function edit_theme_colors(theme) {
 
     function on_title_fg(e) {
         set_style('title_fg', e.fg);
+    }
+
+    function on_save(e) {
+
+        sql_update( 'theme', 
+        [
+            'bg1', 'fg1',
+            'bg2', 'fg2',
+            'bg3', 'fg3',
+            'bg4', 'fg4',
+            'bg4h', 'fg4h',
+            'bg4l', 'fg4l',
+            'bg5', 'fg5',
+            'bg5s', 'fg5s',
+            'title_fg'
+        ],
+        [
+            sql(get_hexcolor_style('bg1')),
+            sql(get_hexcolor_style('fg1')),
+            sql(get_hexcolor_style('bg2')),
+            sql(get_hexcolor_style('fg2')),
+            sql(get_hexcolor_style('bg3')),
+            sql(get_hexcolor_style('fg3')),
+            sql(get_hexcolor_style('bg4')),
+            sql(get_hexcolor_style('fg4')),
+            sql(get_hexcolor_style('bg4h')),
+            sql(get_hexcolor_style('fg4h')),
+            sql(get_hexcolor_style('bg4l')),
+            sql(get_hexcolor_style('fg4l')),
+            sql(get_hexcolor_style('bg5')),
+            sql(get_hexcolor_style('fg5')),
+            sql(get_hexcolor_style('bg5s')),
+            sql(get_hexcolor_style('fg5s')),
+            sql(get_hexcolor_style('title_fg'))
+        ],
+        '`name`='+ sql(theme.name)
+        );
     }
 }
