@@ -93,6 +93,43 @@ function create_tables($db)
             'italic',// footer_fstyle
             '#c8c880'// title_fg
         );
+
+        create_theme($db, 'Light',
+            '#202020',// bg1
+            '#ffffff',// fg1
+            '#000000',// bg2
+            '#c8c880',// fg2
+            '#202020',// bg3
+            '#ffffff',// fg3
+            'Arial',// font
+            '1.0em',// fsize
+            '#c8c880',// links
+            '#f5deb3',// bg4
+            '#202020',// fg4
+            '#ffeec3',// bg4h
+            '#101010',// fg4h
+            '#a89a7f',// bg4l
+            '#000000',// fg4l
+            '#303030',// bg5
+            '#ffffff',// fg5
+            '#404040',// bg5s
+            '#ffffff',// fg5s
+            '1.2em',// nav_fsize
+            'bold',// nav_fweight
+            '0px solid #7f7f7f',// nav_border
+            '0px solid #7f7f7f',// footer_border
+            '0px solid #7f7f7f',// main_border
+            '8px',// nav_radius
+            '8px',// footer_radius
+            '8px',// main_radius
+            '32px',// shadow_size
+            'transparent',// nav_shadow
+            'transparent',// footer_shadow
+            'transparent',// main_shadow
+            '0.8em',// footer_fsize
+            'italic',// footer_fstyle
+            '#c8c880'// title_fg
+        );
     }
 }
 

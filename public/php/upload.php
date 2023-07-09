@@ -40,13 +40,13 @@ $filetmp = $_FILES['file']['tmp_name'];
 $media = __DIR__ . '/../uploads/';
 if (!is_dir($media)) {
     mkdir($media);
-}
-$media .= $page . '/';
+}   
+$subdir = $page == 0 ? 'shared/' : $page . '/';;
+$media .= $subdir;
 if (!is_dir($media)) {
     mkdir($media);
 }
-$ext = pathinfo($filename, PATHINFO_EXTENSION);
-$title = pathinfo($title, PATHINFO_FILENAME);
-$to = $media . $title . '.' . strtolower($ext);
+
+$to = $media . $title ;
 $success = move_uploaded_file($filetmp, $to);
-upload_response($success, 'uploads/' . $page . '/' . $title . '.' . strtolower($ext));
+upload_response($success, '/uploads' . '/' . $subdir . $title );

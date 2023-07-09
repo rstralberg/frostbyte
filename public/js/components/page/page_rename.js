@@ -29,7 +29,11 @@ function rename_page() {
                         (error) => {
                             logg(`rename_page: ${error}`);
                         });
-            });
+            },
+            (_reject) => {
+                
+            }
+            );
 
 
 }

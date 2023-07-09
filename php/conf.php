@@ -1,15 +1,21 @@
 <?php 
 
-//  MySQL access
+//  MySQL access --- hemma
 const CONF_HOST = 'localhost';
 const CONF_DBUSER = 'root';
 const CONF_DBPASSW = 'p5sk06a';
 const CONF_DATABASE = 'grafitgubben';
 
+//  MySQL access --- server
+// const CONF_HOST = 'localhost';
+// const CONF_DBUSER = 'root';
+// const CONF_DBPASSW = 'p5sk06a';
+// const CONF_DATABASE = 'grafitgubben';
+
 // Default admin user
 const CONF_USERNAME = 'roland';
 const CONF_FULLNAME = 'Roland Strålberg';
-const CONF_PASSWORD = 'wjlc6dhy3N';
+const CONF_PASSWORD = 'p5sk06a';
 const CONF_EMAIL = 'rstralberg@pm.me';
 
 // Default home

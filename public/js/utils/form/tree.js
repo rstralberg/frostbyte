@@ -12,6 +12,7 @@ var selectedOption = null;
 var dragIndex = 0;
 var oldIndex = 0;
 var dragStart = 0;
+var last_selection = null;
 
 function create_tree(field, map) {
 
@@ -26,6 +27,11 @@ function create_tree(field, map) {
             li.innerText = item.text;
             li.addEventListener('click', (e) => {
                 e.preventDefault();
+                if( last_selection ) {
+                    last_selection.classList.remove('iselected');
+                }
+                last_selection = li;
+                li.classList.add('iselected');
                 map.set(field.name, e.target);
                 if (is_valid(field.listener)) {
                     field.listener(e.target);
@@ -67,6 +73,11 @@ function create_tree(field, map) {
                     li.value = sub.value;
                     li.addEventListener('click', (e) => {
                         e.preventDefault();
+                        if( last_selection ) {
+                            last_selection.classList.remove('iselected');
+                        }
+                        last_selection = li;
+                        li.classList.add('iselected');
                         map.set(field.name, e.target);
                         if (is_valid(field.listener)) {
                             field.listener(e.target);

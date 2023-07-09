@@ -9,15 +9,31 @@ body {
 main {
     width: 78vw;
     position: absolute;
-    left: 10.5vw;
+    left: 9.9vw;
     height: calc(91.5vh - var(--shadow_size));
-    top: calc(5.5vh + var(--shadow_size));
+    top: calc(5vh + var(--shadow_size) + 1em);
     border-radius: var(--main_radius);
     border: var(--main_border);
     -webkit-box-shadow: 10px 10px 15px var(--main_shadow);
     box-shadow: 10px 10px 15px var(--main_shadow);
 
 }
+
+.page-title {
+    display: block;
+    position: absolute;
+    background-color: var(--bg4);
+    top: calc(2.5vh + var(--shadow_size));
+    left: 9.9vw;
+    height: 1.6em;
+    width: 78vw;
+    text-align: center;
+    color: var(--fg4);
+    line-height: 1.6em;
+    font-size: large;
+    font-weight: bold;
+}
+
 
 .left {
     display: block;

@@ -39,10 +39,11 @@ function delete_page(pages) {
     }
     ]).then((values) => {
         let page_id = values.get(Page.FORM_DELETE_TREE).value;
+        let page_title = values.get(Page.FORM_DELETE_TREE).innerText;
         if (is_valid(page_id)) {
 
             sql_select('page', ['id', 'title'], 'parent=' + page_id).then((pages) => {
-                let question = 'Radera sidan'
+                let question = 'Radera sidan "' + page_title + '" ';
                 if (pages.length > 0) {
                     question += ' och dess underliggande sidor '
                     pages.forEach(page => {
@@ -53,13 +54,12 @@ function delete_page(pages) {
 
                 yesno('Radera', question + '. Är du säker?').then((resolve) => {
                     if (resolve === 'yes') {
-                        if (pages.length > 0) {
-                            sql_delete('page', `parent=${page_id}`).then(() => {
-                                sql_delete('page', `id=${page_id}`).then(() => {
-                                    update_navbar();
-                                });
+                        sql_delete('page', `parent=${page_id}`).then(() => {
+                            sql_delete('page', `id=${page_id}`).then(() => {
+                                update_navbar();
                             });
-                        }
+                        });
+
                     }
                 });
             });

@@ -15,8 +15,13 @@
 //  MySQL access
 const CONF_HOST = 'localhost';
 const CONF_USER = 'root';
-const CONF_DBPASSW = '';
-const CONF_DATABASE = 'frostbyte';
+const CONF_DATABASE = 'grafitgubben';
+
+//  --- hemmma
+const CONF_DBPASSW = 'p5sk06a';
+
+//  --- server
+// const CONF_DBPASSW = '';
 
 // Default admin user
 const CONF_USERNAME = 'roland';

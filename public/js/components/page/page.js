@@ -87,7 +87,9 @@ function load_page(id) {
 
                     Page.page = Page.sql_to_page(pages[0]);
                     if( Page.showtitle ) {
+                        let pagetitle = document.getElementById('page-title');
                         
+                        pagetitle.innerHTML = Page.title;
                     }
                     load_page_sections(id);
                     resolve();

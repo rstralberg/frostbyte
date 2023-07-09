@@ -9,6 +9,11 @@
     cursor: pointer;
 }
 
+.itree>.iselected {
+   font-weight: bold;
+   font-size: larger;
+}
+
 .itree>li::before {
     content: "\25B6";
     color: transparent;
@@ -54,3 +59,4 @@
 .iactive {
     display: block;
 }
+

@@ -1,6 +1,10 @@
 
 class User {
 
+    static FORM_LOGIN = 'user-login';
+    static FORM_EDIT_USERS = 'edit-users';
+    static FORM_EDIT_USER = 'edit-user';
+
     static set(user_record, valid) {
         User.username = decodeURIComponent(user_record.username);
         User.fullname = decodeURIComponent(user_record.fullname);
@@ -27,7 +31,7 @@ class User {
 
 function load_user(username) {
     User.clear();
-    return new Promise((resolve) => {
+    return new Promise((resolve, reject) => {
         if (!is_valid(username)) {
             resolve();
         }
@@ -35,20 +39,22 @@ function load_user(username) {
             then(
                 (users) => {
                     if (users.length > 0) {
-                        User.set(users[0],true);
+                        User.set(users[0], true);
                         navbar_logged_in(true);
                         resolve();
+                    } else {
+                        reject();
                     }
                 },
                 () => {
-                    resolve();
+                    reject();
                 });
     });
 }
 
 function login() {
 
-    create_form('login', {
+    create_form(User.FORM_LOGIN, {
         title: 'Logga in',
         action: 'Logga in',
         pos: { x: '41vw', h: '7vh' }
@@ -70,12 +76,13 @@ function login() {
                 req('verify_user', {
                     username: username,
                     password: password
-                })
-                    .then(
-                        (resolve) => {
-                            set_cookie('username', username);
-                            window.location = '/';
-                        });
+                }).then(
+                    () => {
+                        set_cookie('username', username);
+                        window.location = '/';
+                    },
+                    () => {
+                    });
             });
 }
 
@@ -102,7 +109,9 @@ function edit_users() {
                     names.push({ value: decodeURIComponent(name.username), text: decodeURIComponent(name.username) });
                 });
 
-                create_form('user-edit', { title: 'Redigera användare', action: 'Välj' }, [
+                create_form(User.FORM_EDIT_USERS, { 
+                    title: 'Redigera användare', 
+                    action: 'Välj' }, [
                     {
                         type: FormType.List,
                         name: 'usernames',
@@ -126,7 +135,11 @@ function edit_users() {
 
 function edit_user(user) {
 
-    create_form('user-edit-one', { title: user.username, action: 'Spara' }, [
+    create_form(User.FORM_EDIT_USER, { 
+        title: user.username, 
+        action: 'Spara',
+        fixed:true
+    }, [
         {
             type: FormType.Text,
             name: 'fullname',

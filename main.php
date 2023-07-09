@@ -95,6 +95,7 @@ $main_args = json_encode( [
 // Create skeleton. Jscript will do the rest
 $html .= 
 '<body><div class="left"></div><nav></nav>
+<div id="page-title" class="page-title"></div>
 <main></main><footer></footer><div class="right"></div>
 </body><script type="module">addEventListener("DOMContentLoaded", (event) => {
 main('. $main_args . ');})</script></html>';
