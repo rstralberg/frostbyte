@@ -11,66 +11,74 @@ function edit_theme_colors(theme) {
         {
             type: FormType.Color_Bg_Fg,
             label: 'Övergripande',
-            name: 'bg1',
-            bg: get_style('bg1'),
-            fg: get_style('fg1'),
-            listener: on_bg1
+            name: 'common',
+            bg: get_style('background'),
+            fg: get_style('color'),
+            listener: on_common
         },
         {
             type: FormType.Color_Bg_Fg,
             label: 'Meny och Fotrad',
-            name: 'bg2',
-            bg: get_style('bg2'),
-            fg: get_style('fg2'),
-            listener: on_bg2
+            name: 'bars',
+            bg: get_style('bars_background'),
+            fg: get_style('bars_color'),
+            listener: on_bars
         },
         {
             type: FormType.Color_Bg_Fg,
             label: 'Upplyst',
-            name: 'bg3',
-            bg: get_style('bg3'),
-            fg: get_style('fg3'),
-            listener: on_bg3
+            name: 'instense',
+            bg: get_style('intense_background'),
+            fg: get_style('intense_color'),
+            listener: on_intense
+        },
+        {
+            type: FormType.Color_Bg_Fg,
+            label: 'Titlar',
+            name: 'titles',
+            bg: get_style('titles_background'),
+            fg: get_style('titles_color'),
+            listener: on_titles
         },
         {
             type: FormType.Color_Bg_Fg,
             label: 'Skrivfält',
-            name: 'bg4',
-            bg: get_style('bg4'),
-            fg: get_style('fg4'),
-            listener: on_bg4
+            name: 'ctl',
+            bg: get_style('ctl_background_hover'),
+            fg: get_style('ctl_color_hover'),
+            listener: on_ctl
         },
         {
             type: FormType.Color_Bg_Fg,
-            label: 'Aktiva skrivfält',
-            name: 'bg4h',
-            bg: get_style('bg4h'),
-            fg: get_style('fg4h'),
-            listener: on_bg4h
-        },
-        {
-            type: FormType.Color_Bg_Fg,
-            label: 'Upplysta skrivfält',
-            name: 'bg4l',
-            bg: get_style('bg4l'),
-            fg: get_style('fg4l'),
-            listener: on_bg4l
+            label: 'Aktive skrivfält',
+            name: 'ctl_active',
+            bg: get_style('ctl_background_active'),
+            fg: get_style('ctl_color_active'),
+            listener: on_ctl_active
         },
         {
             type: FormType.Color_Bg_Fg,
             label: 'Avsnitt',
-            name: 'bg5',
-            bg: get_style('bg5'),
-            fg: get_style('fg5'),
-            listener: on_bg5
+            name: 'section',
+            bg: get_style('section_background'),
+            fg: get_style('section_color'),
+            listener: on_section
         },
         {
             type: FormType.Color_Bg_Fg,
             label: 'Avsnitt upplyst',
-            name: 'bg5s',
-            bg: get_style('bg5s'),
-            fg: get_style('fg5s'),
-            listener: on_bg5s
+            name: 'section_selected',
+            bg: get_style('section_selected_background'),
+            fg: get_style('section_selected_color'),
+            listener: on_section_selected
+        },
+        {
+            type: FormType.Color_Bg_Fg,
+            label: 'Knappar',
+            name: 'button',
+            bg: get_style('button_background'),
+            fg: get_style('button_color'),
+            listener: on_button
         },
         {
             type: FormType.Color,
@@ -88,44 +96,49 @@ function edit_theme_colors(theme) {
         }
     ]);
 
-    function on_bg1(e) {
-        set_style('bg1', e.bg);
-        set_style('fg1', e.fg);
+    function on_common(e) {
+        set_style('background', e.bg);
+        set_style('color', e.fg);
     }
 
-    function on_bg2(e) {
-        set_style('bg2', e.bg);
-        set_style('fg2', e.fg);
+    function on_bars(e) {
+        set_style('bars_background', e.bg);
+        set_style('bars_color', e.fg);
     }
 
-    function on_bg3(e) {
-        set_style('bg3', e.bg);
-        set_style('fg3', e.fg);
+    function on_intense(e) {
+        set_style('intense_background', e.bg);
+        set_style('intense_color', e.fg);
     }
 
-    function on_bg4(e) {
-        set_style('bg4', e.bg);
-        set_style('fg4', e.fg);
+    function on_titles(e) {
+        set_style('titles_background', e.bg);
+        set_style('titles_color', e.fg);
     }
 
-    function on_bg4h(e) {
-        set_style('bg4h', e.bg);
-        set_style('fg4h', e.fg);
+    function on_ctl(e) {
+        set_style('ctl_background_hover', e.bg);
+        set_style('ctl_color_hover', e.fg);
     }
 
-    function on_bg4l(e) {
-        set_style('bg4l', e.bg);
-        set_style('fg4l', e.fg);
+    function on_ctl_active(e) {
+        set_style('ctl_background_active', e.bg);
+        set_style('ctl_color_active', e.fg);
     }
 
-    function on_bg5(e) {
-        set_style('bg5', e.bg);
-        set_style('fg5', e.fg);
+    function on_section(e) {
+        set_style('section_background', e.bg);
+        set_style('section_color', e.fg);
     }
 
-    function on_bg5s(e) {
-        set_style('bg5s', e.bg);
-        set_style('fg5s', e.fg);
+    function on_section_selected(e) {
+        set_style('section_selected_background', e.bg);
+        set_style('section_selected_color', e.fg);
+    }
+
+    function on_button(e) {
+        set_style('button_background', e.bg);
+        set_style('button_color', e.fg);
     }
 
     function on_title_fg(e) {
@@ -136,33 +149,33 @@ function edit_theme_colors(theme) {
 
         sql_update( 'theme', 
         [
-            'bg1', 'fg1',
-            'bg2', 'fg2',
-            'bg3', 'fg3',
-            'bg4', 'fg4',
-            'bg4h', 'fg4h',
-            'bg4l', 'fg4l',
-            'bg5', 'fg5',
-            'bg5s', 'fg5s',
+            'background', 'color',
+            'bars_background', 'bars_color',
+            'intense_background', 'intense_color',
+            'titles_background', 'titles_color',
+            'ctl_background_hover', 'ctl_color_hover',
+            'ctl_background_active', 'ctl_color_active',
+            'section_background', 'section_color',
+            'section_selected_background', 'section_selected_color',
             'title_fg'
         ],
         [
-            sql(get_hexcolor_style('bg1')),
-            sql(get_hexcolor_style('fg1')),
-            sql(get_hexcolor_style('bg2')),
-            sql(get_hexcolor_style('fg2')),
-            sql(get_hexcolor_style('bg3')),
-            sql(get_hexcolor_style('fg3')),
-            sql(get_hexcolor_style('bg4')),
-            sql(get_hexcolor_style('fg4')),
-            sql(get_hexcolor_style('bg4h')),
-            sql(get_hexcolor_style('fg4h')),
-            sql(get_hexcolor_style('bg4l')),
-            sql(get_hexcolor_style('fg4l')),
-            sql(get_hexcolor_style('bg5')),
-            sql(get_hexcolor_style('fg5')),
-            sql(get_hexcolor_style('bg5s')),
-            sql(get_hexcolor_style('fg5s')),
+            sql(get_hexcolor_style('background')),
+            sql(get_hexcolor_style('color')),
+            sql(get_hexcolor_style('bars_background')),
+            sql(get_hexcolor_style('bars_color')),
+            sql(get_hexcolor_style('intense_background')),
+            sql(get_hexcolor_style('intense_color')),
+            sql(get_hexcolor_style('titles_background')),
+            sql(get_hexcolor_style('titles_color')),
+            sql(get_hexcolor_style('ctl_background_hover')),
+            sql(get_hexcolor_style('ctl_color_hover')),
+            sql(get_hexcolor_style('ctl_background_active')),
+            sql(get_hexcolor_style('ctl_color_active')),
+            sql(get_hexcolor_style('section_background')),
+            sql(get_hexcolor_style('section_color')),
+            sql(get_hexcolor_style('section_selected_background')),
+            sql(get_hexcolor_style('section_selected_color')),
             sql(get_hexcolor_style('title_fg'))
         ],
         '`name`='+ sql(theme.name)

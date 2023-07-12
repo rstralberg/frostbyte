@@ -169,7 +169,7 @@ function create_new_blog() {
 
 function draw_blog(section, content) {
 
-    section.style.background = get_style('bg1');
+    section.style.background = get_style('background');
 
     let titlediv = document.createElement('div');
     titlediv.classList.add('blog-title');

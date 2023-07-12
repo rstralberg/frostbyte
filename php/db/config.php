@@ -18,7 +18,10 @@ class config
     public $siteowner;
     public $theme;
     public $logo;
+    public $debug;
 }
+
+
 
 function create_config_table($db)
 {
@@ -31,7 +34,8 @@ function create_config_table($db)
 				`sitename` VARCHAR(100) NOT NULL,
 				`siteowner` VARCHAR(100) NOT NULL,
 				`theme` VARCHAR(100) NOT NULL,
-				`logo` VARCHAR(255) NOT NULL
+				`logo` VARCHAR(255) NOT NULL,
+                `debug` TINYINT NOT NULL
 			)
 			COLLATE='utf8mb4_swedish_ci'
 			ENGINE=InnoDB"
@@ -50,6 +54,7 @@ function read_config($db)
         $config->siteowner = $result['siteowner'];
         $config->theme = $result['theme'];
         $config->logo = $result['logo'];
+        $config->debug = $result['debug'];
         return $config;
     } else {
         return null;
@@ -61,10 +66,11 @@ function write_config($db, $config)
     if ($db->row_exist('config', 'id=1')) {
         $db->query('UPDATE config SET '
             . '`language`=' . db::string($config->language) . ','
-            . '`sitename`=' . db::encode_string($config->sitename) . ','
-            . '`siteowner`=' . db::encode_string($config->siteowner) . ','
-            . '`theme`=' . db::encode_string($config->theme) . ','
-            . '`logo`=' . db::encode_string($config->logo) . ' '
+            . '`sitename`=' . db::string($config->sitename) . ','
+            . '`siteowner`=' . db::string($config->siteowner) . ','
+            . '`theme`=' . db::string($config->theme) . ','
+            . '`logo`=' . db::string($config->logo) . ','
+            . '`debug`=' . ($config->debug?1:0). ' '
             . 'WHERE `id`=1');
     } else {
         $db->query('INSERT INTO config ('
@@ -73,14 +79,16 @@ function write_config($db, $config)
             . '`sitename`,'
             . '`siteowner`,'
             . '`theme`,'
-            . '`logo` )'
+            . '`logo`,'
+            . '`debug` )'
             . ' VALUES ('
             . '1,'
             . db::string($config->language) . ','
-            . db::encode_string($config->sitename) . ','
-            . db::encode_string($config->siteowner) . ','
-            . db::encode_string($config->theme) . ','
-            . db::encode_string($config->logo) . ')');
+            . db::string($config->sitename) . ','
+            . db::string($config->siteowner) . ','
+            . db::string($config->theme) . ','
+            . db::string($config->logo) . ','
+            . ($config->debug?1:0) . ')');
         $config->id = $db->get_last_id();
     }
 }
@@ -91,7 +99,8 @@ function create_config(
     $sitename,
     $siteowner,
     $theme,
-    $logo
+    $logo,
+    $debug
 ) {
     $config = new config($db);
     $config->language = $language;
@@ -99,6 +108,7 @@ function create_config(
     $config->siteowner = $siteowner;
     $config->theme = $theme;
     $config->logo = $logo;
+    $config->debug = $debug;
     write_config($db, $config);
     return $config->id;
 }

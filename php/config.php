@@ -40,6 +40,7 @@ const CONF_THEME = 'Dark';
 const CONF_CHARSET = 'UTF-8';
 const CONF_LOGO = '/icons/avatar.svg';
 const CONF_SHOWHEADERS = false;
+const CONF_DEBUG = false;
 
 
 ?>

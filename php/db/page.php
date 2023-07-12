@@ -20,6 +20,8 @@ class page
     public $author;
     public $pos;
     public $showtitle;
+    public $blog;
+    public $blogheader;
     public $host;
 }
 
@@ -35,6 +37,8 @@ function create_page_table($db)
                 `author` varchar(50) NOT NULL,
                 `pos` int(11) NOT NULL,
                 `showtitle` tinyint NOT NULL,
+                `blog` tinyint NOT NULL,
+                `blogheader` text NOT NULL,
                 `host` tinyint NOT NULL,
                 PRIMARY KEY (`id`)
               ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_swedish_ci"
@@ -51,6 +55,8 @@ function result_to_page($db, $res)
     $page->author = $res['author'];
     $page->pos = $res['pos'];
     $page->showtitle = $res['showtitle'];
+    $page->blog = $res['blog'];
+    $page->blogheader = $res['blogheader'];
     $page->host = $res['host'];
     return $page;
 }
@@ -90,6 +96,8 @@ function write_page($db, $page, $where)
             . '`author`=' . db::string($page->author) . ','
             . '`pos`=' . $page->pos . ','
             . '`showtitle`=' . $page->showtitle . ','
+            . '`blog`=' . $page->blog . ','
+            . '`blogheader`=' . $page->blogheader . ','
             . '`host`=' . $page->host . ' '
             . 'where ' . $where);
     } else {
@@ -99,6 +107,8 @@ function write_page($db, $page, $where)
             . '`author`,'
             . '`pos`,'        
             . '`showtitle`,'        
+            . '`blog`,'        
+            . '`blogheader`,'        
             . '`host`'        
             . ' ) VALUES ('
             . $page->parent . ','
@@ -106,6 +116,8 @@ function write_page($db, $page, $where)
             . db::string($page->author) . ','
             . $page->pos . ','
             . ($page->showtitle?1:0) . ','
+            . ($page->blog?1:0) . ','
+            . db::string($page->blogheader) . ','
             . ($page->host?1:0) . ')');
     }
 }
@@ -116,6 +128,8 @@ function create_page(
     $title,
     $author,
     $pos, 
+    $blog,
+    $blogheader,
     $showtitle,
     $host ) {
     $page = new page($db);
@@ -123,6 +137,8 @@ function create_page(
     $page->title = $title;
     $page->author = $author;
     $page->pos = $pos;
+    $page->blog = $blog;
+    $page->blogheader = $blogheader;
     $page->showtitle = $showtitle;
     $page->host = $host;
     write_page($db, $page, 'id=0');

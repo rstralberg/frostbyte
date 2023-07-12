@@ -4,10 +4,10 @@ function duplicate_page(pages) {
     var pages_array = new Array();
     for (let i = 0; i < pages.length; i++) {
         let page = pages[i];
-            pages_array.push({
-                value: page.id,
-                text: page.title
-            });
+        pages_array.push({
+            value: page.id,
+            text: page.title
+        });
     }
 
 
@@ -17,8 +17,8 @@ function duplicate_page(pages) {
     }, [
         {
             type: FormType.Tree,
-            name: Page.FORM_DELETE_TREE,
-            label: 'Välj sida att radera',
+            name: Page.FORM_DUPLICATE_TREE,
+            label: 'Välj Källa',
             items: pages_array
         },
         {
@@ -32,20 +32,23 @@ function duplicate_page(pages) {
                 let page_id = parseInt(values.get(Page.FORM_DELETE_TREE));
                 if (is_valid(page_id)) {
 
-                    sql_select('page', ['id', 'title'], 'parent=' + page_id)
+                    sql_select('page', ['*'], 'id=' + page_id)
                         .then((pages) => {
-                            let question = 'Radera sidan'
                             if (pages.length > 0) {
-                                question += ' och dess underliggande sidor '
-                                pages.forEach(page => {
-                                    question += page.title + ' ';
-                                });
-                            }
+                                let page = pages[0];
+                                sql_insert('page', ['parent', 'title', 'author', 'pos', 'showtitle', 'host'],
+                                    [sql(page.parent),
+                                    sql(encodeURIComponent(values.get('pagename'))),
+                                    sql(User.username),
+                                    sql(document.querySelector('main').childElementCount),
+                                    sql(1),
+                                    sql(0)]).then((id) => {
+                                        update_navbar();
+                                    });
 
-                            yesno(question, 'Är du säker', () => {
-                                sql_delete('page', `id=${page_id}`);
-                            });
-                        });
+                            }
+                        },
+                            () => { });
                 }
             }
         );

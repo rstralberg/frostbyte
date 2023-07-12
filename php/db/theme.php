@@ -19,16 +19,16 @@ class theme
     public $name;
 
     // overall colors
-    public $bg1;
-    public $fg1;
+    public $background;
+    public $color;
 
     // navbar, footer 
-    public $bg2;
-    public $fg2;
+    public $bars_background;
+    public $bars_color;
 
     // hover colors
-    public $bg3;
-    public $fg3;
+    public $intense_background;
+    public $intense_color;
 
     // font
     public $font;
@@ -38,22 +38,22 @@ class theme
     public $links;
 
     // writable field colors
-    public $bg4;
-    public $fg4;
-    public $bg4h;
-    public $fg4h;
-    public $bg4l;
-    public $fg4l;
+    public $titles_background;
+    public $titles_color;
+    public $ctl_background_hover;
+    public $ctl_color_hover;
+    public $ctl_background_active;
+    public $ctl_color_active;
 
     // section colors
-    public $bg5;
-    public $fg5;
-    public $bg5s;
-    public $fg5s;
+    public $section_background;
+    public $section_color;
+    public $section_selected_background;
+    public $section_selected_color;
 
     // blog colors
-    public $bg6;
-    public $fg6;
+    public $button_background;
+    public $button_color;
 
     // some specifics
     public $nav_fsize;
@@ -81,27 +81,27 @@ function create_theme_table($db)
         $db->query(
             "CREATE TABLE IF NOT EXISTS `theme`  (
             `name` VARCHAR(50) NOT NULL,
-            `bg1` VARCHAR(10) NOT NULL,
-            `fg1` VARCHAR(10) NOT NULL,
-            `bg2` VARCHAR(10) NOT NULL,
-            `fg2` VARCHAR(10) NOT NULL,
-            `bg3` VARCHAR(10) NOT NULL,
-            `fg3` VARCHAR(10) NOT NULL,
+            `background` VARCHAR(10) NOT NULL,
+            `color` VARCHAR(10) NOT NULL,
+            `bars_background` VARCHAR(10) NOT NULL,
+            `bars_color` VARCHAR(10) NOT NULL,
+            `intense_background` VARCHAR(10) NOT NULL,
+            `intense_color` VARCHAR(10) NOT NULL,
             `font` VARCHAR(50) NOT NULL,
             `fsize` VARCHAR(10) NULL,
             `links` VARCHAR(10) NOT NULL,
-            `bg4` VARCHAR(10) NOT NULL,
-            `fg4` VARCHAR(10) NOT NULL,
-            `bg4h` VARCHAR(10) NOT NULL,
-            `fg4h` VARCHAR(10) NOT NULL,
-            `bg4l` VARCHAR(10) NOT NULL,
-            `fg4l` VARCHAR(10) NOT NULL,
-            `bg5` VARCHAR(10) NOT NULL,
-            `fg5` VARCHAR(10) NOT NULL,
-            `bg5s` VARCHAR(10) NOT NULL,
-            `fg5s` VARCHAR(10) NOT NULL,
-            `bg6` VARCHAR(10) NOT NULL,
-            `fg6` VARCHAR(10) NOT NULL,
+            `titles_background` VARCHAR(10) NOT NULL,
+            `titles_color` VARCHAR(10) NOT NULL,
+            `ctl_background_hover` VARCHAR(10) NOT NULL,
+            `ctl_color_hover` VARCHAR(10) NOT NULL,
+            `ctl_background_active` VARCHAR(10) NOT NULL,
+            `ctl_color_active` VARCHAR(10) NOT NULL,
+            `section_background` VARCHAR(10) NOT NULL,
+            `section_color` VARCHAR(10) NOT NULL,
+            `section_selected_background` VARCHAR(10) NOT NULL,
+            `section_selected_color` VARCHAR(10) NOT NULL,
+            `button_background` VARCHAR(10) NOT NULL,
+            `button_color` VARCHAR(10) NOT NULL,
             `nav_fsize` VARCHAR(10) NOT NULL,
             `nav_fweight` VARCHAR(10) NOT NULL,
             `nav_border` VARCHAR(50) NOT NULL,
@@ -131,27 +131,27 @@ function result_to_theme($db, $res)
 {
     $theme = new theme($db);
     $theme->name = $res['name'];
-    $theme->bg1 = $res['bg1'];
-    $theme->fg1 = $res['fg1'];
-    $theme->bg2 = $res['bg2'];
-    $theme->fg2 = $res['fg2'];
-    $theme->bg3 = $res['bg3'];
-    $theme->fg3 = $res['fg3'];
+    $theme->background = $res['background'];
+    $theme->color = $res['color'];
+    $theme->bars_background = $res['bars_background'];
+    $theme->bars_color = $res['bars_color'];
+    $theme->intense_background = $res['intense_background'];
+    $theme->intense_color = $res['intense_color'];
     $theme->font = $res['font'];
     $theme->fsize = $res['fsize'];
     $theme->links = $res['links'];
-    $theme->bg4 = $res['bg4'];
-    $theme->fg4 = $res['fg4'];
-    $theme->bg4h = $res['bg4h'];
-    $theme->fg4h = $res['fg4h'];
-    $theme->bg4l = $res['bg4l'];
-    $theme->fg4l = $res['fg4l'];
-    $theme->bg5 = $res['bg5'];
-    $theme->fg5 = $res['fg5'];
-    $theme->bg5s = $res['bg5s'];
-    $theme->fg5s = $res['fg5s'];
-    $theme->bg6 = $res['bg6'];
-    $theme->fg6 = $res['fg6'];
+    $theme->titles_background = $res['titles_background'];
+    $theme->titles_color = $res['titles_color'];
+    $theme->ctl_background_hover = $res['ctl_background_hover'];
+    $theme->ctl_color_hover = $res['ctl_color_hover'];
+    $theme->ctl_background_active = $res['ctl_background_active'];
+    $theme->ctl_color_active = $res['ctl_color_active'];
+    $theme->section_background = $res['section_background'];
+    $theme->section_color = $res['section_color'];
+    $theme->section_selected_background = $res['section_selected_background'];
+    $theme->section_selected_color = $res['section_selected_color'];
+    $theme->button_background = $res['button_background'];
+    $theme->button_color = $res['button_color'];
     $theme->nav_fsize = $res['nav_fsize'];
     $theme->nav_fweight = $res['nav_fweight'];
     $theme->nav_border = $res['nav_border'];
@@ -193,27 +193,27 @@ function write_theme($db, $theme, $where)
     if ($db->row_exist('`theme`', $where)) {
         $db->query('UPDATE `theme` SET '
             . '`name`=' . db::string($theme->name) . ','
-            . '`bg1`=' . db::string($theme->bg1) . ','
-            . '`fg1`=' . db::string($theme->fg1) . ','
-            . '`bg2`=' . db::string($theme->bg2) . ','
-            . '`fg2`=' . db::string($theme->fg2) . ','
-            . '`bg3`=' . db::string($theme->bg3) . ','
-            . '`fg3`=' . db::string($theme->fg3) . ','
+            . '`background`=' . db::string($theme->background) . ','
+            . '`color`=' . db::string($theme->color) . ','
+            . '`bars_background`=' . db::string($theme->bars_background) . ','
+            . '`bars_color`=' . db::string($theme->bars_color) . ','
+            . '`intense_background`=' . db::string($theme->intense_background) . ','
+            . '`intense_color`=' . db::string($theme->intense_color) . ','
             . '`font`=' . db::string($theme->font) . ','
             . '`fsize`=' . db::string($theme->fsize) . ','
             . '`links`=' . db::string($theme->links) . ','
-            . '`bg4`=' . db::string($theme->bg4) . ','
-            . '`fg4`=' . db::string($theme->fg4) . ','
-            . '`bg4h`=' . db::string($theme->bg4h) . ','
-            . '`fg4h`=' . db::string($theme->fg4h) . ','
-            . '`bg4l`=' . db::string($theme->bg4l) . ','
-            . '`fg4l`=' . db::string($theme->fg4l) . ','
-            . '`bg5`=' . db::string($theme->bg5) . ','
-            . '`fg5`=' . db::string($theme->fg5) . ','
-            . '`bg5s`=' . db::string($theme->bg5s) . ','
-            . '`fg5s`=' . db::string($theme->fg5s) . ','
-            . '`bg6`=' . db::string($theme->bg6) . ','
-            . '`fg6`=' . db::string($theme->fg6) . ','
+            . '`titles_background`=' . db::string($theme->titles_background) . ','
+            . '`titles_color`=' . db::string($theme->titles_color) . ','
+            . '`ctl_background_hover`=' . db::string($theme->ctl_background_hover) . ','
+            . '`ctl_color_hover`=' . db::string($theme->ctl_color_hover) . ','
+            . '`ctl_background_active`=' . db::string($theme->ctl_background_active) . ','
+            . '`ctl_color_active`=' . db::string($theme->ctl_color_active) . ','
+            . '`section_background`=' . db::string($theme->section_background) . ','
+            . '`section_color`=' . db::string($theme->section_color) . ','
+            . '`section_selected_background`=' . db::string($theme->section_selected_background) . ','
+            . '`section_selected_color`=' . db::string($theme->section_selected_color) . ','
+            . '`button_background`=' . db::string($theme->button_background) . ','
+            . '`button_color`=' . db::string($theme->button_color) . ','
             . '`nav_fsize`=' . db::string($theme->nav_fsize) . ','
             . '`nav_fweight`=' . db::string($theme->nav_fweight) . ','
             . '`nav_border`=' . db::string($theme->nav_border) . ','
@@ -234,27 +234,27 @@ function write_theme($db, $theme, $where)
     } else {
         $db->query('INSERT INTO `theme` ('
             . '`name`,'
-            . '`bg1`,'
-            . '`fg1`,'
-            . '`bg2`,'
-            . '`fg2`,'
-            . '`bg3`,'
-            . '`fg3`,'
+            . '`background`,'
+            . '`color`,'
+            . '`bars_background`,'
+            . '`bars_color`,'
+            . '`intense_background`,'
+            . '`intense_color`,'
             . '`font`,'
             . '`fsize`,'
             . '`links`,'
-            . '`bg4`,'
-            . '`fg4`,'
-            . '`bg4h`,'
-            . '`fg4h`,'
-            . '`bg4l`,'
-            . '`fg4l`,'
-            . '`bg5`,'
-            . '`fg5`,'
-            . '`bg5s`,'
-            . '`fg5s`,'
-            . '`bg6`,'
-            . '`fg6`,'
+            . '`titles_background`,'
+            . '`titles_color`,'
+            . '`ctl_background_hover`,'
+            . '`ctl_color_hover`,'
+            . '`ctl_background_active`,'
+            . '`ctl_color_active`,'
+            . '`section_background`,'
+            . '`section_color`,'
+            . '`section_selected_background`,'
+            . '`section_selected_color`,'
+            . '`button_background`,'
+            . '`button_color`,'
             . '`nav_fsize`,'
             . '`nav_fweight`,'
             . '`nav_border`,'
@@ -273,27 +273,27 @@ function write_theme($db, $theme, $where)
             . '`more_shadow`'
             . ' ) VALUES ('
             . db::string($theme->name) . ','
-            . db::string($theme->bg1) . ','
-            . db::string($theme->fg1) . ','
-            . db::string($theme->bg2) . ','
-            . db::string($theme->fg2) . ','
-            . db::string($theme->bg3) . ','
-            . db::string($theme->fg3) . ','
+            . db::string($theme->background) . ','
+            . db::string($theme->color) . ','
+            . db::string($theme->bars_background) . ','
+            . db::string($theme->bars_color) . ','
+            . db::string($theme->intense_background) . ','
+            . db::string($theme->intense_color) . ','
             . db::string($theme->font) . ','
             . db::string($theme->fsize) . ','
             . db::string($theme->links) . ','
-            . db::string($theme->bg4) . ','
-            . db::string($theme->fg4) . ','
-            . db::string($theme->bg4h) . ','
-            . db::string($theme->fg4h) . ','
-            . db::string($theme->bg4l) . ','
-            . db::string($theme->fg4l) . ','
-            . db::string($theme->bg5) . ','
-            . db::string($theme->fg5) . ','
-            . db::string($theme->bg5s) . ','
-            . db::string($theme->fg5s) . ','
-            . db::string($theme->bg6) . ','
-            . db::string($theme->fg6) . ','
+            . db::string($theme->titles_background) . ','
+            . db::string($theme->titles_color) . ','
+            . db::string($theme->ctl_background_hover) . ','
+            . db::string($theme->ctl_color_hover) . ','
+            . db::string($theme->ctl_background_active) . ','
+            . db::string($theme->ctl_color_active) . ','
+            . db::string($theme->section_background) . ','
+            . db::string($theme->section_color) . ','
+            . db::string($theme->section_selected_background) . ','
+            . db::string($theme->section_selected_color) . ','
+            . db::string($theme->button_background) . ','
+            . db::string($theme->button_color) . ','
             . db::string($theme->nav_fsize) . ','
             . db::string($theme->nav_fweight) . ','
             . db::string($theme->nav_border) . ','
@@ -316,27 +316,27 @@ function write_theme($db, $theme, $where)
 function create_theme(
     $db,
     $name,
-    $bg1,
-    $fg1,
-    $bg2,
-    $fg2,
-    $bg3,
-    $fg3,
+    $background,
+    $color,
+    $bars_background,
+    $bars_color,
+    $intense_background,
+    $intense_color,
     $font,
     $fsize,
     $links,
-    $bg4,
-    $fg4,
-    $bg4h,
-    $fg4h,
-    $bg4l,
-    $fg4l,
-    $bg5,
-    $fg5,
-    $bg5s,
-    $fg5s,
-    $bg6,
-    $fg6,
+    $titles_background,
+    $titles_color,
+    $ctl_background_hover,
+    $ctl_color_hover,
+    $ctl_background_active,
+    $ctl_color_active,
+    $section_background,
+    $section_color,
+    $section_selected_background,
+    $section_selected_color,
+    $button_background,
+    $button_color,
     $nav_fsize,
     $nav_fweight,
     $nav_border,
@@ -357,27 +357,27 @@ function create_theme(
 
     $theme = new theme($db);
     $theme->name = $name;
-    $theme->bg1 = $bg1;
-    $theme->fg1 = $fg1;
-    $theme->bg2 = $bg2;
-    $theme->fg2 = $fg2;
-    $theme->bg3 = $bg3;
-    $theme->fg3 = $fg3;
+    $theme->background = $background;
+    $theme->color = $color;
+    $theme->bars_background = $bars_background;
+    $theme->bars_color = $bars_color;
+    $theme->intense_background = $intense_background;
+    $theme->intense_color = $intense_color;
     $theme->font = $font;
     $theme->fsize = $fsize;
     $theme->links = $links;
-    $theme->bg4 = $bg4;
-    $theme->fg4 = $fg4;
-    $theme->bg4h = $bg4h;
-    $theme->fg4h = $fg4h;
-    $theme->bg4l = $bg4l;
-    $theme->fg4l = $fg4l;
-    $theme->bg5 = $bg5;
-    $theme->fg5 = $fg5;
-    $theme->bg5s = $bg5s;
-    $theme->fg5s = $fg5s;
-    $theme->bg6 = $bg6;
-    $theme->fg6 = $fg6;
+    $theme->titles_background = $titles_background;
+    $theme->titles_color = $titles_color;
+    $theme->ctl_background_hover = $ctl_background_hover;
+    $theme->ctl_color_hover = $ctl_color_hover;
+    $theme->ctl_background_active = $ctl_background_active;
+    $theme->ctl_color_active = $ctl_color_active;
+    $theme->section_background = $section_background;
+    $theme->section_color = $section_color;
+    $theme->section_selected_background = $section_selected_background;
+    $theme->section_selected_color = $section_selected_color;
+    $theme->button_background = $button_background;
+    $theme->button_color = $button_color;
     $theme->nav_fsize = $nav_fsize;
     $theme->nav_fweight = $nav_fweight;
     $theme->shadow_size = $shadow_size;

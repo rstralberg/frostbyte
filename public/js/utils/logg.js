@@ -1,36 +1,45 @@
 
+class Logg {
+    static _enabled = false;
+    static set enabled(e) { Logg._enabled = e;} 
+    static get enabled() { return Logg._enabled ;} 
+}
+
 async function logg(msg, cons = false, stack = false) {
-    if( cons ) debugger;
-    return new Promise(function (resolve, reject) {
-        try {
-            var err = new Error();
-            var reqbody = JSON.stringify({ func: 'logg', req: (stack ? `${err.stack}:${msg}` : msg) });
-            if (cons) {
-                console.log(msg);
-            }
-            fetch('php/req.php', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: reqbody
-            })
-                .then(response => response.json())
-                .then(data => {
-                    if (data.success) {
-                        resolve(data.data);
-                    } else {
-                        reject(`Error: logg ${reqbody} returned  ${data.data} `);
-                    }
+    if (cons) debugger;
+    
+    if (Logg.enabled) {
+        return new Promise(function (resolve, reject) {
+            try {
+                var err = new Error();
+                var reqbody = JSON.stringify({ func: 'logg', req: (stack ? `${err.stack}:${msg}` : msg) });
+                if (cons) {
+                    console.log(msg);
+                }
+                fetch('php/req.php', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: reqbody
                 })
-                .catch(error => {
-                    reject(`Error: logg ${error} -> ${reqbody}`);
-                });
-        }
-        catch (error) {
-            reject(`Exception in logg: ${error}`)
-        }
-    });
+                    .then(response => response.json())
+                    .then(data => {
+                        if (data.success) {
+                            resolve(data.data);
+                        } else {
+                            reject(`Error: logg ${reqbody} returned  ${data.data} `);
+                        }
+                    })
+                    .catch(error => {
+                        reject(`Error: logg ${error} -> ${reqbody}`);
+                    });
+            }
+            catch (error) {
+                reject(`Exception in logg: ${error}`)
+            }
+        });
+    }
 }
 
 function verify_object(obj, type) {
@@ -59,7 +68,7 @@ function is_valid(obj, report = false) {
 }
 
 function dump_element(e) {
-    return  `
+    return `
     tag = ${e.tagName},
     id = ${e.id},
     size = ${e.width} x ${e.height},

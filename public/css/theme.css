@@ -1,6 +1,6 @@
 body {
-    background: var(--bg1);
-    color: var(--fg1);
+    background: var(--background);
+    color: var(--color);
     font-family: var(--font);
     font-size: var(--fsize);
     height: calc(99.5vh - var(--shadow_size));
@@ -22,16 +22,17 @@ main {
 .page-title {
     display: block;
     position: absolute;
-    background-color: var(--bg4);
+    background-color: var(--titles_background);
+    color: var(--titles_color);
     top: calc(2.5vh + var(--shadow_size));
     left: 9.9vw;
     height: 1.6em;
     width: 78vw;
     text-align: center;
-    color: var(--fg4);
     line-height: 1.6em;
     font-size: large;
     font-weight: bold;
+    border-radius: 0px;
 }
 
 
@@ -70,8 +71,8 @@ main {
 }
 
 footer {
-    background: var(--bg2);
-    color: var(--fg2);
+    background: var(--bars_background);
+    color: var(--bars_color);
     font-size: var(--footer_fsize);
     font-style: var(--footer_fstyle);
     border: var(--footer_border);
@@ -94,39 +95,39 @@ footer {
 }
 
 input {
-    background: var(--bg4);
-    color: var(--fg4);
-    border: 1px solid var(--fg4);
+    background: var(--titles_background);
+    color: var(--titles_color);
+    border: 1px solid var(--titles_color);
     border-radius: 8px;
     font-size: calc(1.2*var(--fsize));
     font-weight: bold;
 }
 
 input:hover {
-    background: var(--bg4h);
-    color: var(--fg4h);
-    border: 1px solid var(--fg4h);
+    background: var(--ctl_background_hover);
+    color: var(--ctl_color_hover);
+    border: 1px solid var(--ctl_color_hover);
 }
 
 input:active {
-    background: var(--bg4h);
-    color: var(--fg4h);
-    border: 1px solid var(--fg4h);
+    background: var(--ctl_background_hover);
+    color: var(--ctl_color_hover);
+    border: 1px solid var(--ctl_color_hover);
 }
 
 button {
-    background: var(--bg2);
-    color: var(--fg2)
+    background: var(--bars_background);
+    color: var(--bars_color)
 }
 
 button:hover {
-    background: var(--bg4h);
-    color: var(--fg4h);
+    background: var(--ctl_background_hover);
+    color: var(--ctl_color_hover);
 }
 
 .imagetext {
-    background-color: var(--bg5);
-    color: var(--fg5);
+    background-color: var(--section_background);
+    color: var(--section_color);
     resize: none;
     width: 100%;
     width: -moz-available;
@@ -151,20 +152,20 @@ figcaption {
 
 section {
     flex-direction: row;
-    background-color: var(--bg5);
-    color: var(--fg5);
+    background-color: var(--section_background);
+    color: var(--section_color);
     overflow: hidden;
 }
 
 .section-edit {
-    background-color: var(--bg5s);
-    color: var(--fg5s);
-    outline: 2px dashed var(--fg5s);
+    background-color: var(--section_selected_background);
+    color: var(--section_selected_color);
+    outline: 2px dashed var(--section_selected_color);
 }
 
 .field {
-    background-color: var(--bg5);
-    color: var(--fg5);
+    background-color: var(--section_background);
+    color: var(--section_color);
     margin: 0.8em;
     width: 50%;
     overflow: auto;
@@ -172,13 +173,13 @@ section {
 }
 
 .field-edit>canvas {
-    outline: 2px dotted var(--fg5s);
+    outline: 2px dotted var(--section_selected_color);
 }
 
 .field-edit {
-    background-color: var(--bg5s);
-    color: var(--fg5s);
-    outline: 2px solid var(--fg5s);
+    background-color: var(--section_selected_background);
+    color: var(--section_selected_color);
+    outline: 2px solid var(--section_selected_color);
     overflow: auto;
     resize: horizontal !important;
 }
@@ -192,7 +193,7 @@ section {
 }
 
 .edit-outline {
-    outline-color: var(--fg4h);
+    outline-color: var(--ctl_color_hover);
     outline-style: solid;
     outline-width: 2px;
 }

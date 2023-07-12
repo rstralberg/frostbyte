@@ -4,6 +4,7 @@ class Page {
     static FORM_DELETE = 'page-delete';
     static FORM_DELETE_TREE = 'page-delete-tree';
     static FORM_DUPLICATE = 'page-duplicate';
+    static FORM_DUPLICATE_TREE = 'page-duplicate-tree';
     static FORM_CREATE_PAGE = 'page-create';
     static FORM_RENAME_PAGE = 'page-rename';
     static FORM_MENU = 'page-menu';
@@ -20,6 +21,8 @@ class Page {
     static set pos(v) { Page._pos = v; }
     static set showtitle(v) { Page._showtitle = v; }
     static set host(v) { Page._host = v; }
+    static set blog(v) { Page._blog = v; }
+    static set blogheader(v) { Page._blogheader = v; }
 
     static get id() { return Page._id; }
     static get parent() { return Page._parent; }
@@ -28,6 +31,8 @@ class Page {
     static get pos() { return Page._pos; }
     static get showtitle() { return Page._showtitle; }
     static get host() { return Page._host; }
+    static get blog() { return Page._blog;}
+    static get blogheader() { return Page._blogheader; }
 
     static set page(p) {
         Page.id = p.id;
@@ -37,6 +42,8 @@ class Page {
         Page.pos = p.pos;
         Page.showtitle = p.showtitle;
         Page.host = p.host;
+        Page.blog = p.blog;
+        Page.blogheader = p.blogheader;
     }
 
     static get page() {
@@ -47,7 +54,9 @@ class Page {
             author: Page.author,
             pos: Page.pos,
             showtitle: Page.showtitle,
-            host: Page.host
+            host: Page.host,
+            blog: Page.blog,
+            blogheader: Page.blogheader
         };
     }
 
@@ -59,7 +68,9 @@ class Page {
             author: decodeURIComponent(sql.author),
             pos: parseInt(sql.pos),
             showtitle: parseInt(sql.showtitle) > 0,
-            host: parseInt(sql.host) > 0
+            host: parseInt(sql.host) > 0,
+            blog: parseInt(sql.blog) > 0,
+            blogheader: decodeURIComponent(sql.blogheader),
         }
     }
 
@@ -71,7 +82,9 @@ class Page {
             author: sql(encodeURIComponent(page.author)),
             pos: sql(page.pos),
             showtitle: sql(page.showtitle ? 1 : 0),
-            host: sql(page.host ? 1 : 0)
+            host: sql(page.host ? 1 : 0),
+            blog: sql(page.blog ? 1 : 0),
+            blogheader: sql(encodeURIComponent(page.blogheader))
         };
     }
 }
@@ -86,10 +99,17 @@ function load_page(id) {
                 } else {
 
                     Page.page = Page.sql_to_page(pages[0]);
-                    if( Page.showtitle ) {
+                    if( Page.showtitle  ) {
                         let pagetitle = document.getElementById('page-title');
-                        
                         pagetitle.innerHTML = Page.title;
+                    }
+                    if( Page.blog ) {
+                        let pagetitle = document.getElementById('page-title');
+                        let div = document.createElement('div');
+                        div.classList.add('blog-header');
+                        div.innerHTML = Page.blogheader ;
+                        pagetitle.appendChild(div);
+
                     }
                     load_page_sections(id);
                     resolve();

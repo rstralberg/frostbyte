@@ -27,15 +27,16 @@ function create_tables($db)
             CONF_SITENAME,
             CONF_SITEOWNER,
             CONF_THEME,
-            CONF_LOGO);
+            CONF_LOGO,
+            CONF_DEBUG);
     }    
     
     create_user_table($db);
     if( read_user($db, null, null, dbmode::single) === null) {
         create_user($db,
-            rawurlencode(CONF_USERNAME),
-            rawurlencode(CONF_FULLNAME), 
-            rawurlencode(CONF_EMAIL), 
+            CONF_USERNAME,
+            CONF_FULLNAME, 
+            CONF_EMAIL, 
             CONF_PASSWORD,
             true);
     }
@@ -43,7 +44,7 @@ function create_tables($db)
     create_page_table($db);
     $page_id = 0;
     if( read_page($db, null, null, dbmode::single) === null) {
-        $page_id = create_page($db, 0, CONF_HOME_TITLE, CONF_USERNAME, 0, true, false);
+        $page_id = create_page($db, 0, CONF_HOME_TITLE, CONF_USERNAME, 0, false, '', true, false);
     }
 
     create_section_table($db);
@@ -58,27 +59,27 @@ function create_tables($db)
     create_theme_table($db);
     if( read_theme($db, null, null, dbmode::single) === null) {
         create_theme($db, 'Dark',
-            '#202020',// bg1
-            '#ffffff',// fg1
-            '#000000',// bg2
-            '#c8c880',// fg2
-            '#202020',// bg3
-            '#ffffff',// fg3
+            '#202020',// background
+            '#ffffff',// color
+            '#000000',// bars_background
+            '#c8c880',// bars_color
+            '#202020',// intense_background
+            '#ffffff',// intense_color
             'Arial',// font
             '1.0em',// fsize
             '#c8c880',// links
-            '#f5deb3',// bg4
-            '#202020',// fg4
-            '#ffeec3',// bg4h
-            '#101010',// fg4h
-            '#a89a7f',// bg4l
-            '#000000',// fg4l
-            '#303030',// bg5
-            '#ffffff',// fg5
-            '#404040',// bg5s
-            '#ffffff',// fg5s
-            '#2d5279',// bg6
-            '#ffffff',// fg6
+            '#f5deb3',// titles_background
+            '#202020',// titles_color
+            '#ffeec3',// ctl_background_hover
+            '#101010',// ctl_color_hover
+            '#a89a7f',// ctl_background_active
+            '#000000',// ctl_color_active
+            '#303030',// section_background
+            '#ffffff',// section_color
+            '#404040',// section_selected_background
+            '#ffffff',// section_selected_color
+            '#2d5279',// button_background
+            '#ffffff',// button_color
             '1.2em',// nav_fsize
             'bold',// nav_fweight
             '0px solid #7f7f7f',// nav_border
@@ -98,27 +99,27 @@ function create_tables($db)
         );
 
         create_theme($db, 'Light',
-            '#202020',// bg1
-            '#ffffff',// fg1
-            '#000000',// bg2
-            '#c8c880',// fg2
-            '#202020',// bg3
-            '#ffffff',// fg3
+            '#202020',// background
+            '#ffffff',// color
+            '#000000',// bars_background
+            '#c8c880',// bars_color
+            '#202020',// intense_background
+            '#ffffff',// intense_color
             'Arial',// font
             '1.0em',// fsize
             '#c8c880',// links
-            '#f5deb3',// bg4
-            '#202020',// fg4
-            '#ffeec3',// bg4h
-            '#101010',// fg4h
-            '#a89a7f',// bg4l
-            '#000000',// fg4l
-            '#303030',// bg5
-            '#ffffff',// fg5
-            '#404040',// bg5s
-            '#ffffff',// fg5s
-            '#2d5279',// bg6
-            '#ffffff',// fg6
+            '#f5deb3',// titles_background
+            '#202020',// titles_color
+            '#ffeec3',// ctl_background_hover
+            '#101010',// ctl_color_hover
+            '#a89a7f',// ctl_background_active
+            '#000000',// ctl_color_active
+            '#303030',// section_background
+            '#ffffff',// section_color
+            '#404040',// section_selected_background
+            '#ffffff',// section_selected_color
+            '#2d5279',// button_background
+            '#ffffff',// button_color
             '1.2em',// nav_fsize
             'bold',// nav_fweight
             '0px solid #7f7f7f',// nav_border

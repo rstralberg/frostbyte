@@ -1,39 +1,54 @@
 .blog-title {
-	background: var(--bg1);
-	color: var(--fg1);
+	background: var(--background);
+	color: var(--color);
 	font-size: calc(var(--fsize)*1.4);
 	font-weight: bold;
-	border: 2px solid var(--fg4);
+	border: 2px solid var(--titles_color);
 	border-radius: 0px; 
 	text-shadow: 4px 4px 6px black; 
 }
 
+.blog-header {
+	background: var(--titles_background);
+	color: var(--titles_color);
+	font-size: calc(var(--fsize)*0.9);
+	font-weight: normal;
+	font-style: italic;
+	border-radius: 0px;
+	text-align: left; 
+	overflow: hidden;
+	-webkit-box-shadow: 10px 10px 15px black;
+    box-shadow: 10px 10px 15px black;
+
+}
+
+
 .blog-info {
-	background: var(--bg1);
-	color: var(--fg2);
+	background: var(--background);
+	color: var(--bars_color);
 	font-size: small;
 	font-style: italic;
     padding: 10px;
 }
 
 .blog-media {
-	background: var(--bg1);
-	color: var(--fg1);
+	background: var(--background);
+	color: var(--color);
 }
 
 .blog-text {
-	background: var(--bg1);
-	color: var(--fg1);
+	background: var(--background);
+	color: var(--color);
 }
 
 .blog-more {
-	background: var(--bg6);
-	color: var(--fg6);
+	background: var(--button_background);
+	color: var(--button_color);
 	border-radius: 9px;
 	width: 120px;
 	font-size: large;
 	font-weight: bold;
-	border: 2px solid var(--bg1);
+	border: 2px solid var(--background);
 	margin-top: 6px;
 	height: 2em;
 	line-height: 1em;

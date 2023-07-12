@@ -38,6 +38,19 @@ function create_page(reboot) {
                         value: true
                     },
                     {
+                        type: FormType.Checkbox,
+                        name: 'blog',
+                        label: 'Är en bloggsida',
+                        value: false
+                    },
+                    {
+                        type: FormType.TextArea,
+                        name: 'blogheader',
+                        label: 'Blogg Intro',
+                        rows: 4,
+                        cols: 80
+                    },
+                    {
                         type: FormType.List,
                         name: 'parent',
                         label: 'Förälder',
@@ -50,14 +63,16 @@ function create_page(reboot) {
 
                             let parent = parseInt(result.get('parent'));
                             sql_insert('page',
-                                [`title`, `parent`, `pos`, `author`, 'showtitle', 'host'],
+                                [`title`, `parent`, `pos`, `author`, 'showtitle', 'host', 'blog', 'blogheader'],
                                 [
                                     sql(encodeURIComponent(result.get('title'))),
                                     sql(parseInt(result.get('parent'))),
                                     sql(document.querySelector('nav').childElementCount - 1),
                                     sql(User.username),
                                     sql(result.get('showtitle') ? 1 : 0),
-                                    sql(result.get('host') ? 1 : 0)
+                                    sql(result.get('host') ? 1 : 0),
+                                    sql(result.get('blog') ? 1 : 0),
+                                    sql(encodeURIComponent(result.get('blogheader')))
                                 ])
                                 .then(
                                     (id) => {
