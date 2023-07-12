@@ -6,9 +6,7 @@ function get_style(name) {
 function set_style(name,value) {
     
     let curValue = getComputedStyle(document.documentElement).getPropertyValue('--' + name);
-    console.log( 'root:--'+name+':'+curValue);
     document.documentElement.style.setProperty('--' + name, value);
-    console.log( 'changed to root:--'+name+':'+getComputedStyle(document.documentElement).getPropertyValue('--' + name));
 }
 
 function set_border_color_style(name, value) {

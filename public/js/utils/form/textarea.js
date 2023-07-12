@@ -23,10 +23,28 @@ function create_textarea(field, map) {
     base.inp.style.height = 'auto';
     base.inp.rows = field.rows;
     base.inp.cols = field.cols;
-    base.inp.innerHTML = field.value;
+    base.inp.value = field.value;
+
+    base.inp.addEventListener( 'keydown', (e) => {
+        if( e.key === 'Enter' ) {
+            e.target.value += '\n';
+        }
+    });
 
     base.inp.addEventListener('change', (e) => {
-        field.value = base.inp.innerHTML;
+        let lines = e.target.value.split( '\n');
+        if( lines.length == 0  ) {
+            map.set(field.name, field.value = e.target.value);
+        }
+        else {
+            let text = document.createElement('div');
+            lines.forEach(line => {
+                let p = document.createElement('p');
+                p.innerHTML = line;
+                text.appendChild(p);
+            });
+            map.set(field.name, field.value = text.innerHTML);
+        }
     });
     return base.div;
 

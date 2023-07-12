@@ -27,12 +27,6 @@ function toggleBold() {
         cursorInItalic = (parent.tagName && parent.tagName.toLowerCase() === 'i');
     }
 
-    if (cursorInBold) {
-        console.log('Cursor is inside a bold');
-    }
-    if (cursorInItalic) {
-        console.log('Cursor is inside a italic');
-    }
 }
 
 function toggleItalic() {
@@ -73,10 +67,6 @@ function create_list() {
             }
         }
     }
-
-    selectedLines.forEach(element => {
-        console.log(element);
-    });
 
 }
 

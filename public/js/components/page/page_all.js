@@ -72,11 +72,12 @@ function page_all(pages) {
             if( is_in_menu( parseInt(selected.value) ) ) {
                 alert( selected.text + ' finns redan in menyn');
             }
-
-
         }
 
         function move_from_menu(e) {
+            if( !is_in_menu( parseInt(selected.value) ) ) {
+                alert( selected.text + ' finns inte i menyn');
+            }
 
         }
     }

@@ -32,6 +32,7 @@ function create_list(field, map) {
     map.set(field.name, is_valid(field.selected) ? field.selected : field.items[0].value);
 
     base.inp.addEventListener('mousedown', (e) => {
+        console.log( 'mousedown');
         if (e.target.tagName === "OPTION") {
             selectedOption = e.target;
             dragIndex = Array.from(base.inp.options).indexOf(selectedOption);
@@ -53,7 +54,8 @@ function create_list(field, map) {
     });
 
     base.inp.addEventListener("mouseup", function (e) {
-        if (field.drag) field.drag({ id:selectedOption.value, from:oldIndex, to:dragIndex });
+        console.log( 'mouseup');
+        if (field.draglistener) field.draglistener({ id:selectedOption.value, from:oldIndex, to:dragIndex });
         selectedOption = null;
         dragIndex = 0;
     });

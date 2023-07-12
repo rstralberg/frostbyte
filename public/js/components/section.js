@@ -7,12 +7,12 @@ class Section {
         audio: 'audio',
         picture: 'picture',
         soundcloud: 'soundcloud',
-        spacer: 'spacer',
         spotify: 'spotify',
         text: 'text',
         youtube: 'youtube',
         textimage: 'textimage',
-        imagetext: 'imagetext'
+        imagetext: 'imagetext',
+        blog: 'blog'
     };
     
     #_id = 0;
@@ -65,7 +65,7 @@ class Section {
             id: parseInt(sql.id),
             page_id: parseInt(sql.page_id),
             type: sql.type,
-            height: parseInt(sql.height),
+            height: sql.height,
             pos: parseInt(sql.pos),
             content: JSON.parse(decodeURIComponent(sql.content)),
         };
@@ -87,31 +87,35 @@ class Section {
 function create_section() {
 
     const types = [
+        { value: Section.Type.blog, text: 'Bloginlägg' },
         { value: Section.Type.text, text: 'Text' },
         { value: Section.Type.picture, text: 'Bild' },
         { value: Section.Type.imagetext, text: 'Bild & Text' },
-        { value: Section.Type.spacer, text: 'Tomrum' },
         { value: Section.Type.audio, text: 'Ljud' },
         { value: Section.Type.soundcloud, text: 'SoundCloud' },
         { value: Section.Type.spotify, text: 'Spotify' },
         { value: Section.Type.youtube, text: 'YouTube' },
     ];
-    create_form(Section.FORM_SECTION_CREATE, { 
-        title: 'Skapa avsnitt', 
-        action: 'Skapa' }, [ {
-            type: FormType.List,
-            label: 'Typ av avsnitt',
-            name: 'type',
-            items: types,
-            selected: Section.Type.text
-        }
-    ]).then(
-        (result) => {
-            let func = window[`create_new_${result.get('type')}`];
+    create_form(Section.FORM_SECTION_CREATE, {
+            title: 'Skapa avsnitt'}, [ 
+                {
+                    type: FormType.List,
+                    label: 'Typ av avsnitt',
+                    name: 'type',
+                    items: types,
+                    selected: Section.Type.blog,
+                    listener: on_selected
+            }
+        ]);
+
+        function on_selected(e) {
+            let func = window[`create_new_${e.value}`];
+            close_form(Section.FORM_SECTION_CREATE);
             if (func) {
                 func();
             }
-        });
+
+        }
 }
 
 function delete_section() {
@@ -157,7 +161,7 @@ function leaving_section(cursection, content) {
         if (is_same_section(cursection, section)) {
             sql_update('section', ['pos', 'height', 'content'],
             [   sql(i),
-                get_height_as_vh(cursection),   
+                sql(get_height_as_vh(cursection)),   
                 sql(JSON.stringify(content))],
             `id=${parse_section_id(cursection)}`);
         }
@@ -188,7 +192,7 @@ function load_page_sections(id) {
                     if (is_valid(func)) {
                         let secdiv = document.createElement('section');
                         secdiv.id = `s-${id}`;
-                        secdiv.style.height = `${sec.height}vh`;
+                        secdiv.style.height = sec.height;
                         secdiv.setAttribute('data-type', type);
                         secdiv.setAttribute('data-page-id', sec.page_id);
                         container.appendChild(secdiv);

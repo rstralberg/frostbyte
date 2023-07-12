@@ -1,7 +1,6 @@
 
 function main(args) {
 
-    console.log('page' + args.page);
     load_config().then(
         () => {
             load_user(get_cookie('username')).then(
@@ -12,12 +11,15 @@ function main(args) {
                     load_site(args.page);
                 });
         });
-        function load_site(page) {
-            load_page(parseInt(args.page)).then(() => {
-                load_navbar().then(() => {
-                    load_footer();
-                    load_toolbar();
-                });
+
+    function load_site(page) {
+        load_page(parseInt(args.page)).then(() => {
+            load_navbar().then(() => {
+                load_footer();
+                load_toolbar();
             });
-        }
+        });
+    }
+
 }
+

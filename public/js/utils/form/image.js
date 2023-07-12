@@ -17,6 +17,9 @@ function create_image(field, map) {
     let base = create_base('input', field, map);
     base.inp.type = 'file';
 
+    base.div.style.width = 'auto';
+    base.div.style.textAlign = 'left';
+
     load_image_to_div(base.div, field.url, field.size);
 
     base.inp.accept = 'image/png, image/jpeg';
@@ -24,18 +27,13 @@ function create_image(field, map) {
 
         if (is_valid(e.target.files) && is_valid(e.target.files[0])) {
             var file = e.target.files[0];
-            resize_image(file, Global.MAX_IMAGE_SIZE)
-                .then(
-                    (resized_image) => {
-                        upload(file.name, resized_image, is_valid(field.shared) && field.shared ? 0 :  Page.id)
-                            .then(
-                                (resolve) => {
-                                    load_image_to_div(base.div, resolve, field.size);
-                                    map.set(field.name, resolve);
-                                    if (field.listener) field.listener(e);
-                                });
-
-                    });
+            resize_image(file, Global.MAX_IMAGE_SIZE).then((resized_image) => {
+                upload(file.name, resized_image, is_valid(field.shared) && field.shared ? 0 : Page.id).then((resolve) => {
+                    load_image_to_div(base.div, resolve, field.size);
+                    map.set(field.name, resolve);
+                    if (field.listener) field.listener(e);
+                });
+            });
         }
     });
 

@@ -39,6 +39,8 @@ function generate_style($db, $name)
     $style .= '--fg5:' . $theme->fg5 . ';';
     $style .= '--bg5s:' . $theme->bg5s . ';';
     $style .= '--fg5s:' . $theme->fg5s . ';';
+    $style .= '--bg6:' . $theme->bg6 . ';';
+    $style .= '--fg6:' . $theme->fg6 . ';';
     $style .= '--nav_fsize:' . $theme->nav_fsize . ';';
     $style .= '--nav_fweight:' . $theme->nav_fweight . ';';
     $style .= '--nav_border:' . $theme->nav_border . ';';
@@ -54,6 +56,7 @@ function generate_style($db, $name)
     $style .= '--footer_fsize:' . $theme->footer_fsize . ';';
     $style .= '--footer_fstyle:' . $theme->footer_fstyle . ';';
     $style .= '--title_fg:' . $theme->title_fg . ';';
+    $style .= '--more_shadow:' . $theme->more_shadow . ';';
     $style .= '}';
 
     // debugging

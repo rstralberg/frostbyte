@@ -1,6 +1,9 @@
 
 function page_order(pages) {
 
+    sql_select('page', ['id', 'title'], )
+
+
     var pages_array = new Array();
     for (let i = 0; i < pages.length; i++) {
         let page = pages[i];
@@ -46,13 +49,13 @@ function page_order(pages) {
         },
         {
             type: FormType.List,
-            name: 'pages',
+            name: 'order-pages',
             items: pages_array,
             rows: 8,
             onecol: true,
             width: 'inherit',
-            drag: on_drag,
-            listener: on_click
+            drag: true,
+            draglistener: on_drag
 
         }
     ])
@@ -69,7 +72,12 @@ function page_order(pages) {
         close_form('page-order');
     }
 
-    function on_click(e) { }
-    function on_drag(e) {}
+    function on_drag(e) {
+        let pageslist = document.getElementById('order-pages');
+        for( let i=0; i < pageslist.childElementCount; i++ ) {
+            sql_update('page', ['pos'], [sql(i)], 'id='+ parseInt(pageslist.children[i].value));
+        }
+        update_navbar();
+    }
 }
 

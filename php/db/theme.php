@@ -51,6 +51,10 @@ class theme
     public $bg5s;
     public $fg5s;
 
+    // blog colors
+    public $bg6;
+    public $fg6;
+
     // some specifics
     public $nav_fsize;
     public $nav_fweight;
@@ -67,6 +71,7 @@ class theme
     public $footer_fsize;
     public $footer_fstyle;
     public $title_fg;
+    public $more_shadow;
 }
 
 function create_theme_table($db)
@@ -95,6 +100,8 @@ function create_theme_table($db)
             `fg5` VARCHAR(10) NOT NULL,
             `bg5s` VARCHAR(10) NOT NULL,
             `fg5s` VARCHAR(10) NOT NULL,
+            `bg6` VARCHAR(10) NOT NULL,
+            `fg6` VARCHAR(10) NOT NULL,
             `nav_fsize` VARCHAR(10) NOT NULL,
             `nav_fweight` VARCHAR(10) NOT NULL,
             `nav_border` VARCHAR(50) NOT NULL,
@@ -110,6 +117,7 @@ function create_theme_table($db)
             `footer_fsize` VARCHAR(10) NOT NULL,
             `footer_fstyle` VARCHAR(10) NOT NULL,
             `title_fg` VARCHAR(10) NOT NULL,
+            `more_shadow` VARCHAR(10) NOT NULL,
             PRIMARY KEY (`name`) USING BTREE,
             INDEX `pk` (`name`) USING BTREE
 			)
@@ -142,6 +150,8 @@ function result_to_theme($db, $res)
     $theme->fg5 = $res['fg5'];
     $theme->bg5s = $res['bg5s'];
     $theme->fg5s = $res['fg5s'];
+    $theme->bg6 = $res['bg6'];
+    $theme->fg6 = $res['fg6'];
     $theme->nav_fsize = $res['nav_fsize'];
     $theme->nav_fweight = $res['nav_fweight'];
     $theme->nav_border = $res['nav_border'];
@@ -157,6 +167,7 @@ function result_to_theme($db, $res)
     $theme->footer_fsize = $res['footer_fsize'];
     $theme->footer_fstyle = $res['footer_fstyle'];
     $theme->title_fg = $res['title_fg'];
+    $theme->more_shadow = $res['more_shadow'];
     return $theme;
 }
 
@@ -201,6 +212,8 @@ function write_theme($db, $theme, $where)
             . '`fg5`=' . db::string($theme->fg5) . ','
             . '`bg5s`=' . db::string($theme->bg5s) . ','
             . '`fg5s`=' . db::string($theme->fg5s) . ','
+            . '`bg6`=' . db::string($theme->bg6) . ','
+            . '`fg6`=' . db::string($theme->fg6) . ','
             . '`nav_fsize`=' . db::string($theme->nav_fsize) . ','
             . '`nav_fweight`=' . db::string($theme->nav_fweight) . ','
             . '`nav_border`=' . db::string($theme->nav_border) . ','
@@ -215,7 +228,8 @@ function write_theme($db, $theme, $where)
             . '`main_shadow`=' . db::string($theme->main_shadow) . ','
             . '`footer_fsize`=' . db::string($theme->footer_fsize) . ','
             . '`footer_fstyle`=' . db::string($theme->footer_fstyle) . ','
-            . '`title_fg`=' . db::string($theme->title_fg) . ' '
+            . '`title_fg`=' . db::string($theme->title_fg) . ','
+            . '`more_shadow`=' . db::string($theme->more_shadow) . ' '
             . 'where ' . $where);
     } else {
         $db->query('INSERT INTO `theme` ('
@@ -239,6 +253,8 @@ function write_theme($db, $theme, $where)
             . '`fg5`,'
             . '`bg5s`,'
             . '`fg5s`,'
+            . '`bg6`,'
+            . '`fg6`,'
             . '`nav_fsize`,'
             . '`nav_fweight`,'
             . '`nav_border`,'
@@ -253,7 +269,8 @@ function write_theme($db, $theme, $where)
             . '`main_shadow`,'
             . '`footer_fsize`,'
             . '`footer_fstyle`,'
-            . '`title_fg`'
+            . '`title_fg`,'
+            . '`more_shadow`'
             . ' ) VALUES ('
             . db::string($theme->name) . ','
             . db::string($theme->bg1) . ','
@@ -275,6 +292,8 @@ function write_theme($db, $theme, $where)
             . db::string($theme->fg5) . ','
             . db::string($theme->bg5s) . ','
             . db::string($theme->fg5s) . ','
+            . db::string($theme->bg6) . ','
+            . db::string($theme->fg6) . ','
             . db::string($theme->nav_fsize) . ','
             . db::string($theme->nav_fweight) . ','
             . db::string($theme->nav_border) . ','
@@ -289,7 +308,8 @@ function write_theme($db, $theme, $where)
             . db::string($theme->main_shadow) . ','
             . db::string($theme->footer_fsize) . ','
             . db::string($theme->footer_fstyle) . ','
-            . db::string($theme->title_fg) . ')');
+            . db::string($theme->title_fg) . ','
+            . db::string($theme->more_shadow) . ')');
     }
 }
 
@@ -315,6 +335,8 @@ function create_theme(
     $fg5,
     $bg5s,
     $fg5s,
+    $bg6,
+    $fg6,
     $nav_fsize,
     $nav_fweight,
     $nav_border,
@@ -329,7 +351,8 @@ function create_theme(
     $main_shadow,
     $footer_fsize,
     $footer_fstyle,
-    $title_fg
+    $title_fg,
+    $more_shadow,
 ) {
 
     $theme = new theme($db);
@@ -353,6 +376,8 @@ function create_theme(
     $theme->fg5 = $fg5;
     $theme->bg5s = $bg5s;
     $theme->fg5s = $fg5s;
+    $theme->bg6 = $bg6;
+    $theme->fg6 = $fg6;
     $theme->nav_fsize = $nav_fsize;
     $theme->nav_fweight = $nav_fweight;
     $theme->shadow_size = $shadow_size;
@@ -368,6 +393,7 @@ function create_theme(
     $theme->footer_fsize = $footer_fsize;
     $theme->footer_fstyle = $footer_fstyle;
     $theme->title_fg = $title_fg;
+    $theme->more_shadow = $more_shadow;
     write_theme($db, $theme, '`name`=' . db::string($name));
 }
 

@@ -2,7 +2,7 @@
 
 function create_new_spotify() {
 
-    create_form( 'spotify-create', { title:'Skapa spotify', action:'Klar'}, [
+    create_form('spotify-create', { title: 'Skapa spotify', action: 'Klar' }, [
         {
             type: FormType.TextArea,
             name: 'info',
@@ -14,49 +14,34 @@ function create_new_spotify() {
                 'och klistra in här nedan'
         },
         {
-            type: FormType.Text,
+            type: FormType.TextArea,
             name: 'spotify',
             label: 'Klistra in',
-            value: ''
+            rows: 6,
+            cols: 80
         },
         {
             type: FormType.Checkbox,
             name: 'shadow',
             label: 'Skugga',
             value: true
-        }]).then(
-            (result) => {
-                var content = {
-                    url: encodeURIComponent(result.get('spotify')),
-                    shadow: result.get('shadow')
-                };
-
-                sql_insert('section',
-                    ['page_id', 'type', 'height', 'pos', 'content'],
-                    [sql(Page.id),
-                    sql('spotify'),
-                    sql(42),
-                    sql(document.querySelector('main').childElementCount),
-                    sql(JSON.stringify(content))])
-                    .then(
-                        (id) => {
-                            let container = document.querySelector('main');
-                            let section = document.createElement('section');
-                            section.classList.add('spotify');
-                            create_section_id(section, id);
-                            container.appendChild(section);
-                        });
+        }]).then((result) => {
+            media_create_spotify({
+                url: result.get('spotify'),
+                shadow: result.get('shadow')
             });
+            
+        });
 }
 
 function draw_spotify(section, content) {
 
     section.innerHTML = decodeURIComponent(content.url);
     section.classList.add('spotify');
-    
+
     if (content.shadow) {
         let frame = section.querySelector('iframe');
-        if( is_valid(frame)) frame.classList.add('shadow');
+        if (is_valid(frame)) frame.classList.add('shadow');
     }
 
     section.addEventListener('mouseup', (e) => {
@@ -69,10 +54,9 @@ function show_spotify_tools(section) {
     show_tools('spotify', [
         { title: 'Skugga', func: on_shadow }
     ]);
-    function on_shadow() 
-    {
+    function on_shadow() {
         let frame = section.querySelector('iframe');
-        if( frame.classList.contains('shadow')) {
+        if (frame.classList.contains('shadow')) {
             frame.classList.remove('shadow');
         }
         else {
@@ -108,3 +92,69 @@ function leaving_spotify(section) {
     });
 }
 
+
+function media_form_spotify() {
+
+    return new Promise((resolve, reject) => {
+
+        create_form('spotify-create', {
+            title: 'Skapa spotify',
+            action: 'Skapa'
+        }, [
+            {
+                type: FormType.TextArea,
+                name: 'info',
+                rows: 4,
+                cols: 60,
+                readonly: true,
+                value: 'Gå till spotify och välj din låt. Klicka sedan på "Dela" ' +
+                    'och välj sedan "Bädda in spår". Klicka senda på "Kopiera" ' +
+                    'och klistra in här nedan'
+            },
+            {
+                type: FormType.Text,
+                name: 'spotify',
+                label: 'Klistra in',
+                value: ''
+            },
+            {
+                type: FormType.Checkbox,
+                name: 'shadow',
+                label: 'Skugga',
+                value: true
+            }]).then((values) => {
+                resolve({
+                    url: values.get('spotify'),
+                    shadow: values.get('shadow')
+                });
+            },
+                () => {
+                    reject();
+                });
+
+    });
+}
+
+
+function media_create_spotify(content) {
+
+    content.url = encodeURIComponent(content.url);
+    content.shadow = content.shadow ? 1 : 0;
+
+    sql_insert('section',
+        ['page_id', 'type', 'height', 'pos', 'content'],
+        [sql(Page.id),
+        sql('spotify'),
+        sql(42),
+        sql(document.querySelector('main').childElementCount),
+        sql(JSON.stringify(content))])
+        .then(
+            (id) => {
+                let container = document.querySelector('main');
+                let section = document.createElement('section');
+                section.classList.add('spotify');
+                create_section_id(section, id);
+                container.appendChild(section);
+                draw_spotify(section,content);
+            });
+}

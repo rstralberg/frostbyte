@@ -14,7 +14,7 @@ class Config {
     static get siteowner() { return Config._config.siteowner; }
     static get theme() { return Config._config.theme; }
     static get logo() { return Config._config.logo; }
-    
+
 }
 
 function load_config() {
@@ -87,29 +87,26 @@ function edit_config() {
                     size: 256,
                     shadow: true,
                 }])
-                .then(
-                    (resolve) => {
-                        sql_update('config',
-                            ['language', 'sitename', 'siteowner', 'theme', 'logo'],
-                            [
-                                sql(resolve.get('language')),
-                                sql(encodeURIComponent(resolve.get('sitename'))),
-                                sql(encodeURIComponent(resolve.get('siteowner'))),
-                                sql(encodeURIComponent(resolve.get('theme'))),
-                                sql(encodeURIComponent(resolve.get('logo')))
-                            ],
-                            'id=1')
-                            .then(
-                                () => {
-                                    Config.config = {
-                                        language: resolve.get('language'),
-                                        sitename: decodeURIComponent(resolve.get('sitename')),
-                                        siteowner: decodeURIComponent(resolve.get('siteowner')),
-                                        theme: decodeURIComponent(resolve.get('theme')),
-                                        logo: decodeURIComponent(resolve.get('logo'))
-                                    };
-                                });
-                    });
+                .then((resolve) => {
+                    sql_update('config',
+                        ['language', 'sitename', 'siteowner', 'theme', 'logo'],
+                        [
+                            sql(resolve.get('language')),
+                            sql(encodeURIComponent(resolve.get('sitename'))),
+                            sql(encodeURIComponent(resolve.get('siteowner'))),
+                            sql(encodeURIComponent(resolve.get('theme'))),
+                            sql(encodeURIComponent(resolve.get('logo')))
+                        ], 'id=1').then(() => {
+                            Config.config = {
+                                language: resolve.get('language'),
+                                sitename: decodeURIComponent(resolve.get('sitename')),
+                                siteowner: decodeURIComponent(resolve.get('siteowner')),
+                                theme: decodeURIComponent(resolve.get('theme')),
+                                logo: decodeURIComponent(resolve.get('logo'))
+                            };
+                        },
+                            () => { });
+                });
         });
 }
 

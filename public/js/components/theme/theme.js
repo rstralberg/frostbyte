@@ -67,7 +67,6 @@ function edit_theme(theme_name) {
             selects.forEach( select=> {
                 let name = 'edit-theme-' + select.value;
                 if (this_one !== name ) {
-                    console.log('trying ' + name);
                     let element =  document.getElementById(name);
                     if( is_valid(element )) {
                         element.style.display = 'none';

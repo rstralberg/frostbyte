@@ -29,7 +29,7 @@ function create_section_table($db)
                 `id` int(11) NOT NULL AUTO_INCREMENT,
                 `page_id` int(11) NOT NULL,
                 `type` varchar(30) NOT NULL,
-                `height` int(11) NOT NULL DEFAULT 20,
+                `height` varchar(30) NOT NULL,
                 `pos` int(11) NOT NULL DEFAULT 0,
                 `content` text NOT NULL,
                 PRIMARY KEY (`id`),
@@ -75,7 +75,7 @@ function write_section($db, $section, $where)
         $db->query('UPDATE `section` SET '
             . '`page_id`=' . $section->page_id . ','
             . '`type`=' . db::string($section->type) . ','
-            . '`height`=' . $section->height . ','
+            . '`height`=' . db::string($section->height) . ','
             . '`pos`=' . $section->pos . ','
             . '`content`=' . db::string($section->content) . ' '
             . 'where ' . $where);
@@ -89,7 +89,7 @@ function write_section($db, $section, $where)
             . ' ) VALUES ('
             . $section->page_id . ','
             . db::string($section->type) . ','
-            . $section->height . ','
+            . db::string($section->height) . ','
             . $section->pos . ','
             . db::string($section->content) . ')');
     }

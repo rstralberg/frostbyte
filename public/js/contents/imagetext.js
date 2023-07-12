@@ -1,20 +1,22 @@
 
 function create_new_imagetext() {
 
-    create_form('imagetext-create', {title: 'Bild', action:'Ladda upp'}, [
+    create_form('imagetext-create', {
+        title: 'Bild och Text',
+        action: 'Ladda upp'
+    }, [
         {
             type: FormType.Image,
             name: 'url',
             label: 'Välj bild',
             value: '',
-            size: 300,
+            size: 200,
             shadow: true
         },
         {
             type: FormType.Text,
             name: 'title',
             label: 'Titel',
-            value: ''
         },
         {
             type: FormType.Checkbox,
@@ -23,10 +25,11 @@ function create_new_imagetext() {
             value: true
         },
         {
-            type: FormType.Text,
+            type: FormType.TextArea,
             name: 'text',
             label: 'Text',
-            value: 'Du kan skriva mer senare ...'
+            rows: 8,
+            cols: 80
         },
         {
             type: FormType.List,
@@ -44,7 +47,7 @@ function create_new_imagetext() {
             let content = {
                 url: encodeURIComponent(resolve.get('url')),
                 shadow: resolve.get('shadow'),
-                title: resolve.get('title'),
+                title: encodeURIComponent(resolve.get('title')),
                 text: encodeURIComponent(resolve.get('text')),
                 img_align: resolve.get('imageposition')
             };
@@ -62,22 +65,18 @@ function create_new_imagetext() {
                         let section = document.createElement('section');
 
                         section.classList.add('section-edit');
-                        section.style.display = 'flex';
-                        section.style.flexDirection = 'row';
-
-                        section.setAttribute('data-type', 'imagetext');
-                        section.setAttribute('data-page-id', Page.id);
-
+                        section.style.height = '20vh';
                         section.id = create_section_id(id);
                         container.appendChild(section);
 
                         draw_imagetext(section, content);
-                    }
-                );
-        });
+                    });
+                });
 }
 
 function draw_imagetext(section, content) {
+
+    console.log(dump_element(section));
     section.addEventListener('mouseup', (e) => {
         mark_section_selected(section);
     });
@@ -89,6 +88,7 @@ function draw_imagetext(section, content) {
     image.style.margin = '4px';
     image.id = `${section.id}-image`;
     image.addEventListener('mouseup', (e) => {
+
         image.style.outline = '2px solid white';
         text.style.outline = 'none';
         show_imagetext_image_tools(section);
@@ -107,19 +107,19 @@ function draw_imagetext(section, content) {
     });
 
     if (content.image_align === 'left') {
-        section.appendChild(image);
         section.appendChild(text);
+        section.appendChild(image);
     } else {
-        section.appendChild(text);
         section.appendChild(image);
+        section.appendChild(text);
     }
-
-    
 
     var img = document.createElement('img');
     img.addEventListener('load', (e) => {
+        
         draw_image(image, img, content.shadow, content.title, content.align);
         on_imagetext_resize(image);
+        
         let figcap = verify_object(image.querySelector('figcaption'), 'object');
         figcap.style.textAlign = content.align;
     });
@@ -131,7 +131,6 @@ function draw_imagetext(section, content) {
     });
 
     img.src = decodeURIComponent(content.url);
-
 }
 
 function show_imagetext_image_tools(section) {
@@ -156,7 +155,10 @@ function show_imagetext_image_tools(section) {
     }
     function on_title() {
 
-        create_form( 'image-title', { title:'Bildens titel', action: 'Ändra' }, [
+        create_form('image-title', {
+            title: 'Bildens titel',
+            action: 'Ändra'
+        }, [
             {
                 type: FormType.Text,
                 name: 'title',
@@ -179,6 +181,7 @@ function show_imagetext_image_tools(section) {
         }
         img_element.focus();
     }
+
     function on_right() {
         let img_element = section.querySelector(`#${section.id}-image`);
         if (is_valid(img_element.nextElementSibling, false)) {
@@ -219,7 +222,7 @@ function show_imagetext_text_tools(section) {
             var text = range.extractContents();
             if (text.textContent.length > 0) {
 
-                create_form('imagetext-link', { title:'Länk', action:'Spara' }, [
+                create_form('imagetext-link', { title: 'Länk', action: 'Spara' }, [
                     {
                         type: FormType.Label,
                         name: 'text',
@@ -243,26 +246,33 @@ function show_imagetext_text_tools(section) {
             }
         }
     }
-    function on_left() {
 
+    function on_left() {
         text_element.style.textAlign = 'left';
     }
+
     function on_center() {
         text_element.style.textAlign = 'center';
     }
+
     function on_right() {
         text_element.style.textAlign = 'right';
     }
 }
 
 function delete_imagetext(section) {
-    sql_delete('section', `id=${parse_section_id(section)}`)
-        .then(
-            () => {
-                document.querySelector('main').removeChild(section);
-                update_sections_pos_and_height();
-            }
-        );
+
+    sql_delete('section', `id=${parse_section_id(section)}`).then(
+        () => {
+            document.querySelector('main').removeChild(section);
+            req('delete_file', {
+                file: encodeURIComponent(section.querySelector('img').src)
+            }).then (
+                (resolve) => { },
+                (reject) => { }
+            )
+        }
+    );
 }
 
 function entering_imagetext(section) {

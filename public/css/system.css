@@ -129,6 +129,7 @@
     border: 2px solid #ffffff;
     border-radius: 4px;
     margin: 8px;
+    width: 1em;
 }
 
 
@@ -408,6 +409,7 @@
     position: relative;
     left: 0vw;
     top: 9vh;
+    width: fit-content;
 }
 
 .tools {

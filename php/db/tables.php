@@ -50,9 +50,9 @@ function create_tables($db)
     if( read_section($db, null, null, dbmode::single) === null) {
         $content = json_encode( [
             'align' => 'left',
-            'text' => 'V%C3%A4lommen%20till%20FrostByte%3Cbr%3E'
+            'text' => rawurlencode('Välkommen till Frostbyte')
         ]);
-        create_section($db, $page_id, 'text', 20, 0, $content );
+        create_section($db, $page_id, 'text', '20vh', 0, $content );
     }
 
     create_theme_table($db);
@@ -77,6 +77,8 @@ function create_tables($db)
             '#ffffff',// fg5
             '#404040',// bg5s
             '#ffffff',// fg5s
+            '#2d5279',// bg6
+            '#ffffff',// fg6
             '1.2em',// nav_fsize
             'bold',// nav_fweight
             '0px solid #7f7f7f',// nav_border
@@ -91,7 +93,8 @@ function create_tables($db)
             'transparent',// main_shadow
             '0.8em',// footer_fsize
             'italic',// footer_fstyle
-            '#c8c880'// title_fg
+            '#c8c880',// title_fg
+            '#000000' // more_shadow
         );
 
         create_theme($db, 'Light',
@@ -114,6 +117,8 @@ function create_tables($db)
             '#ffffff',// fg5
             '#404040',// bg5s
             '#ffffff',// fg5s
+            '#2d5279',// bg6
+            '#ffffff',// fg6
             '1.2em',// nav_fsize
             'bold',// nav_fweight
             '0px solid #7f7f7f',// nav_border
@@ -128,7 +133,8 @@ function create_tables($db)
             'transparent',// main_shadow
             '0.8em',// footer_fsize
             'italic',// footer_fstyle
-            '#c8c880'// title_fg
+            '#c8c880',// title_fg
+            '#000000' // more_shadow
         );
     }
 }

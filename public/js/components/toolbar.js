@@ -55,8 +55,15 @@ function load_toolbar() {
 
         // Döp om
         // -----------------------
-        tb_add(fieldset, '#c0c0ff', 'Titel', rename_page);
+        tb_add(fieldset, '#c0c0ff', 'Ändra Titel', rename_page);
 
+        // Visa titel
+        // -----------------------
+        tb_add(fieldset, '#c0c0ff', 'Visa titel', show_page_title );
+
+        // Spara
+        // -----------------------
+        tb_add(fieldset, '#c0c0ff', 'Spara', save_page);
 
         fieldset = document.createElement('fieldset');
         legend = document.createElement('legend');
@@ -107,15 +114,15 @@ function load_toolbar() {
         tb_add(fieldset, '#c0c0ff', 'Större', () => {
             let section = Section.selected;
             if (is_valid(section)) {
-                
+
                 let h = vh_to_pixels(parseInt(section.style.height)) + 10;
-                section.style.height = `${pixels_to_vh(h)}vh`;
+                section.style.height = pixels_to_vh(h);
                 let func = window[`on_${section.getAttribute('data-type')}_resize`];
                 if (is_valid(func)) {
                     func(section);
                 }
                 section.focus();
-                
+
             }
         });
 
@@ -125,8 +132,10 @@ function load_toolbar() {
             let section = Section.selected;
             if (is_valid(section)) {
                 if (section.clientHeight > 32) {
+                    
                     let h = vh_to_pixels(parseInt(section.style.height)) - 10;
-                    section.style.height = `${pixels_to_vh(h)}vh`;
+                    section.style.height = pixels_to_vh(h);
+                    
                     let func = window[`on_${section.getAttribute('data-type')}_resize`];
                     if (is_valid(func)) {
                         func(section);
@@ -136,6 +145,45 @@ function load_toolbar() {
                 section.focus();
             }
         });
+
+        // Anpassad höjd
+        // -----------------------
+        tb_add(fieldset, '#c0c0ff', 'Anpassa höjd', () => {
+            let section = Section.selected;
+            if (is_valid(section)) {
+                section.style.height = 'auto';
+                sql_update('section', ['height'], [sql('auto')], 'id=' + parse_section_id(section));
+            }
+        });
+
+        function save_page() {
+            sql_update('page',
+                ['title', 'pos', 'showtitle', 'host'],
+                [sql(encodeURIComponent(Page.title)),
+                sql(Page.pos),
+                sql(Page.showtitle ? 1 : 0),
+                sql(Page.host)],
+                'id=' + Page.id).then(() => {
+                    let main = document.querySelector('main');
+                    for (let i = 0; i < main.childElementCount; i++) {
+                        let section = main.children[i];
+                        let type = section.getAttribute('data-type');
+                        let func = window['leaving_' + type];
+                        if (is_valid(func)) {
+                            console.log( 'leaving_' + type);
+                            func(section);
+                        }
+                    }
+                },
+                    () => { });
+        }
+
+        function show_page_title() {
+            Page.showtitle = !Page.showtitle;
+            sql_update('page', ['showtitle'], [sql(Page.showtitle)], 'id=' + Page.id);
+            let titlediv = document.getElementById('page-title');
+            titlediv.style.display = Page.showtitle ? 'block' : 'none';
+        }
     }
     container.appendChild(toolbar);
     if (User.valid) {

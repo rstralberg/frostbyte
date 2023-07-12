@@ -37,13 +37,6 @@ function load_navbar() {
                 });
             });
 
-            parents.forEach(parent => {
-                console.log(parent.title);
-                parent.subs.forEach(sub => {
-                    console.log('--- ' + sub.title);
-                });
-            });
-
             var nav = document.querySelector('nav');
             nav.id = 'top-nav';
             if (!nav.classList.contains('topnav')) {

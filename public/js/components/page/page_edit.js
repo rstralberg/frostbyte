@@ -21,7 +21,7 @@ function page_edit(pages) {
             value: 'Skapa',
             onecol: true,
             width: 'inherit',
-            listener:  (e) => { create_page(); }
+            listener:  (e) => { create_page(true); }
         },
         {
             type: FormType.Button,

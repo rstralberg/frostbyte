@@ -58,3 +58,12 @@ function is_valid(obj, report = false) {
     return obj;
 }
 
+function dump_element(e) {
+    return  `
+    tag = ${e.tagName},
+    id = ${e.id},
+    size = ${e.width} x ${e.height},
+    clientSize = ${e.clientWidth} x ${e.clientHeight},
+    styleSize =${parseInt(e.style.width)} x ${parseInt(e.style.height)}
+    `;
+}

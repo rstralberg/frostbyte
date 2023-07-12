@@ -78,19 +78,23 @@ function htmlDecode(input) {
 }
 
 function get_height_as_vh(div) {
-    return Math.round((div.clientHeight / get_app_dimension().height) * 100);
+    return Math.round((div.clientHeight / get_app_dimension().height) * 100) + 'vh';
 }
 
 function calc_pixel_height_as_vh(pixels) {
-    return Math.round((pixels / get_app_dimension().height) * 100);
+    return Math.round((pixels / get_app_dimension().height) * 100) + 'vh';
 }
 
 function vh_to_pixels(vh) {
-    return Math.round((vh / 100) * get_app_dimension().height);
+    return Math.round((parseInt(vh) / 100) * get_app_dimension().height);
 }
 
 function pixels_to_vh(pixels) {
-    return Math.round((pixels / get_app_dimension().height) * 100);
+    return Math.round((pixels / get_app_dimension().height) * 100) + 'vh';
+}
+
+function pixels_to_vw(pixels) {
+    return Math.round((pixels / get_app_dimension().width) * 100) + 'vw';
 }
 
 function get_app_dimension() {

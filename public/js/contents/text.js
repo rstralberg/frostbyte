@@ -10,10 +10,11 @@ function create_new_text() {
 
     create_form('text-create', {title: 'Skapa Text', action:'Klar' }, [
         {
-            type: FormType.Text,
+            type: FormType.TextArea,
             name: 'text',
-            label: 'Kort text',
-            value: 'Du kan skriva mer sedan ...'
+            label: 'Text',
+            rows: 10,
+            cols: 80
         },
         {
             type: FormType.List,
@@ -144,4 +145,15 @@ function leaving_text(section) {
     leaving_section(section, {
         align: section.style.textAlign,
         text: encodeURIComponent(section.innerHTML)});
+}
+
+
+function insert_text(section, content ) {
+    let div = document.createElement('div');
+    div.style.textAlign = content.align;
+    div.innerHTML = decodeURIComponent(content.text);
+    div.addEventListener('mouseup', (e) => {
+        mark_section_selected(div);
+    });   
+    section.appendChild(div);
 }

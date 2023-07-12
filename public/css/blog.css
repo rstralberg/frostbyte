@@ -1,0 +1,42 @@
+.blog-title {
+	background: var(--bg1);
+	color: var(--fg1);
+	font-size: calc(var(--fsize)*1.4);
+	font-weight: bold;
+	border: 2px solid var(--fg4);
+	border-radius: 0px; 
+	text-shadow: 4px 4px 6px black; 
+}
+
+.blog-info {
+	background: var(--bg1);
+	color: var(--fg2);
+	font-size: small;
+	font-style: italic;
+    padding: 10px;
+}
+
+.blog-media {
+	background: var(--bg1);
+	color: var(--fg1);
+}
+
+.blog-text {
+	background: var(--bg1);
+	color: var(--fg1);
+}
+
+.blog-more {
+	background: var(--bg6);
+	color: var(--fg6);
+	border-radius: 9px;
+	width: 120px;
+	font-size: large;
+	font-weight: bold;
+	border: 2px solid var(--bg1);
+	margin-top: 6px;
+	height: 2em;
+	line-height: 1em;
+	-webkit-box-shadow: 10px 10px 15px var(--more_shadow);
+	box-shadow: 10px 10px 15px var(--more_shadow);
+}

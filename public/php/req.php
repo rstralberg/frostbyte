@@ -12,6 +12,7 @@
 require_once __DIR__ . '/../../php/reply/logg.php';
 require_once __DIR__ . '/../../php/reply/sql.php';
 require_once __DIR__ . '/../../php/reply/verify_user.php';
+require_once __DIR__ . '/../../php/reply/delete_file.php';
 
 $requestBody = file_get_contents('php://input');
 $reqbody = json_decode($requestBody, true);
