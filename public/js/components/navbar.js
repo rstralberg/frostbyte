@@ -98,6 +98,27 @@ function load_navbar() {
 
             }
 
+
+            var dropdown = document.createElement('select');
+            dropdown.classList.add('nav-select');
+            
+            sql_select('theme', ['name'], null, 'name asc').then( (themes) => {
+                themes.forEach(theme => {
+                    let option = document.createElement('option');
+                    option.value = theme.name;
+                    option.innerText = theme.name;
+                    if( theme.name === Config.theme ) {
+                        option.selected = true;
+                    }
+                    dropdown.appendChild(option);
+                });
+            });
+            nav.appendChild(dropdown);
+            dropdown.addEventListener('change', (e) => {
+                apply_theme(e.target.value);
+            });
+
+
             let a = document.createElement('a');
             a.id = 'log-in-out';
             a.classList.add('login', 'nav-right');

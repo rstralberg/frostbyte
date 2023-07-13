@@ -72,9 +72,9 @@ function create_list(field, map) {
         
         let option = document.createElement('option');
         option.classList.add('ioption');
-        if (field.selected && opt.value === field.selected) {
-            option.selected = true;
-        }
+        // if (field.selected && opt.value === field.selected) {
+        //     option.selected = true;
+        // }
         option.value = opt.value;
         option.innerHTML = opt.text;
         if (is_valid(opt.opt)) {
@@ -87,6 +87,17 @@ function create_list(field, map) {
          }
 
         base.inp.appendChild(option);
+    }
+    
+
+    if( is_valid( field.selected ) ) {
+        for( let i=0 ; i < base.inp.childElementCount; i++) {
+            let o = base.inp.children[i];
+            if( o.value === field.selected ) {
+                o.value.selected = true;
+                break;
+            }
+        }
     }
 
     base.inp.addEventListener('change', (e) => {

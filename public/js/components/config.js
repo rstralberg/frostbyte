@@ -34,6 +34,7 @@ function load_config() {
                         logo: decodeURIComponent(cfgs[0].logo)
                     };
 
+                    apply_theme(Config.theme);
                     resolve();
                 }
             });
@@ -104,6 +105,7 @@ function edit_config() {
                                 theme: decodeURIComponent(resolve.get('theme')),
                                 logo: decodeURIComponent(resolve.get('logo'))
                             };
+                            apply_theme(Config.theme);
                         },
                             () => { });
                 });

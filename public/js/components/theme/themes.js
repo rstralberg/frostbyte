@@ -246,5 +246,54 @@ function edit_themes() {
     }
 }
 
+function apply_theme(name) {
+    sql_select('theme', ['*'], 'name=' + sql(name)).then( (themes) => {
+        if( themes.length > 0 ) {
+            let theme = themes[0];
+            set_style('name', theme.name );
+            set_style('background', theme.background );
+            set_style('color', theme.color );
+            set_style('bars_background', theme.bars_background );
+            set_style('bars_color', theme.bars_color );
+            set_style('intense_background', theme.intense_background );
+            set_style('intense_color', theme.intense_color );
+            set_style('font', theme.font );
+            set_style('fsize', theme.fsize );
+            set_style('links', theme.links );
+            set_style('titles_background', theme.titles_background );
+            set_style('titles_color', theme.titles_color );
+            set_style('ctl_background_hover', theme.ctl_background_hover );
+            set_style('ctl_color_hover', theme.ctl_color_hover );
+            set_style('ctl_background_active', theme.ctl_background_active );
+            set_style('ctl_color_active', theme.ctl_color_active );
+            set_style('section_background', theme.section_background );
+            set_style('section_color', theme.section_color );
+            set_style('section_selected_background', theme.section_selected_background );
+            set_style('section_selected_color', theme.section_selected_color );
+            set_style('button_background', theme.button_background );
+            set_style('button_color', theme.button_color );
+            set_style('nav_fsize', theme.nav_fsize );
+            set_style('nav_fweight', theme.nav_fweight );
+            set_style('shadow_size', theme.shadow_size );
+            set_style('nav_border', theme.nav_border );
+            set_style('footer_border', theme.footer_border );
+            set_style('main_border', theme.main_border );
+            set_style('nav_radius', theme.nav_radius );
+            set_style('footer_radius', theme.footer_radius );
+            set_style('main_radius', theme.main_radius );
+            set_style('nav_shadow', theme.nav_shadow );
+            set_style('footer_shadow', theme.footer_shadow );
+            set_style('main_shadow', theme.main_shadow );
+            set_style('footer_fsize', theme.footer_fsize );
+            set_style('footer_fstyle', theme.footer_fstyle );
+            set_style('title_fg', theme.title_fg );
+            set_style('more_shadow', theme.more_shadow );
+
+            Config.theme = theme.name;
+            sql_update( 'config', ['theme'], [sql(theme.name)], 'id=1');
+        }
+    });
+}
+
 
 

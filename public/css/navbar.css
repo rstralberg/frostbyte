@@ -116,6 +116,24 @@
     width: auto;
   }
 
+  .nav-right {
+    float: right;
+    display: block;
+    position: absolute;
+    right: 8vw;
+  }
+
+  .nav-select {
+    position: absolute;
+    right: 0;
+    top: 0.8em;
+    width: 8vw;
+    background: var(--button_background);
+    color: var(--button_color);
+    font-size: large;
+    border: none;
+    text-align: right;
+  }
   
   /* When the screen is less than 600 pixels wide, hide all links, except for the first one ("Home"). Show the link that contains should open and close the topnav (.icon) */
   @media screen and (max-width: 600px) {

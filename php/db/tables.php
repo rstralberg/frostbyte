@@ -99,44 +99,43 @@ function create_tables($db)
         );
 
         create_theme($db, 'Light',
-            '#202020',// background
-            '#ffffff',// color
-            '#000000',// bars_background
-            '#c8c880',// bars_color
-            '#202020',// intense_background
-            '#ffffff',// intense_color
-            'Arial',// font
-            '1.0em',// fsize
-            '#c8c880',// links
-            '#f5deb3',// titles_background
-            '#202020',// titles_color
-            '#ffeec3',// ctl_background_hover
-            '#101010',// ctl_color_hover
-            '#a89a7f',// ctl_background_active
-            '#000000',// ctl_color_active
-            '#303030',// section_background
-            '#ffffff',// section_color
-            '#404040',// section_selected_background
-            '#ffffff',// section_selected_color
-            '#2d5279',// button_background
-            '#ffffff',// button_color
-            '1.2em',// nav_fsize
-            'bold',// nav_fweight
-            '0px solid #7f7f7f',// nav_border
-            '0px solid #7f7f7f',// footer_border
-            '0px solid #7f7f7f',// main_border
-            '8px',// nav_radius
-            '8px',// footer_radius
-            '8px',// main_radius
-            '32px',// shadow_size
-            'transparent',// nav_shadow
-            'transparent',// footer_shadow
-            'transparent',// main_shadow
-            '0.8em',// footer_fsize
-            'italic',// footer_fstyle
-            '#c8c880',// title_fg
-            '#000000' // more_shadow
-        );
+            '#C0BFBC',
+            '#000000',
+            '#000000',
+            '#c8c880',
+            '#202020',
+            '#ffffff',
+            'Arial',
+            '1.0em',
+            '#c8c880',
+            '#f5deb3',
+            '#202020',
+            '#ffeec3',
+            '#101010',
+            '#a89a7f',
+            '#000000',
+            '#303030',
+            '#ffffff',
+            '#404040',
+            '#ffffff',
+            '#2d5279',
+            '#ffffff',
+            '1.2em',
+            'bold',
+            '0px solid #7f7f7f',
+            '0px solid #7f7f7f',
+            '0px solid #7f7f7f',
+            '8px',
+            '8px',
+            '8px',
+            '32px',
+            'transparent',
+            'transparent',
+            'transparent',
+            '0.8em',
+            'italic',
+            '#c8c880',
+            '#00000');
     }
 }
 
