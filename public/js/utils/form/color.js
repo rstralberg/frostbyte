@@ -21,9 +21,7 @@ function create_color(field, map) {
 
     base.inp.value = field.value;
     base.div.style.display = 'grid';
-    // base.label.style.height = '32px';
-    // base.inp.style.height = '32px;';
-
+    
 
     base.inp.addEventListener('input', (e) => {
         map.set(field.name, field.value = hexcolor_to_style(e.target.value));

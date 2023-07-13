@@ -6,38 +6,6 @@ function create_new_audio() {
             media_draw_audio(section, content);
         })
     });
-
-    // create_form('audio-create', { title: 'Ljud', action: 'Spara' }, [
-    //     {
-    //         type: FormType.Upload,
-    //         name: 'url',
-    //         label: 'Ljudfil (mp3)',
-    //     },
-    //     {
-    //         type: FormType.Checkbox,
-    //         name: 'shadow',
-    //         label: 'Skugga',
-    //         value: true
-    //     },
-    //     {
-    //         type: FormType.Text,
-    //         name: 'title',
-    //         label: 'Titel',
-    //     },
-    //     {
-    //         type: FormType.Text,
-    //         name: 'text',
-    //         label: 'Text',
-    //         value: 'Här kan du skriva lite om låten'
-    //     }
-    // ]).then((resovle) => {
-    //     media_create_audio({
-    //         url: resovle.get('url'),
-    //         text: resovle.get('text'),
-    //         shadow: resovle.get('shadow'),
-    //         title: resovle.get('title')
-    //     });
-    // });
 }
 
 function draw_audio(section, content) {
