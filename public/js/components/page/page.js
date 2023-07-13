@@ -109,6 +109,8 @@ function load_page(id) {
                         div.classList.add('blog-header');
                         div.innerHTML = Page.blogheader ;
                         pagetitle.appendChild(div);
+                        let main = document.querySelector('main');
+                        main.style.top = '38vh';
 
                     }
                     load_page_sections(id);

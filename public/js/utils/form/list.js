@@ -110,7 +110,8 @@ function create_list(field, map) {
             field.text = target.options[target.selectedIndex].innerText;
             field.opt = target.options[target.selectedIndex].getAttribute('data-opt');
             map.set(field.name, target.options[target.selectedIndex].value);
-            if (field.listener) field.listener(field);
+            if (field.listener) field.listener(field); 
+
         }
     });
 

@@ -3,7 +3,7 @@
 	color: var(--color);
 	font-size: calc(var(--fsize)*1.4);
 	font-weight: bold;
-	border: 2px solid var(--titles_color);
+	border: none;
 	border-radius: 0px; 
 	text-shadow: 4px 4px 6px black; 
 }
@@ -11,7 +11,7 @@
 .blog-header {
 	background: var(--titles_background);
 	color: var(--titles_color);
-	font-size: calc(var(--fsize)*0.9);
+	font-size: calc(var(--fsize)*0.8);
 	font-weight: normal;
 	font-style: italic;
 	border-radius: 0px;
@@ -54,4 +54,14 @@
 	line-height: 1em;
 	-webkit-box-shadow: 10px 10px 15px var(--more_shadow);
 	box-shadow: 10px 10px 15px var(--more_shadow);
+}
+
+@media screen and (max-width: 600px) {
+
+	.blog-header {
+		border: none;
+	}
+	.blog-title {
+		border:none
+	}
 }

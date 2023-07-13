@@ -2,8 +2,9 @@
 class Section {
 
     static FORM_SECTION_CREATE = 'section-create';
-    
+
     static Type = {
+        none: 'none',
         audio: 'audio',
         picture: 'picture',
         soundcloud: 'soundcloud',
@@ -14,7 +15,7 @@ class Section {
         imagetext: 'imagetext',
         blog: 'blog'
     };
-    
+
     #_id = 0;
     #_page_id = 0;
     #_type = '';
@@ -22,14 +23,14 @@ class Section {
     #_pos = 0;
     #_content = '';
     #_selected = null;
-    
+
     set id(v) { this.#_id = v; }
     set page_id(v) { this.#_page_id = v; }
     set type(v) { this.#_type = v; }
     set height(v) { this.#_height = v; }
     set pos(v) { this.#_pos = v; }
     set content(v) { this.#_content = v; }
-    set selected(v) { this.#_selected = v; } 
+    set selected(v) { this.#_selected = v; }
 
 
     get id() { return this.#_id; }
@@ -38,7 +39,7 @@ class Section {
     get height() { return this.#_height; }
     get pos() { return this.#_pos; }
     get content() { return this.#_content; }
-    get selected() { return this.#_selected; } 
+    get selected() { return this.#_selected; }
 
     set section(v) {
         this.id = v.id;
@@ -87,6 +88,7 @@ class Section {
 function create_section() {
 
     const types = [
+        { value: Section.Type.none, text: 'Välj' },
         { value: Section.Type.blog, text: 'Bloginlägg' },
         { value: Section.Type.text, text: 'Text' },
         { value: Section.Type.picture, text: 'Bild' },
@@ -97,25 +99,27 @@ function create_section() {
         { value: Section.Type.youtube, text: 'YouTube' },
     ];
     create_form(Section.FORM_SECTION_CREATE, {
-            title: 'Skapa avsnitt'}, [ 
-                {
-                    type: FormType.List,
-                    label: 'Typ av avsnitt',
-                    name: 'type',
-                    items: types,
-                    selected: Section.Type.blog,
-                    listener: on_selected
-            }
-        ]);
+        title: 'Skapa avsnitt'
+    }, [
+        {
+            type: FormType.List,
+            label: 'Typ av avsnitt',
+            name: 'type',
+            items: types,
+            selected: Section.Type.none,
+            listener: on_selected
+        }
+    ]);
 
-        function on_selected(e) {
+    function on_selected(e) {
+        if (e.value !== 'none') {
             let func = window[`create_new_${e.value}`];
             close_form(Section.FORM_SECTION_CREATE);
             if (func) {
                 func();
             }
-
         }
+    }
 }
 
 function delete_section() {
@@ -129,13 +133,13 @@ function delete_section() {
 
 }
 function mark_section_selected(section) {
-    if (User.valid && is_valid(section )) {
+    if (User.valid && is_valid(section)) {
 
-        if( is_valid(Section.selected) && !is_same_section(Section.selected,section) ) {
+        if (is_valid(Section.selected) && !is_same_section(Section.selected, section)) {
             let func = window[`leaving_${Section.selected.getAttribute('data-type')}`];
             if (is_valid(func)) {
                 func(Section.selected);
-           }
+            }
         }
 
         Section.selected = section;
@@ -148,22 +152,22 @@ function mark_section_selected(section) {
 }
 
 function leaving_section(cursection, content) {
-    
+
     let container = document.querySelector('main');
 
     for (let i = 0; i < container.childElementCount; i++) {
-        
+
         let section = container.children[i];
-        if( section.classList.contains('section-edit')) {
+        if (section.classList.contains('section-edit')) {
             section.classList.remove('section-edit');
         }
-        
+
         if (is_same_section(cursection, section)) {
             sql_update('section', ['pos', 'height', 'content'],
-            [   sql(i),
-                sql(get_height_as_vh(cursection)),   
+                [sql(i),
+                sql(get_height_as_vh(cursection)),
                 sql(JSON.stringify(content))],
-            `id=${parse_section_id(cursection)}`);
+                `id=${parse_section_id(cursection)}`);
         }
         else {
             sql_update('section', ['pos', 'height'],
@@ -207,7 +211,7 @@ function parse_section_id(section) {
     return parseInt(section.id.slice('s-'.length));
 }
 
-function create_section_id( id) {
+function create_section_id(id) {
     return `s-${id}`;
 }
 
