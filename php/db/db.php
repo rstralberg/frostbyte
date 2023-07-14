@@ -60,7 +60,7 @@ class db
 		try {
 			$res = mysqli_query($this->myscli, $sql);
 		} catch (Exception $e) {
-			dump('PHP: Undantagsfel i databasen för  [' . $sql . '] ' . $e->getMessage());
+			dump('PHP: Database exception for  [' . $sql . '] ' . $e->getMessage());
 			return null;
 		}
 		if ($res === false)
@@ -95,21 +95,33 @@ class db
 
 	public function row_exist($table, $where)
 	{
-		$result = mysqli_query($this->myscli, "SELECT COUNT(*) AS `numrows` FROM " . $table . " WHERE " . $where);
+		$query = "SELECT COUNT(*) AS `numrows` FROM " . $table . " WHERE " . $where;
+		try {
+			$result = mysqli_query($this->myscli, $query);
+		} catch (Exception $e) {
+			dump('PHP: Database execption in "row_exist" [' . $query . '] ' . $e->getMessage());
+		}
 		if ($result === false) return false;
 		return (int)mysqli_fetch_assoc($result)['numrows'] > 0;
 	}
 
 	public function table_exist($table)
 	{
-		$res = mysqli_query($this->myscli, "SELECT count(*)
-		FROM information_schema.tables
-		WHERE table_schema = '" . CONF_DATABASE . "' 
-		AND table_name = '" . $table . "'");
+		$query = 'SELECT count(*) FROM information_schema.tables WHERE table_schema = "' . CONF_DATABASE . '" AND table_name = "' . $table . '"';
+		try {
+			$res = mysqli_query($this->myscli, $query);
+		} catch (Exception $e) {
+			dump('PHP: Database execption  [' . $query . '] ' . '<br>' . $e->getMessage());
+			dump('PHP: Error [' . $e->getMessage() . ']');
+			return null;
+		}
 		if ($res === false) return false;
+
 		if (mysqli_num_rows($res) === 0) return false;
 		$data = mysqli_fetch_assoc($res);
+
 		if ($data === null) return false;
+
 		return $data['count(*)'] > 0;
 	}
 
@@ -127,11 +139,13 @@ class db
 		else return "'NULL'";
 	}
 
-	public static function encode_string($str) {
+	public static function encode_string($str)
+	{
 		return db::string(rawurlencode($str));
 	}
 
-	public static function decode_string($str) {
+	public static function decode_string($str)
+	{
 		return rawurldecode($str);
 	}
 

@@ -17,43 +17,43 @@ function create_page(reboot) {
                 });
                 create_form(Page.FORM_CREATE_PAGE,
                     {
-                        title: 'Ny sida',
-                        action: 'Skapa'
+                        title: Trans.tag('new-page'),
+                        action: Trans.tag('create')
                     }, [
                     {
                         type: FormType.Text,
                         name: 'title',
-                        label: 'Titel',
+                        label: Trans.tag('title'),
                     },
                     {
                         type: FormType.Checkbox,
                         name: 'container',
-                        label: 'Förälder till andra sidor',
+                        label: Trans.tag('page-parent'),
                         value: false
                     },
                     {
                         type: FormType.Checkbox,
                         name: 'showtitle',
-                        label: 'Visa titel på sidan',
+                        label: Trans.tag('show-page-title'),
                         value: true
                     },
                     {
                         type: FormType.Checkbox,
                         name: 'blog',
-                        label: 'Är en bloggsida',
+                        label: Trans.tag('is-a-blog'),
                         value: false
                     },
                     {
                         type: FormType.TextArea,
                         name: 'blogheader',
-                        label: 'Blogg Intro',
+                        label: Trans.tag('blog-intro'),
                         rows: 4,
                         cols: 80
                     },
                     {
                         type: FormType.List,
                         name: 'parent',
-                        label: 'Förälder',
+                        label: Trans.tag('parent'),
                         items: pagearray,
                         selected: 0
                     }

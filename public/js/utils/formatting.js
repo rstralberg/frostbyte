@@ -41,7 +41,9 @@ function on_link() {
         var text = range.extractContents();
         if (text.textContent.length > 0) {
 
-            create_form('link-edit', { title: 'Länk', action: 'Spara' }, [
+            create_form('link-edit', { 
+                title: Trans.tag('link'), 
+                action: Trans.tag('save') }, [
                 {
                     type: FormType.Label,
                     name: 'text',
@@ -50,7 +52,7 @@ function on_link() {
                 {
                     type: FormType.Text,
                     name: 'link',
-                    label: 'Länk',
+                    label: Trans.tag('link'),
                     value: 'https://'
                 }
             ])

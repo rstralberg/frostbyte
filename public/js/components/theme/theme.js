@@ -4,42 +4,35 @@ function edit_theme(theme_name) {
     var selects = [
         {
             value:'none',
-            text: 'Välj'
+            text: Trans.tag('select')
         },
         {
             value: 'colors',
-            text: 'Färger' 
+            text: Trans.tag('colors')
         },
         {
             value: 'fonts',
-            text: 'Teckensnitt' 
+            text: Trans.tag('fonts') 
         },
         {
             value: 'borders',
-            text: 'Ramar' 
+            text: Trans.tag('borders') 
         },
         {
             value: 'misc',
-            text: 'Övrigt'
+            text: Trans.tag('misc')
         }];
 
         create_form('theme-editor', {
-            title: 'Redigera temat "' + theme_name + '"',
+            title: Trans.tag('edit-theme') + ' ' + theme_name ,
             zindex: 8888,
             cancel: false,
             pos: { x:'41vw', y:'7vh'}
         } , [
             {
-                type: FormType.TextArea,
-                name: 'info',
-                value: 'Här kan du redigera olika delar i temat.',
-                rows: 1,
-                cols: 60,
-            },
-            {
                 type: FormType.List,
                 name: 'selects',
-                label: 'Delar',
+                label: Trans.tag('parts'),
                 items: selects,
                 selected: 'none',
                 listener: on_select

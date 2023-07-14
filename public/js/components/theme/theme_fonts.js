@@ -7,7 +7,7 @@ function edit_theme_fonts(theme) {
 
 
     create_form('edit-theme-fonts', {
-        title: 'Redigera teckensnitt',
+        title: Trans.tag('edit-fonts'),
         pos: { x: '41vw', y: '26vh' },
         size: { w: '41vw', h: 'auto' },
         fixed: true,
@@ -16,7 +16,7 @@ function edit_theme_fonts(theme) {
         { 
             type: FormType.List,
             name: 'font',  
-            label: 'Teckensnitt',
+            label: Trans.tag('font'),
             items: fonts, 
             selected: get_style('font'),
             listener: on_font
@@ -24,7 +24,7 @@ function edit_theme_fonts(theme) {
         { 
             type: FormType.Float, 
             name: 'fsize', 
-            label: 'Storlek',
+            label: Trans.tag('size'),
             step: 0.1,
             value: get_float_style('fsize'),
             listener: on_fsize
@@ -32,7 +32,7 @@ function edit_theme_fonts(theme) {
         { 
             type: FormType.Float, 
             name: 'nav-fsize', 
-            label: 'Menyns teckenstorlek' ,
+            label: Trans.tag('menu-font-size'),
             step: 0.1,
             value: get_float_style('nav_fsize'),
             listener: on_nav_fsize
@@ -40,7 +40,7 @@ function edit_theme_fonts(theme) {
         { 
             type: FormType.Float, 
             name: 'footer-fsize',
-            label: 'Fotradens teckenstorlek',
+            label: Trans.tag('footer-font-size'),
             step: 0.1,
             value: get_float_style('footer_fsize'),  
             listener: on_footer_fsize

@@ -29,12 +29,12 @@ function delete_page(pages) {
     }
 
     create_form(Page.FORM_DELETE, {
-        title: 'Radera sida',
-        action: 'Radera'
+        title: Trans.tag('delete-page'),
+        action: Trans.tag('delete')
     }, [{
         type: FormType.Tree,
         name: Page.FORM_DELETE_TREE,
-        label: 'Välj sida att radera',
+        label: Trans.tag('select-page-to-delete'),
         items: pages_array,
     }
     ]).then((values) => {
@@ -43,16 +43,16 @@ function delete_page(pages) {
         if (is_valid(page_id)) {
 
             sql_select('page', ['id', 'title'], 'parent=' + page_id).then((pages) => {
-                let question = 'Radera sidan "' + page_title + '" ';
+                let question = Trans.tag('delete-the-page') + ' ' + page_title + ' ';
                 if (pages.length > 0) {
-                    question += ' och dess underliggande sidor '
+                    question += ' ' + Trans.tag('and-its-subpages')
                     pages.forEach(page => {
                         question += decodeURIComponent(page.title) + ' ';
                     });
                     question = question.slice(0, -1);
                 }
 
-                yesno('Radera', question + '. Är du säker?').then((resolve) => {
+                yesno(Trans.tag('delete'), question + '. ' + Trans.tag('are-you-sure')).then((resolve) => {
                     if (resolve === 'yes') {
                         sql_delete('page', `parent=${page_id}`).then(() => {
                             sql_delete('page', `id=${page_id}`).then(() => {

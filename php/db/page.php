@@ -30,7 +30,7 @@ function create_page_table($db)
     $create = !$db->table_exist('page');
     if ($create) {
         $db->query(
-            "CREATE TABLE `page` (
+            "CREATE TABLE IF NOT EXISTS `page` (
                 `id` int(11) NOT NULL AUTO_INCREMENT,
                 `parent` int(11) DEFAULT 0,
                 `title` varchar(50) NOT NULL,

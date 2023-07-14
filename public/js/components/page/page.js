@@ -94,7 +94,7 @@ function load_page(id) {
         sql_select('page', ['*'], `id=${id}`, 'pos asc').then(
             (pages) => {
                 if (pages.length === 0) {
-                    logg(`Kunde inte hitta sidan med id=${id}`);
+                    logg(`Could not find page with id=${id}`);
                     resolve();
                 } else {
 
@@ -109,9 +109,7 @@ function load_page(id) {
                         div.classList.add('blog-header');
                         div.innerHTML = Page.blogheader ;
                         pagetitle.appendChild(div);
-                        let main = document.querySelector('main');
-                        main.style.top = '38vh';
-
+                        
                     }
                     load_page_sections(id);
                     resolve();

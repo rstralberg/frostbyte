@@ -12,19 +12,19 @@ function duplicate_page(pages) {
 
 
     create_form(Page.FORM_DUPLICATE, {
-        title: 'Skapa kopia av vald sida',
-        action: 'Skapa'
+        title: Trans.tag('create-copy-of-selected-page'),
+        action: Trans.tag('create')
     }, [
         {
             type: FormType.Tree,
             name: Page.FORM_DUPLICATE_TREE,
-            label: 'Välj Källa',
+            label: Trans.tag('select-page'),
             items: pages_array
         },
         {
             type: FormType.Text,
             name: 'pagename',
-            label: 'Kopians namn',
+            label: Trans.tag('name-of-copy'),
         }
     ])
         .then(

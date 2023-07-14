@@ -19,7 +19,7 @@ function create_new_blog() {
     var page_array = new Array();
     page_array.push({
         value: 'none',
-        text: 'Ingen'
+        text: Trans.tag('none')
     });
     sql_select('page', ['id', 'title'], 'host=0').then(
         (pages) => {
@@ -30,19 +30,19 @@ function create_new_blog() {
                 });
             });
             create_form('blog-create', {
-                title: 'Skapa blogginlägg',
-                action: 'Skapa',
+                title: Trans.tag('create-blog-post'),
+                action: Trans.tag('create'),
                 size: { w: '60vw', h: 'auto' }
             }, [
                 {
                     type: FormType.Text,
                     name: 'blog-title',
-                    label: 'Titel',
+                    label: Trans.tag('create'),
                 },
                 {
                     type: FormType.List,
                     name: 'page-ref',
-                    label: 'Hänvisa till sida',
+                    label: Trans.tag('page-reference'),
                     items: page_array,
                     selected: 'none',
                     listener: on_select_page
@@ -50,17 +50,17 @@ function create_new_blog() {
                 {
                     type: FormType.TextArea,
                     name: 'blog-text',
-                    label: 'Text',
+                    label: Trans.tag('text'),
                     rows: 20,
                     cols: 80,
                 },
                 {
                     type: FormType.List,
                     name: 'media-select',
-                    label: 'Media',
+                    label: Trans.tag('media'),
                     items: [
-                        { value: 'none', text: 'Ingen' },
-                        { value: 'picture', text: 'Bild' },
+                        { value: 'none', text: Trans.tag('none') },
+                        { value: 'picture', text: Trans.tag('image') },
                         { value: 'youtube', text: 'YouTube' },
                         { value: 'audio', text: 'MP3' },
                         { value: 'soundcloud', text: 'Soundcloud' },
@@ -71,22 +71,22 @@ function create_new_blog() {
                 },
                 {
                     type: FormType.List,
-                    label: 'Media position',
+                    label: Trans.tag('media-position'),
                     name: 'media-pos',
                     items: [
-                        { value: 'top-left', text: 'Före text till vänster' },
-                        { value: 'top-center', text: 'Före text i miten' },
-                        { value: 'top-right', text: 'Före text till höger' },
-                        { value: 'bottom-left', text: 'Efter text till vänster' },
-                        { value: 'bottom-center', text: 'Efter text i miten' },
-                        { value: 'bottom-right', text: 'Efter text till höger' },
+                        { value: 'top-left', text: Trans.tag('before-text-at-left') },
+                        { value: 'top-center', text: Trans.tag('before-text-at-center') },
+                        { value: 'top-right', text: Trans.tag('before-text-at-right') },
+                        { value: 'bottom-left', text: Trans.tag('after-text-at-left') },
+                        { value: 'bottom-center', text: Trans.tag('after-text-at-center') },
+                        { value: 'bottom-right', text: Trans.tag('after-text-at-right') },
 
                     ],
                     selected: 'top-center'
                 },
                 {
                     type: FormType.Checkbox,
-                    label: 'Media skugga',
+                    label: Trans.tag('shadow'),
                     name: 'media-shadow',
                     value: true
                 },
@@ -170,6 +170,7 @@ function create_new_blog() {
 function draw_blog(section, content) {
 
     section.style.background = get_style('background');
+    section.style.height = 'auto';
 
     let titlediv = document.createElement('div');
     titlediv.classList.add('blog-title');
@@ -179,8 +180,8 @@ function draw_blog(section, content) {
 
     let infodiv = document.createElement('div');
     infodiv.classList.add('blog-info');
-    infodiv.innerHTML = decodeURIComponent(content.date) + '<br>' + decodeURIComponent(content.author);
-    infodiv.setAttribute('data-date', decodeURIComponent(content.date));
+    infodiv.innerHTML = content.date + '<br>' + decodeURIComponent(content.author);
+    infodiv.setAttribute('data-date', content.date);
     infodiv.setAttribute('data-author', decodeURIComponent(content.author));
     infodiv.readonly = true;
     section.appendChild(infodiv);
@@ -234,17 +235,17 @@ function draw_blog(section, content) {
 function show_blog_tools(section) {
 
     show_tools('blog', [
-        { title: 'Fet', func: on_bold },
-        { title: 'Kursiv', func: on_italic },
-        { title: 'Stryk', func: on_underline },
-        { title: 'Stor', func: on_h1 },
-        { title: 'Liten', func: on_h3 },
-        { title: 'Markering', func: on_mark },
-        { title: 'Normal', func: on_normal },
-        { title: 'Länk', func: on_link },
-        { title: 'Vänster', func: on_left },
-        { title: 'Mitten', func: on_center },
-        { title: 'Höger', func: on_right }]);
+        { title: Trans.tag('bold'), func: on_bold },
+        { title: Trans.tag('italic'), func: on_italic },
+        { title: Trans.tag('underline'), func: on_underline },
+        { title: Trans.tag('large'), func: on_h1 },
+        { title: Trans.tag('small'), func: on_h3 },
+        { title: Trans.tag('mark'), func: on_mark },
+        { title: Trans.tag('normal'), func: on_normal },
+        { title: Trans.tag('link'), func: on_link },
+        { title: Trans.tag('left'), func: on_left },
+        { title: Trans.tag('center'), func: on_center },
+        { title: Trans.tag('right'), func: on_right }]);
 
     function on_bold() { format_selection('b'); }
     function on_italic() { format_selection('i'); }
@@ -308,7 +309,7 @@ function delete_blog(section) {
 
 function entering_blog(section) {
     show_blog_tools(section);
-    section.querySelector('.blog-text').contentEditable = User.valid ? 'true' : 'false';
+    section.querySelector('.blog-text').contentEditable = User.valid ;
 }
 
 function leaving_blog(section) {
@@ -321,7 +322,11 @@ function leaving_blog(section) {
     let more = section.querySelector('.blog-more');
     more = is_valid(more)?more:null;
     let mediadiv = verify_object(section.querySelector('.blog-media'), 'object');
-    let media = JSON.parse(mediadiv.getAttribute('data-media'));
+    let media = is_valid(mediadiv ) ? JSON.parse(mediadiv.getAttribute('data-media')) : null;
+    if( !is_valid( info.getAttribute('data-date') ) ) {
+        let date = new Date();
+        info.setAttribute('data-date', date.toLocaleDateString());
+    }
 
     let content = {
         title: title.innerText,
@@ -333,7 +338,7 @@ function leaving_blog(section) {
         media: media
     };
 
-    leaving_section( blog_to_sql(content) );
+    leaving_section( section, blog_to_sql(content) );
 }
 
 
@@ -344,11 +349,12 @@ function blog_to_sql(content) {
         text: encodeURIComponent(content.text),
         more: content.more,
         more_title: encodeURIComponent(content.more_title),
+        date: content.date,
         media: {
-            type: content.media.type,
-            pos: content.media.pos,
-            shadow: content.media.shadow,
-            content: content.media.content
+            type: is_valid(content.media) ? content.media.type : 'none',
+            pos: is_valid(content.media) ? content.media.pos : 'left',
+            shadow: is_valid(content.media) ? content.media.shadow : 0,
+            content: is_valid(content.media) ? content.media.content : {}
         }
     }
 }
@@ -359,6 +365,7 @@ function sql_to_blog(sql) {
         author: decodeURIComponent(sql.author),
         text: decodeURIComponent(sql.text),
         more: parseInt(sql.more),
+        date: sql.date,
         more_title: decodeURIComponent(sql.more_title),
         media: sql.media
     };

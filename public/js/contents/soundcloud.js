@@ -2,28 +2,28 @@
 
 function create_new_soundcloud() {
 
-    create_form('soundcloud-create', { title: 'Skapa soundcloud', action: 'Klar' }, [
+    create_form('soundcloud-create', { 
+        title: Trans.tag('create-soundcloud'), 
+        action: Trans.tag('create') }, [
         {
             type: FormType.TextArea,
             name: 'info',
             rows: 4,
             cols: 60,
             readonly: true,
-            value: 'Gå till Soundcloud och välj din låt. Klicka sedan på "Share" ' +
-                'och välj där fliken "Embedd". Kopiera sedan det som finns i fältet ' +
-                '"Code" och klistra in här nedan'
+            value: Trans.tag('soundcloud-instruction')
         },
         {
             type: FormType.TextArea,
             name: 'soundcloud',
-            label: 'Klistra in',
+            label: Trans.tag('paste'),
             rows: 6,
             cols: 80
         },
         {
             type: FormType.Checkbox,
             name: 'shadow',
-            label: 'Skugga',
+            label: Trans.tag('shadow'),
             value: true
         }]).then((result) => {
             media_create_soundcloud({
@@ -92,8 +92,8 @@ function media_form_soundcloud() {
     return new Promise((resolve, reject) => {
 
         create_form('soundcloud-create', {
-            title: 'Skapa soundcloud',
-            action: 'Skapa'
+            title: Trans.tag('create-soundcloud'),
+            action: Trans.tag('create')
         }, [
             {
                 type: FormType.TextArea,
@@ -101,20 +101,18 @@ function media_form_soundcloud() {
                 rows: 4,
                 cols: 60,
                 readonly: true,
-                value: 'Gå till Soundcloud och välj din låt. Klicka sedan på "Share" ' +
-                    'och välj där fliken "Embedd". Kopiera sedan det som finns i fältet ' +
-                    '"Code" och klistra in här nedan'
+                value: Trans.tag('soundcloud-instruction')
             },
             {
                 type: FormType.Text,
                 name: 'soundcloud',
-                label: 'Klistra in',
+                label: Trans.tag('paste'),
                 value: ''
             },
             {
                 type: FormType.Checkbox,
                 name: 'shadow',
-                label: 'Skugga',
+                label: Trans.tag('shadow'),
                 value: true
             }]).then((values) => {
                 resolve({

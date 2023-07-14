@@ -20,25 +20,25 @@ function load_toolbar() {
             let fieldset = document.createElement('fieldset');
             let legend = document.createElement('legend');
 
-            legend.innerText = 'System';
+            legend.innerText = Trans.tag('system');
             fieldset.appendChild(legend);
             toolbar.appendChild(fieldset);
 
             // Redigera inställningar
             // ------------------
-            tb_add(fieldset, '#ffc0c0', 'Inställningar', edit_config);
+            tb_add(fieldset, '#ffc0c0', Trans.tag('settings'), edit_config);
 
             // Redigera användare
             // ------------------
-            tb_add(fieldset, '#ffc0c0', 'Användare', edit_users);
+            tb_add(fieldset, '#ffc0c0', Trans.tag('users'), edit_users);
 
             // Redigera tema
             // ------------------
-            tb_add(fieldset, '#ffc0c0', 'Teman', edit_themes);
+            tb_add(fieldset, '#ffc0c0', Trans.tag('themes'), edit_themes);
 
             // Redigera sidornas ordning
             // ----------------------------
-            tb_add(fieldset, '#ffc0c0', 'Sidor', page_editor);
+            tb_add(fieldset, '#ffc0c0', Trans.tag('pages'), page_editor);
         }
     }
 
@@ -49,35 +49,35 @@ function load_toolbar() {
 
         let fieldset = document.createElement('fieldset');
         let legend = document.createElement('legend');
-        legend.innerText = 'Sida';
+        legend.innerText = Trans.tag('page');
         fieldset.appendChild(legend);
         toolbar.appendChild(fieldset);
 
         // Döp om
         // -----------------------
-        tb_add(fieldset, '#c0c0ff', 'Ändra Titel', rename_page);
+        tb_add(fieldset, '#c0c0ff', Trans.tag('change-title'), rename_page);
 
         // Visa titel
         // -----------------------
-        tb_add(fieldset, '#c0c0ff', 'Visa titel', show_page_title );
+        tb_add(fieldset, '#c0c0ff', Trans.tag('show-title'), show_page_title );
 
         // Spara
         // -----------------------
-        tb_add(fieldset, '#c0c0ff', 'Spara', save_page);
+        tb_add(fieldset, '#c0c0ff', Trans.tag('save'), save_page);
 
         fieldset = document.createElement('fieldset');
         legend = document.createElement('legend');
-        legend.innerText = 'Avsnitt';
+        legend.innerText = Trans.tag('section');
         fieldset.appendChild(legend);
         toolbar.appendChild(fieldset);
 
         // Ny sektion
         // -----------------------
-        tb_add(fieldset, '#c0c0ff', 'Nytt', create_section);
+        tb_add(fieldset, '#c0c0ff', Trans.tag('new'), create_section);
 
         // Radera aktuell sektion
         // -----------------------
-        tb_add(fieldset, '#c0c0ff', 'Radera', () => {
+        tb_add(fieldset, '#c0c0ff', Trans.tag('delete'), () => {
             if (is_valid(Section.selected)) {
                 delete_section(Section.selected);
             }
@@ -85,7 +85,7 @@ function load_toolbar() {
 
         // Flytta sektionen uppåt
         // -----------------------
-        tb_add(fieldset, '#c0c0ff', 'Upp', () => {
+        tb_add(fieldset, '#c0c0ff', Trans.tag('up'), () => {
             let section = Section.selected;
             if (is_valid(section)) {
                 if (is_valid(section.previousElementSibling, false)) {
@@ -98,7 +98,7 @@ function load_toolbar() {
 
         // Flytta sektionen nedåt
         // -----------------------
-        tb_add(fieldset, '#c0c0ff', 'Ned', () => {
+        tb_add(fieldset, '#c0c0ff', Trans.tag('down'), () => {
             let section = Section.selected;
             if (is_valid(section)) {
                 if (is_valid(section.nextElementSibling, false)) {
@@ -111,7 +111,7 @@ function load_toolbar() {
 
         // Öka sektiones storlek
         // -----------------------
-        tb_add(fieldset, '#c0c0ff', 'Större', () => {
+        tb_add(fieldset, '#c0c0ff', Trans.tag('larger'), () => {
             let section = Section.selected;
             if (is_valid(section)) {
 
@@ -128,7 +128,7 @@ function load_toolbar() {
 
         // Minska sektiones storlek
         // -----------------------
-        tb_add(fieldset, '#c0c0ff', 'Mindre', () => {
+        tb_add(fieldset, '#c0c0ff', Trans.tag('smaller'), () => {
             let section = Section.selected;
             if (is_valid(section)) {
                 if (section.clientHeight > 32) {
@@ -148,7 +148,7 @@ function load_toolbar() {
 
         // Anpassad höjd
         // -----------------------
-        tb_add(fieldset, '#c0c0ff', 'Anpassa höjd', () => {
+        tb_add(fieldset, '#c0c0ff', Trans.tag('adjust-height'), () => {
             let section = Section.selected;
             if (is_valid(section)) {
                 section.style.height = 'auto';

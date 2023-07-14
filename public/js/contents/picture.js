@@ -2,13 +2,13 @@
 function create_new_picture() {
 
     create_form('picture-create', {
-        title: 'Bild',
-        action: 'Ladda upp'
+        title: Trans.tag('image'),
+        action: Trans.tag('upload')
     }, [
         {
             type: FormType.Image,
             name: 'url',
-            label: 'Välj bild',
+            label: Trans.tag('select-image'),
             value: '',
             size: 300,
             shadow: true
@@ -16,23 +16,23 @@ function create_new_picture() {
         {
             type: FormType.Text,
             name: 'title',
-            label: 'Titel',
+            label: Trans.tag('title'),
             required: true
         },
         {
             type: FormType.Checkbox,
             name: 'shadow',
-            label: 'Skugga',
+            label: Trans.tag('shadow'),
             value: true
         },
         {
             type: FormType.List,
             name: 'align',
-            label: 'Postion',
+            label: Trans.tag('position'),
             items: [
-                { value: 'left', text: 'Vänster' },
-                { value: 'center', text: 'Mitten' },
-                { value: 'right', text: 'Höger' }
+                { value: 'left', text: Trans.tag('left') },
+                { value: 'center', text: Trans.tag('center') },
+                { value: 'right', text: Trans.tag('right') }
             ],
             selected: 'center'
         }
@@ -73,11 +73,11 @@ function draw_picture(section, content) {
 function show_picture_tools(section) {
 
     show_tools('Bild', [
-        { title: 'Skugga', func: on_shadow },
-        { title: 'Titel', func: on_title },
-        { title: 'Vänster', func: on_left },
-        { title: 'Mitten', func: on_center },
-        { title: 'Höger', func: on_right }]);
+        { title: Trans.tag('shadow'), func: on_shadow },
+        { title: Trans.tag('title'), func: on_title },
+        { title: Trans.tag('left'), func: on_left },
+        { title: Trans.tag('center'), func: on_center },
+        { title: Trans.tag('right'), func: on_right }]);
 
     function on_shadow() {
         let img = section.querySelector('img');
@@ -92,12 +92,15 @@ function show_picture_tools(section) {
     }
     function on_title() {
 
-        create_form('picture-title', { title: 'Bildens titel', action: 'Ändra' }, [
+        create_form('picture-title', { 
+            title: Trans.tag('image-title'), 
+            action: Trans.tag('change') 
+        }, [
             {
                 type: FormType.Text,
                 name: 'title',
                 value: section.querySelector('figcaption').innerText,
-                label: 'Titel'
+                label: Trans.tag('title')
             }
         ])
             .then(
@@ -226,13 +229,13 @@ function media_form_picture() {
 
     return new Promise((resolve, reject) => {
         create_form('picture-create', {
-            title: 'Bild',
-            action: 'Ladda upp'
+            title: Trans.tag('image'),
+            action: Trans.tag('upload')
         }, [
             {
                 type: FormType.Image,
                 name: 'url',
-                label: 'Välj bild',
+                label: Trans.tag('select-image'),
                 value: '',
                 size: 300,
                 shadow: true
@@ -240,23 +243,23 @@ function media_form_picture() {
             {
                 type: FormType.Text,
                 name: 'title',
-                label: 'Titel',
+                label: Trans.tag('title'),
                 required: true
             },
             {
                 type: FormType.Checkbox,
                 name: 'shadow',
-                label: 'Skugga',
+                label: Trans.tag('shadow'),
                 value: true
             },
             {
                 type: FormType.List,
                 name: 'align',
-                label: 'Position',
+                label: Trans.tag('position'),
                 items: [
-                    { value: 'left', text: 'Vänster' },
-                    { value: 'center', text: 'Mitten' },
-                    { value: 'right', text: 'Höger' }
+                    { value: 'left', text: Trans.tag('left') },
+                    { value: 'center', text: Trans.tag('center') },
+                    { value: 'right', text: Trans.tag('right') }
                 ],
                 selected: 'center'
             }]).then((values) => {

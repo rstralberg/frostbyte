@@ -11,7 +11,8 @@ main {
     position: absolute;
     left: 9.9vw;
     height: calc(91.5vh - var(--shadow_size));
-    top: calc(5vh + var(--shadow_size) + 1em);
+    /* top: 21vh; calc(5vh + var(--shadow_size) + 1em); */
+    top:21vh;
     border-radius: var(--main_radius);
     border: var(--main_border);
     -webkit-box-shadow: 10px 10px 15px var(--main_shadow);
@@ -196,4 +197,11 @@ section {
     outline-color: var(--ctl_color_hover);
     outline-style: solid;
     outline-width: 2px;
+}
+
+@media screen and (max-width: 600px) {
+
+	main {
+		top: 41vh;
+	}
 }

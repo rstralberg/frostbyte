@@ -25,16 +25,14 @@ function create_section_table($db)
     $create = !$db->table_exist('section');
     if ($create) {
         $db->query(
-            "CREATE TABLE `section` (
+            "CREATE TABLE IF NOT EXISTS `section` (
                 `id` int(11) NOT NULL AUTO_INCREMENT,
                 `page_id` int(11) NOT NULL,
                 `type` varchar(30) NOT NULL,
                 `height` varchar(30) NOT NULL,
                 `pos` int(11) NOT NULL DEFAULT 0,
                 `content` text NOT NULL,
-                PRIMARY KEY (`id`),
-                KEY `section_FK` (`page_id`),
-                CONSTRAINT `section_FK` FOREIGN KEY (`page_id`) REFERENCES `page` (`id`) ON DELETE CASCADE
+                PRIMARY KEY (`id`)
               ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_swedish_ci"
         );
     }

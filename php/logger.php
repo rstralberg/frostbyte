@@ -4,7 +4,9 @@ const logfile = __DIR__ . '/../public/frostbyte.log';
 
 function logger_on()
 {
-    $GLOBALS['logger'] = fopen(logfile, 'a');
+    if( isset($GLOBALS['debug']) && $GLOBALS['debug'] === 'true') {
+        $GLOBALS['logger'] = fopen(logfile, 'a');
+    }
 }
 
 function logger_off()
@@ -41,6 +43,8 @@ function clear_logger()
 
 function dump($str)
 {
+    print_r($str . PHP_EOL);
+
     logger_on();
     logger($str);
     logger_off();

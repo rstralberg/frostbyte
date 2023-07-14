@@ -3,12 +3,14 @@
 function create_new_text() {
 
     const aligns = [
-        { value: 'left', text: 'Vänster' },
-        { value: 'center', text: 'Mitten' },
-        { value: 'right', text: 'Höger' }
+        { value: 'left', text: Trans.tag('left') },
+        { value: 'center', text: Trans.tag('center') },
+        { value: 'right', text: Trans.tag('right') }
     ];
 
-    create_form('text-create', {title: 'Skapa Text', action:'Klar' }, [
+    create_form('text-create', {
+        title: Trans.tag('create-text'),
+        action: Trans.tag('create') }, [
         {
             type: FormType.TextArea,
             name: 'text',
@@ -19,7 +21,7 @@ function create_new_text() {
         {
             type: FormType.List,
             name: 'align',
-            label: 'Postion',
+            label: Trans.tag('position'),
             items: aligns,
             selected: 'left'
         }]).then(
@@ -62,18 +64,18 @@ function draw_text(section, content) {
 
 function show_text_tools(section) {
 
-    show_tools('Text', [
-        { title: 'Fet', func: on_bold },
-        { title: 'Kursiv', func: on_italic },
-        { title: 'Stryk', func: on_underline },
-        { title: 'Stor', func: on_h1 },
-        { title: 'Liten', func: on_h3 },
-        { title: 'Markering', func: on_mark },
-        { title: 'Normal', func: on_normal },
-        { title: 'Länk', func: on_link },
-        { title: 'Vänster', func: on_left },
-        { title: 'Mitten', func: on_center },
-        { title: 'Höger', func: on_right }]);
+    show_tools(Trans.tag('text'), [
+        { title: Trans.tag('bold'), func: on_bold },
+        { title: Trans.tag('italic'), func: on_italic },
+        { title: Trans.tag('underline'), func: on_underline },
+        { title: Trans.tag('large'), func: on_h1 },
+        { title: Trans.tag('small'), func: on_h3 },
+        { title: Trans.tag('mark'), func: on_mark },
+        { title: Trans.tag('normal'), func: on_normal },
+        { title: Trans.tag('link'), func: on_link },
+        { title: Trans.tag('left'), func: on_left },
+        { title: Trans.tag('center'), func: on_center },
+        { title: Trans.tag('right'), func: on_right }]);
 
     function on_bold() { format_selection('b'); }
     function on_italic() { format_selection('i'); }
@@ -89,18 +91,20 @@ function show_text_tools(section) {
             var text = range.extractContents();
             if (text.textContent.length > 0) {
 
-                create_form( 'text-link', { title:'Länk', action:'Spara' }, [
+                create_form( 'text-link', { 
+                    title: Trans.tag('link'), 
+                    action: Trans.tag('save') }, [
                     {
                         type: FormType.Text,
                         name: 'text',
-                        label: 'text',
+                        label: Trans.tag('text'),
                         value: text.textContent,
                         readonly: true
                     },
                     {
                         type: FormType.Text,
                         name: 'link',
-                        label: 'Länk',
+                        label: Trans.tag('link'),
                         value: 'https://'
                     }
                 ]).then(
@@ -137,7 +141,7 @@ function delete_text(section) {
 
 function entering_text(section) {
     show_text_tools(section);
-    section.contentEditable = User.valid ? 'true' : 'false';
+    section.contentEditable = User.valid ;
 }
 
 function leaving_text(section) {

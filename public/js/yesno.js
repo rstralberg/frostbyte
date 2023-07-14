@@ -19,14 +19,14 @@ function yesno(atitle, text, yes, no = null) {
             {
                 type: FormType.Button,
                 name: 'yes',
-                value: 'Ja',
+                value: Trans.tag('yes'),
                 onecol: true,
                 listener: on_yes
             },
             {
                 type: FormType.Button,
                 name: 'no',
-                value: 'Nej',
+                value: Trans.tag('no'),
                 onecol: true,
                 listener: on_no
             }]);

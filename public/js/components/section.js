@@ -88,22 +88,22 @@ class Section {
 function create_section() {
 
     const types = [
-        { value: Section.Type.none, text: 'Välj' },
-        { value: Section.Type.blog, text: 'Bloginlägg' },
-        { value: Section.Type.text, text: 'Text' },
-        { value: Section.Type.picture, text: 'Bild' },
-        { value: Section.Type.imagetext, text: 'Bild & Text' },
-        { value: Section.Type.audio, text: 'Ljud' },
+        { value: Section.Type.none, text: Trans.tag('select') },
+        { value: Section.Type.blog, text: Trans.tag('blog-post') },
+        { value: Section.Type.text, text: Trans.tag('text') },
+        { value: Section.Type.picture, text: Trans.tag('image') },
+        { value: Section.Type.imagetext, text: Trans.tag('image-and-text') },
+        { value: Section.Type.audio, text: Trans.tag('sound') },
         { value: Section.Type.soundcloud, text: 'SoundCloud' },
         { value: Section.Type.spotify, text: 'Spotify' },
         { value: Section.Type.youtube, text: 'YouTube' },
     ];
     create_form(Section.FORM_SECTION_CREATE, {
-        title: 'Skapa avsnitt'
+        title: Trans.tag('create-section')
     }, [
         {
             type: FormType.List,
-            label: 'Typ av avsnitt',
+            label: Trans.tag('type-of-section'),
             name: 'type',
             items: types,
             selected: Section.Type.none,

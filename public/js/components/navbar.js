@@ -98,10 +98,29 @@ function load_navbar() {
 
             }
 
+            let langdown = document.createElement('select');
+            langdown.classList.add('nav-lang');
+            
+            let option = document.createElement('option');
+            option.value = 'sv';
+            option.innerText = 'Svenska';
+            langdown.appendChild(option);
 
+            option = document.createElement('option');
+            option.value = 'en';
+            option.innerText = 'English';
+            langdown.appendChild(option);
+            
+            langdown.addEventListener( 'click', (e) => {
+                sql_update('config', ['language'], [sql(e.target.value)], 'id=1').then( () => {
+                    load_translation(e.target.value);
+                    window.location = '/';
+                });
+            });
+            nav.appendChild(langdown);
+            
             var dropdown = document.createElement('select');
             dropdown.classList.add('nav-select');
-            
             sql_select('theme', ['name'], null, 'name asc').then( (themes) => {
                 themes.forEach(theme => {
                     let option = document.createElement('option');
@@ -119,10 +138,30 @@ function load_navbar() {
             });
 
 
+            // dropdown = document.createElement('select');
+            // dropdown.classList.add('nav-select');
+            
+            // sql_select('theme', ['name'], null, 'name asc').then( (themes) => {
+            //     themes.forEach(theme => {
+            //         let option = document.createElement('option');
+            //         option.value = theme.name;
+            //         option.innerText = theme.name;
+            //         if( theme.name === Config.theme ) {
+            //             option.selected = true;
+            //         }
+            //         dropdown.appendChild(option);
+            //     });
+            // });
+            // nav.appendChild(dropdown);
+            // dropdown.addEventListener('change', (e) => {
+            //     apply_theme(e.target.value);
+            // });
+
+
             let a = document.createElement('a');
             a.id = 'log-in-out';
             a.classList.add('login', 'nav-right');
-            a.innerHTML = User.valid ? 'Logga ut' : 'Logga in';
+            a.innerHTML = User.valid ? Trans.tag('logout') : Trans.tag('login');
             a.addEventListener('click', (e) => {
                 if (User.valid) {
                     logout();
@@ -160,7 +199,7 @@ function load_navbar() {
 function navbar_logged_in(logged_in) {
     let element = document.getElementById('log-in-out');
     if (is_valid(element)) {
-        element.innerText = logged_in ? 'Logga ut' : 'Logga in';
+        element.innerText = logged_in ? Trans.tag('logout') : Trans.tag('logout');
     }
 }
 

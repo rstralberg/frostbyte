@@ -55,19 +55,19 @@ function load_user(username) {
 function login() {
 
     create_form(User.FORM_LOGIN, {
-        title: 'Logga in',
-        action: 'Logga in',
+        title: Trans.tag('login'),
+        action: Trans.tag('login'),
         pos: { x: '41vw', h: '7vh' }
     }, [
         {
             type: FormType.Text,
             name: 'username',
-            label: 'Användare',
+            label: Trans.tag('username'),
         },
         {
             type: FormType.Password,
             name: 'password',
-            label: 'Lösenord',
+            label: Trans.tag('password'),
         }])
         .then(
             (result) => {
@@ -88,7 +88,7 @@ function login() {
 
 function logout() {
 
-    yesno('Logga ut', 'Är du säker?')
+    yesno(Trans.tag('logout'), Trans.tag('are-you-sure'))
         .then((resolve) => {
             if (resolve === 'yes') {
                 set_cookie('username', null);
@@ -110,12 +110,12 @@ function edit_users() {
                 });
 
                 create_form(User.FORM_EDIT_USERS, { 
-                    title: 'Redigera användare', 
-                    action: 'Välj' }, [
+                    title: Trans.tag('edit-user'), 
+                    action: Trans.tag('select') }, [
                     {
                         type: FormType.List,
                         name: 'usernames',
-                        label: 'Användare',
+                        label: Trans.tag('username'),
                         items: names,
                         selected: User.username
                     }]).then(
@@ -137,25 +137,25 @@ function edit_user(user) {
 
     create_form(User.FORM_EDIT_USER, { 
         title: user.username, 
-        action: 'Spara',
+        action: Trans.tag('save'),
         fixed:true
     }, [
         {
             type: FormType.Text,
             name: 'fullname',
-            label: 'Fullständigt namn',
+            label: Trans.tag('full-name'),
             value: user.fullname
         },
         {
             type: FormType.Email,
             name: 'email',
-            label: 'Epost adress',
+            label: Trans.tag('email'),
             value: user.email
         },
         {
             type: FormType.Checkbox,
             name: 'power',
-            label: 'Administratör',
+            label: Trans.tag('admin'),
             value: user.power
         }
     ]).then(

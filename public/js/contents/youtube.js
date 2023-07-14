@@ -2,7 +2,9 @@
 
 function create_new_youtube() {
 
-    create_form('youtube-create', { title: 'Skapa youtube', action: 'Klar' }, [
+    create_form('youtube-create', { 
+        title: Trans.tag('create-youtube'), 
+        action: Trans.tag('create') }, [
         {
             type: FormType.TextArea,
             name: 'info',
@@ -10,32 +12,30 @@ function create_new_youtube() {
             cols: 60,
 
             readonly: true,
-            value: 'Gå till spotify och välj din låt. Klicka sedan på "Dela" ' +
-                'och välj sedan "Bädda in". Klicka senda på "Kopiera" ' +
-                'och klistra in här nedan'
+            value: Trans.tag('youtube-instruction')
         },
         {
             type: FormType.TextArea,
             name: 'url',
-            label: 'Klistra in',
+            label: Trans.tag('paste'),
             rows: 6,
             cols: 80
         },
         {
             type: FormType.List,
             name: 'align',
-            label: 'Posiiton',
+            label: Trans.tag('position'),
             items: [
-                { value: 'left', text: 'Vänster'},
-                { value: 'center', text: 'Mitten'},
-                { value: 'right', text: 'Höger'}
+                { value: 'left', text: Trans.tag('left')},
+                { value: 'center', text: Trans.tag('center') },
+                { value: 'right', text: Trans.tag('right')}
             ],
             selected: 'center'
         },
         {
             type: FormType.Checkbox,
             name: 'shadow',
-            label: 'Skugga',
+            label: Trans.tag('shadow'),
             value: true
         }])
         .then((result) => {
@@ -61,10 +61,10 @@ function draw_youtube(section, content) {
 function show_youtube_tools(section) {
 
     show_tools('YouTube', [
-        { title: 'Skugga', func: on_shadow },
-        { title: 'Vänster', func: on_left },
-        { title: 'Mitten', func: on_center },
-        { title: 'Höger', func: on_right }]);
+        { title: Trans.tag('shadow'), func: on_shadow },
+        { title: Trans.tag('left'), func: on_left },
+        { title: Trans.tag('center'), func: on_center },
+        { title: Trans.tag('right'), func: on_right }]);
 
     function on_left() {
         section.style.textAlign = 'left';
@@ -117,8 +117,8 @@ function media_form_youtube() {
     return new Promise((resolve, reject) => {
 
         create_form('youtube-create', {
-            title: 'Skapa youtube',
-            action: 'Skapa'
+            title: Trans.tag('create-youtube'),
+            action: Trans.tag('create')
         }, [
             {
                 type: FormType.TextArea,
@@ -127,21 +127,19 @@ function media_form_youtube() {
                 cols: 60,
 
                 readonly: true,
-                value: 'Gå till spotify och välj din låt. Klicka sedan på "Dela" ' +
-                    'och välj sedan "Bädda in". Klicka senda på "Kopiera" ' +
-                    'och klistra in här nedan'
+                value: Trans.tag('youtube-instruction')
             },
             {
                 type: FormType.TextArea,
                 name: 'url',
-                label: 'Klistra in',
+                label: Trans.tag('paste'),
                 rows: 4,
                 cols: 80
             },
             {
                 type: FormType.Checkbox,
                 name: 'shadow',
-                label: 'Skugga',
+                label: Trans.tag('shadow'),
                 value: true
             }]).then((values) => {
                 resolve({

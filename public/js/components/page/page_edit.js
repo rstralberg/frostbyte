@@ -3,7 +3,7 @@ function page_edit(pages) {
 
     create_form(Page.FORM_EDIT,
         {
-            title: 'Hantering av sidor',
+            title: Trans.tag('page-utilities'),
             cancel: false,
             fixed: true,
             css: ['iform', 'page-edit']
@@ -11,14 +11,14 @@ function page_edit(pages) {
         {
             type: FormType.TextArea,
             name: 'desc',
-            value: 'Här kan du skapa, radera och kopiera sidor',
+            value: Trans.tag('create-delete-copy'),
             rows: 2,
             cols: 30
         },
         {
             type: FormType.Button,
             name: 'create-page',
-            value: 'Skapa',
+            value: Trans.tag('create'),
             onecol: true,
             width: 'inherit',
             listener:  (e) => { create_page(true); }
@@ -26,7 +26,7 @@ function page_edit(pages) {
         {
             type: FormType.Button,
             name: 'delete-page',
-            value: 'Radera',
+            value: Trans.tag('delete'),
             onecol: true,
             width: 'inherit',
             listener: (e) => { delete_page(pages); }
@@ -34,7 +34,7 @@ function page_edit(pages) {
         {
             type: FormType.Button,
             name: 'duplicate-page',
-            value: 'Duplicera',
+            value: Trans.tag('duplicate-page'),
             onecol: true,
             width: 'inherit',
             listener: (e) => { duplicate_page(pages); }
@@ -42,7 +42,7 @@ function page_edit(pages) {
         {
             type: FormType.Button,
             name: 'close-all',
-            value: 'Stäng',
+            value: Trans.tag('close'),
             onecol: true,
             width: 'inherit',
             listener: (e) => {

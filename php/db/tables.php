@@ -16,6 +16,7 @@ require_once  __DIR__ . '/user.php';
 require_once  __DIR__ . '/page.php';
 require_once  __DIR__ . '/section.php';
 require_once  __DIR__ . '/theme.php';
+require_once  __DIR__ . '/translation.php';
 
 
 function create_tables($db)
@@ -30,7 +31,15 @@ function create_tables($db)
             CONF_LOGO,
             CONF_DEBUG);
     }    
-    
+
+    create_translation_table($db);
+    if( read_translation($db, 'code="sv"', null, dbmode::single) === null) {
+        create_translation($db, 'sv');
+    }
+    if( read_translation($db, 'code="en"', null, dbmode::single) === null) {
+        create_translation($db, 'en');
+    }
+
     create_user_table($db);
     if( read_user($db, null, null, dbmode::single) === null) {
         create_user($db,
@@ -58,7 +67,7 @@ function create_tables($db)
 
     create_theme_table($db);
     if( read_theme($db, null, null, dbmode::single) === null) {
-        create_theme($db, 'Dark',
+        create_theme($db, 'Mörk',
             '#202020',// background
             '#ffffff',// color
             '#000000',// bars_background
@@ -98,7 +107,7 @@ function create_tables($db)
             '#000000' // more_shadow
         );
 
-        create_theme($db, 'Light',
+        create_theme($db, 'Ljus',
             '#C0BFBC',
             '#000000',
             '#000000',

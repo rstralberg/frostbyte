@@ -134,29 +134,29 @@ function media_form_audio() {
 
     return new Promise((resolve, reject) => {
         create_form('audio-create', {
-            title: 'MP3 Ljud',
-            action: 'Spara'
+            title: 'MP3 ' + Trans.tag('sound'),
+            action: Trans.tag('create')
         }, [
             {
                 type: FormType.Upload,
                 name: 'url',
-                label: 'Ljudfil (mp3)',
+                label: Trans.tag('sound-file') + ' (mp3)',
             },
             {
                 type: FormType.Checkbox,
                 name: 'shadow',
-                label: 'Skugga',
+                label: Trans.tag('shadow'),
                 value: true
             },
             {
                 type: FormType.Text,
                 name: 'title',
-                label: 'Titel',
+                label: Trans.tag('title'),
             },
             {
                 type: FormType.TextArea,
                 name: 'text',
-                label: 'Text',
+                label: Trans.tag('text'),
                 rows: 4,
                 cols: 80
             }

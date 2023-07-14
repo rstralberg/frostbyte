@@ -49,11 +49,13 @@ function edit_config() {
                 theme_names.push({ value: theme.name, text: theme.name });
             });
 
-            create_form('edit-config', { title: 'Inställningar', action: 'Spara' }, [
+            create_form('edit-config', { 
+                title: Trans.tag('settings'), 
+                action: Trans.tag('save') }, [
                 {
                     type: FormType.List,
                     name: 'language',
-                    label: 'Språk',
+                    label: Trans.tag('language'),
                     items: [
                         { value: 'sv', text: 'Svenska' },
                         { value: 'en', text: 'English' }],
@@ -62,26 +64,26 @@ function edit_config() {
                 {
                     type: FormType.Text,
                     name: 'sitename',
-                    label: 'Websidans namn',
+                    label: Trans.tag('webpage-name'),
                     value: Config.sitename,
                 },
                 {
                     type: FormType.Text,
                     name: 'siteowner',
-                    label: 'Ägare',
+                    label: Trans.tag('owner'),
                     value: Config.siteowner,
                 },
                 {
                     type: FormType.List,
                     name: 'theme',
-                    label: 'Tema',
+                    label: Trans.tag('theme'),
                     items: theme_names,
                     selected: Config.theme,
                 },
                 {
                     type: FormType.Image,
                     name: 'logo',
-                    label: 'Logga',
+                    label: Trans.tag('logo'),
                     title: Config.sitename,
                     url: Config.logo,
                     shared: true,

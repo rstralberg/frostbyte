@@ -2,13 +2,13 @@
 function create_new_imagetext() {
 
     create_form('imagetext-create', {
-        title: 'Bild och Text',
-        action: 'Ladda upp'
+        title: Trans.tag('image-and-text'),
+        action: Trans.tag('create')
     }, [
         {
             type: FormType.Image,
             name: 'url',
-            label: 'Välj bild',
+            label: Trans.tag('select-image'),
             value: '',
             size: 200,
             shadow: true
@@ -16,28 +16,28 @@ function create_new_imagetext() {
         {
             type: FormType.Text,
             name: 'title',
-            label: 'Titel',
+            label: Trans.tag('title'),
         },
         {
             type: FormType.Checkbox,
             name: 'shadow',
-            label: 'Skugga',
+            label: Trans.tag('shadow'),
             value: true
         },
         {
             type: FormType.TextArea,
             name: 'text',
-            label: 'Text',
+            label: Trans.tag('text'),
             rows: 8,
             cols: 80
         },
         {
             type: FormType.List,
             name: 'imageposition',
-            label: 'Bildens position',
+            label: Trans.tag('image-position'),
             items: [
-                { value: 'left', text: 'Bild till vänster om text' },
-                { value: 'right', text: 'Bild till höger om text' },
+                { value: 'left', text: Trans.tag('image-on-left') },
+                { value: 'right', text: Trans.tag('image-on-right') },
             ],
             selected: 'left'
         }
@@ -76,7 +76,7 @@ function create_new_imagetext() {
 
 function draw_imagetext(section, content) {
 
-    console.log(dump_element(section));
+    
     section.addEventListener('mouseup', (e) => {
         mark_section_selected(section);
     });
@@ -156,14 +156,14 @@ function show_imagetext_image_tools(section) {
     function on_title() {
 
         create_form('image-title', {
-            title: 'Bildens titel',
-            action: 'Ändra'
+            title: Trans.tag('title'),
+            action: Trans.tag('change')
         }, [
             {
                 type: FormType.Text,
                 name: 'title',
                 value: image_element.querySelector('figcaption').innerText,
-                label: 'Titel'
+                label: Trans.tag('title')
             }
         ])
             .then(
@@ -195,18 +195,18 @@ function show_imagetext_image_tools(section) {
 function show_imagetext_text_tools(section) {
 
     var text_element = section.querySelector(`#${section.id}-text`);
-    show_tools('Text', [
-        { title: 'Fet', func: on_bold },
-        { title: 'Kursiv', func: on_italic },
-        { title: 'Stryk', func: on_underline },
-        { title: 'Stor', func: on_h1 },
-        { title: 'Liten', func: on_h3 },
-        { title: 'Markering', func: on_mark },
-        { title: 'Normal', func: on_normal },
-        { title: 'Länk', func: on_link },
-        { title: 'Vänster', func: on_left },
-        { title: 'Mitten', func: on_center },
-        { title: 'Höger', func: on_right }]);
+    show_tools(Trans.tag('text'), [
+        { title: Trans.tag('bold'), func: on_bold },
+        { title: Trans.tag('italic'), func: on_italic },
+        { title: Trans.tag('underline'), func: on_underline },
+        { title: Trans.tag('large'), func: on_h1 },
+        { title: Trans.tag('small'), func: on_h3 },
+        { title: Trans.tag('mark'), func: on_mark },
+        { title: Trans.tag('normal'), func: on_normal },
+        { title: Trans.tag('link'), func: on_link },
+        { title: Trans.tag('left'), func: on_left },
+        { title: Trans.tag('center'), func: on_center },
+        { title: Trans.tag('right'), func: on_right }]);
 
     function on_bold() { format_selection('b'); }
     function on_italic() { format_selection('i'); }
@@ -222,7 +222,9 @@ function show_imagetext_text_tools(section) {
             var text = range.extractContents();
             if (text.textContent.length > 0) {
 
-                create_form('imagetext-link', { title: 'Länk', action: 'Spara' }, [
+                create_form('imagetext-link', { 
+                    title: Trans.tag('link'), 
+                    action: Trans.tag('save') }, [
                     {
                         type: FormType.Label,
                         name: 'text',
@@ -231,7 +233,7 @@ function show_imagetext_text_tools(section) {
                     {
                         type: FormType.Text,
                         name: 'link',
-                        label: 'Länk',
+                        label: Trans.tag('link'),
                         value: 'https://'
                     }
                 ]).then(

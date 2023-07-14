@@ -13,20 +13,13 @@ function edit_themes() {
                 });
 
                 create_form('themes-editor', {
-                    title: 'Redigera teman',
-                    action: 'Spara'
+                    title: Trans.tag('edit-themes'),
+                    action: Trans.tag('save')
                 }, [
-                    {
-                        type: FormType.TextArea,
-                        name: 'info',
-                        value: 'Här kan du redigera teman.',
-                        rows: 1,
-                        cols: 30,
-                    },
                     {
                         type: FormType.List,
                         name: 'themes',
-                        label: 'Teman',
+                        label: Trans.tag('themes'),
                         items: theme_names,
                         selected: Config.theme,
                         listener: on_edit
@@ -34,14 +27,14 @@ function edit_themes() {
                     {
                         type: FormType.Button,
                         name: 'create',
-                        value: 'Skapa nytt',
+                        value: Trans.tag('create-new'),
                         width: '30vw',
                         listener: on_create
                     },
                     {
                         type: FormType.Button,
                         name: 'delete',
-                        value: 'Radera',
+                        value: Trans.tag('delete'),
                         width: '30vw',
                         listener: on_delete
                     }
@@ -49,7 +42,7 @@ function edit_themes() {
                     .then(
                         (result) => {
 
-                            yesno('Tema', 'Vill du använda temat nu')
+                            yesno(Trans.tag('theme'), Trans.tag('use-theme-now'))
                                 .then(
                                     (resolve) => { close(); },
                                     (reject) => { close(); }
@@ -68,13 +61,13 @@ function edit_themes() {
 
                 function on_create() {
                     create_form('create-theme', {
-                        titel: 'Nytt tema',
-                        action: 'Skapa'
+                        titel: Trans.tag('new-theme'),
+                        action: Trans.tag('create')
                     }, [
                         {
                             type: FormType.Text,
                             name: 'name',
-                            label: 'Temats namn',
+                            label: Trans.tag('name'),
                         }
                     ])
                         .then((values) => {
@@ -190,7 +183,7 @@ function edit_themes() {
                             let items = new Array();
                             items.push({
                                 value: 'none',
-                                text: 'Välj tema'
+                                text: Trans.tag('select-theme')
                             })
                             themes.forEach(theme => {
                                 if (theme.name !== Config.theme) {
@@ -202,14 +195,14 @@ function edit_themes() {
                             });
 
                             create_form('delete_theme', {
-                                title: 'Radera tema',
-                                action: 'Radera'
+                                title: Trans.tag('delete-theme'),
+                                action: Trans.tag('delete')
                             },
                                 [
                                     {
                                         type: FormType.List,
                                         name: 'theme',
-                                        label: 'Teman',
+                                        label: Trans.tag('themes'),
                                         items: items
                                     }
                                 ])
@@ -230,7 +223,7 @@ function edit_themes() {
                                 });
                             } else 
                             {
-                                alert( 'Det finns bara ett tema så det kan vi inte radera');
+                                alert( Trans.tag('cant-delete-last-theme'));
                             }
                         });
                 }

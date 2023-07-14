@@ -101,6 +101,7 @@
     display: block;
     position: absolute;
     right: 0;
+    top:0;
   }
 
   .logo {
@@ -120,12 +121,24 @@
     float: right;
     display: block;
     position: absolute;
-    right: 8vw;
+    right: 18vw;
   }
 
   .nav-select {
     position: absolute;
     right: 0;
+    top: 0.8em;
+    width: 8vw;
+    background: var(--button_background);
+    color: var(--button_color);
+    font-size: large;
+    border: none;
+    text-align: right;
+  }
+  
+  .nav-lang {
+    position: absolute;
+    right: 9vw;
     top: 0.8em;
     width: 8vw;
     background: var(--button_background);

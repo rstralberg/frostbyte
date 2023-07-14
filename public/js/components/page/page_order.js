@@ -34,7 +34,7 @@ function page_order(pages) {
 
     create_form(Page.FORM_ORDER,
         {
-            title: 'Ordning',
+            title: Trans.tag('order'),
             cancel: false,
             fixed: true,
             css: ['iform', 'page-order']
@@ -42,8 +42,7 @@ function page_order(pages) {
         {
             type: FormType.TextArea,
             name: 'desc',
-            value: 'Här kan du välja ordningen som sidorna ska ha i menyn.' +
-                'Markera med musen och dra',
+            value: Trans.tag('order-with-mouse'),
             rows: 6,
             cols: 30
         },

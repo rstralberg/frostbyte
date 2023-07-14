@@ -2,28 +2,28 @@
 
 function create_new_spotify() {
 
-    create_form('spotify-create', { title: 'Skapa spotify', action: 'Klar' }, [
+    create_form('spotify-create', { 
+        title: Trans.tag('create-spotify'),
+        action: Trans.tag('create') }, [
         {
             type: FormType.TextArea,
             name: 'info',
             rows: 4,
             cols: 60,
             readonly: true,
-            value: 'Gå till spotify och välj din låt. Klicka sedan på "Dela" ' +
-                'och välj sedan "Bädda in spår". Klicka senda på "Kopiera" ' +
-                'och klistra in här nedan'
+            value: Trans.tag('spotify-instruction')
         },
         {
             type: FormType.TextArea,
             name: 'spotify',
-            label: 'Klistra in',
+            label: Trans.tag('paste'),
             rows: 6,
             cols: 80
         },
         {
             type: FormType.Checkbox,
             name: 'shadow',
-            label: 'Skugga',
+            label: Trans.tag('shadow'),
             value: true
         }]).then((result) => {
             media_create_spotify({
@@ -98,8 +98,8 @@ function media_form_spotify() {
     return new Promise((resolve, reject) => {
 
         create_form('spotify-create', {
-            title: 'Skapa spotify',
-            action: 'Skapa'
+            title: Trans.tag('create-spotify'),
+            action: Trans.exo('create')
         }, [
             {
                 type: FormType.TextArea,
@@ -107,20 +107,18 @@ function media_form_spotify() {
                 rows: 4,
                 cols: 60,
                 readonly: true,
-                value: 'Gå till spotify och välj din låt. Klicka sedan på "Dela" ' +
-                    'och välj sedan "Bädda in spår". Klicka senda på "Kopiera" ' +
-                    'och klistra in här nedan'
+                value: Trans.tag('spotify-instruction')
             },
             {
                 type: FormType.Text,
                 name: 'spotify',
-                label: 'Klistra in',
+                label: Trans.tag('paste'),
                 value: ''
             },
             {
                 type: FormType.Checkbox,
                 name: 'shadow',
-                label: 'Skugga',
+                label: Trans.tag('shadow'),
                 value: true
             }]).then((values) => {
                 resolve({

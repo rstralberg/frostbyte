@@ -55,6 +55,8 @@ function read_config($db)
         $config->theme = $result['theme'];
         $config->logo = $result['logo'];
         $config->debug = $result['debug'];
+
+        $GLOBALS['debug'] = $config->debug != 0 ? 'true':'false';
         return $config;
     } else {
         return null;
@@ -63,6 +65,8 @@ function read_config($db)
 
 function write_config($db, $config)
 {
+    $GLOBALS['debug'] = $config->debug != 0 ? 'true':'false';
+
     if ($db->row_exist('config', 'id=1')) {
         $db->query('UPDATE config SET '
             . '`language`=' . db::string($config->language) . ','

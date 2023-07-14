@@ -3,19 +3,13 @@ function rename_page() {
     
 
     create_form(Page.FORM_RENAME_PAGE, { 
-        title: 'Ge sidan nytt namn', 
-        action: 'Byt namn' }, [
+        title: Trans.tag('give-new-page-name'), 
+        action: Trans.tag('change-name') }, [
         {
             type: FormType.Text,
             name: 'title',
-            label: 'Nytt namn',
+            label: Trans.tag('new-name'),
             value: decodeURIComponent(Page.title)
-        },
-        {
-            type: FormType.Checkbox,
-            name: 'view-title',
-            label: 'Visa titel på sidan',
-            value: Page.showtitle
         }
     ])
         .then(

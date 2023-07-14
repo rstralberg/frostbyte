@@ -12,13 +12,13 @@ function page_all(pages) {
     if (pages_array.length === 0) {
         pages_array.push({
             value: -1,
-            text: 'Sidor saknas'
+            text: Trans.tag('pages-missing')
         });
     }
 
     create_form(Page.FORM_ALL,
         {
-            title: 'Alla sidor',
+            title: Trans.tag('page-all-title'),
             cancel: false,
             fixed: true,
             css: ['iform', 'page-all']
@@ -26,8 +26,7 @@ function page_all(pages) {
         {
             type: FormType.TextArea,
             name: 'desc',
-            value: 'Här kan du välja sidor som ska vara med i någon meny. ' +
-                'Klicka för att flytta till eller ifrån "Meny"',
+            value: Trans.tag('page-all-desc'),
             rows: 4,
             cols: 30
         },
@@ -50,19 +49,19 @@ function page_all(pages) {
 
 
         create_form(Page.FORM_ALL_ACTION, {
-            title: 'Vad vill du göra med sidan "' + selected.innerText + '"',
+            title: Trans.tag('what-to-do-with-page') + ' ' +  selected.innerText ,
         }, [
             {
                 type: FormType.Button,
                 name: 'move-to-menu',
-                value: 'Flytta till meny',
+                value: Trans.tag('move-to-menu'),
                 onecol: true,
                 listener: move_to_menu,
             },
             {
                 type: FormType.Button,
                 name: 'move-from-menu',
-                value: 'Ta bort från meny',
+                value: Trans.tag('move-from-menu'),
                 onecol: true,
                 listener: move_from_menu,
             }
@@ -70,13 +69,13 @@ function page_all(pages) {
 
         function move_to_menu(e) {
             if( is_in_menu( parseInt(selected.value) ) ) {
-                alert( selected.text + ' finns redan in menyn');
+                alert( selected.text + ' ' + Trans.tag('exist-in-menu'));
             }
         }
 
         function move_from_menu(e) {
             if( !is_in_menu( parseInt(selected.value) ) ) {
-                alert( selected.text + ' finns inte i menyn');
+                alert( selected.text + ' ' + Trans.tag('not-exist-in-menu'));
             }
 
         }

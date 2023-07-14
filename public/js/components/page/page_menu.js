@@ -6,7 +6,7 @@ function page_menu(pages) {
             let page_array = new Array();
             page_array.push({
                 value: 'base',
-                text: 'Basnivå'
+                text: Trans.tag('base-level')
             });
             pages.forEach(page => {
                 if (parseInt(page.host) === 1) {
@@ -19,7 +19,7 @@ function page_menu(pages) {
 
             create_form(Page.FORM_MENU,
                 {
-                    title: 'Meny',
+                    title: Trans.tag('menu'),
                     cancel: false,
                     fixed: true,
                     css: ['iform', 'page-menu']
@@ -27,7 +27,7 @@ function page_menu(pages) {
                 {
                     type: FormType.TextArea,
                     name: 'desc',
-                    value: 'Välj sida med undersidor där ordningen ska ändras',
+                    value: Trans.tag('select-page-to-order'),
                     rows: 2,
                     cols: 30
                 },

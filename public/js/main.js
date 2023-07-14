@@ -3,13 +3,18 @@ function main(args) {
 
     load_config().then(
         () => {
-            load_user(get_cookie('username')).then(
+            load_translation(Config.language).then(
                 () => {
-                    load_site(args.page);
+                    load_user(get_cookie('username')).then(
+                        () => {
+                            load_site(args.page);
+                        },
+                        () => {
+                            load_site(args.page);
+                        });
                 },
-                () => {
-                    load_site(args.page);
-                });
+                () => { }
+            );
         });
 
     function load_site(page) {

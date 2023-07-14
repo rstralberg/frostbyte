@@ -11,12 +11,12 @@
 function edit_theme_misc(theme) {
 
     const shadows =  [
-        { value: 'transparent', text: 'Ingen'},
-        { value: 'black', text: 'Skugga'}
+        { value: 'transparent', text: Trans.tag('none')},
+        { value: 'black', text: Trans.tag('shadow')}
     ];
 
     create_form('edit-theme-misc', {
-        title: 'Redigera övrigt',
+        title: Trans.tag('edit-misc'),
         pos: { x: '41vw', y: '26vh' },
         size: { w: '41vw', h: 'auto' },
         cancel: false,
@@ -25,21 +25,21 @@ function edit_theme_misc(theme) {
         { 
             type: FormType.Color,
             name: 'links',  
-            label: 'Länkfärg',
+            label: Trans.tag('link'),
             value: get_style('links'),
             listener: on_links
         },
         { 
             type: FormType.Number, 
             name: 'shadow_size', 
-            label: 'Skuggstorlek',
+            label: Trans.tag('shadow-size'),
             value: get_int_style('shadow_size'),
             listener: on_shadow_size
         },
         { 
             type: FormType.List, 
             name: 'nav_shadow', 
-            label: 'Menyns skugga',
+            label: Trans.tag('menu-shadow'),
             items: shadows,
             selected: get_style('nav_shadow'),
             listener: on_nav_shadow
@@ -47,7 +47,7 @@ function edit_theme_misc(theme) {
         { 
             type: FormType.List, 
             name: 'main_shadow', 
-            label: 'Huvusidans skugga',
+            label: Trans.tag('main-shadow'),
             items: shadows,
             selected: get_style('main_shadow'),
             listener: on_main_shadow
@@ -55,7 +55,7 @@ function edit_theme_misc(theme) {
         { 
             type: FormType.List, 
             name: 'footer_shadow', 
-            label: 'Fotradens skugga',
+            label: Trans.tag('footer-shadow'),
             items: shadows,
             selected: get_style('footer_shadow'),
             listener: on_footer_shadow
@@ -63,7 +63,7 @@ function edit_theme_misc(theme) {
         {
             type: FormType.Button,
             name: 'save',
-            value: 'Spara',
+            value: Trans.tag('save'),
             listener: on_save()
         }
         ]);

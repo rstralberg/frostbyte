@@ -1,0 +1,139 @@
+adjust-height ^ Anpassa höjd
+admin ^ Administratör
+after-text-at-center ^ Efter text i mitten
+after-text-at-left ^ Efter text till vänster
+after-text-at-right ^ Efter text till höger
+and-its-subpages ^ och dess underliggande sidor
+are-you-sure ^ Är du säker?
+base-level ^ Basnivå
+before-text-at-center ^ Före text i mitten
+before-text-at-left ^ Före text till vänster
+before-text-at-right ^ Före text till höger
+blog-intro ^ Blogg intro
+blog-post ^ Blogginlägg
+bold ^ Fet
+borders ^ Ramar
+cant-delete-last-theme ^ Kan inte radera sista temat
+center ^ Mitten
+change ^ Ändra
+change-name ^ Byt namn
+change-title ^ Ändra titel
+close ^ Stäng
+colors ^ Färger
+create ^ Skapa
+create-blog-post ^ Skapa blogginlägg
+create-copy-of-selected-page ^ Skapa kopia av vald sida
+create-delete-copy ^ Här kan du skapa, radera och kopiera sidor
+create-new ^ Skapa nytt
+create-section ^ Skapa avsnitt
+create-soundcloud ^ Skapa Soundcloud
+create-spotify ^ Skapa Spotify
+create-text ^ Skapa text
+create-youtube ^ Skapa Youtube
+delete ^ Radera
+delete-page ^ Radera sida
+delete-the-page ^ Radera sidan
+delete-theme ^ Radera tema
+down ^ Ned
+duplicate-page ^ Duplicera sidan
+edit-fonts ^ Redigera fonter
+edit-misc ^ Redigera blandat
+edit-theme ^ Redigera temat
+edit-themes ^ Redigera teman
+edit-user ^ Redigera användare
+email ^ Epost
+exist-in-menu ^ finns redan i menyn
+fonts ^ Teckensnitt
+footer-font-size ^ Fotradens teckenstorlek'
+footer-shadow ^ Fotradskugga
+full-name ^ Fullständigt namn
+give-new-page-name ^ Ge sidan nytt namn
+image ^ Bild
+image-and-text ^ Bild och text
+image-on-left ^ Bilden till vänster
+image-on-right ^ Bilden till höger
+image-position ^ Bildens position
+image-title ^ Bildens titel
+is-a-blog ^ Är en bloggsida
+italic ^ Kursiv
+large ^ Stor 
+language ^ Språk
+larger ^ Större
+left ^ Vänster
+link ^ Länk
+login ^ Logga in
+logo ^ Logga
+logout ^ Logga ut
+main-shadow ^ Avsnittskugga
+mark ^ Markering
+media-position ^ Media position
+menu ^ Meny
+menu-font-size ^ Menyns teckenstorlek
+menu-shadow ^ Menyskugga
+misc ^ Blandat
+move-from-menu ^ Ta bort från meny
+move-to-menu ^ Flytta till meny
+name ^ Namn
+name-of-copy ^ Kopians namn
+new ^ Ny
+new-name ^ Nytt namn
+new-page ^ Ny sida
+new-theme ^ Nytt tema
+no ^ Nej
+none ^ Ingen
+normal ^ Normal
+not-exist-in-menu ^ finns inte i menyn
+order ^ Ordning
+order-with-mouse ^ Här kan du välja ordningen som sidorna ska ha i menyn. Markera med musen och dra
+owner ^ Ägare
+page ^ Sida
+page-all-desc ^ Här kan du välja sidor som ska vara med i någon meny. Klicka för att flytta till eller ifrån "Meny"
+page-all-title ^ Alla sidor
+page-media ^ Media
+page-parent ^ Förälder till andra sidor
+page-reference ^ Hänvisa till sida
+page-utilities ^ Hantering av sidor
+pages ^ Sidor
+pages-missing ^ Sidor saknas
+parent ^ Förälder
+parts ^ Delar
+password ^ Lösenord
+paste ^ Klistra in
+position ^ Position
+right ^ Höger
+save ^ Spara
+section ^ Avsnitt
+select ^ Välj
+select-image ^ Välj bild
+select-page ^ Välj sida
+select-page-to-delete ^ Välj sida att radera
+select-page-to-order ^ Välj sida där ordningen ska ändras
+select-theme ^ Välj tema
+settings ^ Inställningar
+shadow ^ Skugga
+shadow-size ^ Skuggstorlek
+show-page-title ^ Visa titel på sidan
+show-title ^ Visa titel
+size ^ Storlek
+small ^ Small
+smaller ^ Mindre
+sound ^ ljud
+soundcloud-instruction ^ Gå till Soundcloud och välj din låt. Klicka sedan på "Share" och välj där fliken "Embedd". Kopiera sedan det som finns i fältet "Code" och klistra in här nedan
+soundfile ^ Ljudfil
+spotify-instruction ^ Gå till Spotify och välj din låt. Klicka sedan på "Dela"  och välj sedan "Bädda in". Klicka senda på "Kopiera" och klistra in här nedan
+system ^ System
+text ^ Text
+theme ^ Tema
+themes ^ Teman
+title ^ Titel
+type-of-section ^ Typ av avsnitt
+underline ^ Understrykning
+up ^ Upp
+upload ^ Ladda upp
+use-theme-now ^ Vill du använda temat nu
+username ^ Användare
+users ^ Användare
+webpage-name ^ Websidans namn
+what-to-do-with-page ^ Vad vill du göra med sidan
+yes ^ Ja
+youtube-instruction ^ Gå till Youbtube och välj din låt. Klicka sedan på "Dela"  och välj sedan "Bädda in". Klicka senda på "Kopiera" och klistra in här nedan

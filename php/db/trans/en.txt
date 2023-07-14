@@ -1,0 +1,139 @@
+adjust-height ^ Adjust height
+admin ^ Administrator
+after-text-at-center ^ After text in the middle
+after-text-at-left ^ After text on the left
+after-text-at-right ^ After text on the right
+and-its-subpages ^ and its underlying pages
+are-you-sure ^ Are you sure?
+base-level ^ Base level
+before-text-at-center ^ Before text in the middle
+before-text-at-left ^ Before text on the left
+before-text-at-right ^ Before text on the right
+blog-intro ^ Blog intro
+blog-post ^ Blog post
+bold ^ Bold
+borders ^ Borders
+cant-delete-last-theme ^ 
+center ^ Center
+change ^ Change
+change-name ^ Change name
+change-title ^ Change title
+close ^ Close
+colors ^ Colors
+create ^ Create
+create-blog-post ^ Create blog post
+create-copy-of-selected-page ^ Create copy of selected page
+create-delete-copy ^ Here you can create, delete and copy pages
+create-new ^ Create new
+create-section ^ Create section
+create-soundcloud ^ Create Soundcloud
+create-spotify ^ Create Spotify
+create-text ^ Create text
+create-youtube ^ Create Youtube
+delete ^ Delete
+delete-page ^ Delete page
+delete-the-page ^ Delete the page
+delete-theme ^ Delet theme
+down ^ Down
+duplicate-page ^ Duplicate page
+edit-fonts ^ Edit fonts
+edit-misc ^ Edit misc
+edit-theme ^ Edit theme
+edit-themes ^ Edit themes
+edit-user ^ Edit users
+email ^ Email
+exist-in-menu ^ is already in the menu
+fonts ^ Font
+footer-font-size ^ Footer font size'
+footer-shadow ^ Footer shadow
+full-name ^ Full name
+give-new-page-name ^ Rename the page
+image ^ Image
+image-and-text ^ Image and Text
+image-on-left ^ The picture on the left
+image-on-right ^ The picture on the right
+image-position ^ Image position
+image-title ^ Image title
+is-a-blog ^ Is a blog page
+italic ^ Italic
+large ^ Large
+language ^ Language
+larger ^ Larger
+left ^ Left
+link ^ Link
+login ^ Log in
+logo ^ Logo
+logout ^ Log out
+main-shadow ^ Section shadow
+mark ^ Marked
+media-position ^ Media position
+menu ^ Menu
+menu-font-size ^ Menu font size
+menu-shadow ^ Menu shadow
+misc ^ Mixed
+move-from-menu ^ Remove from menu
+move-to-menu ^ Move to menu
+name ^ Name
+name-of-copy ^ Name of copy
+new ^ New
+new-name ^ New name
+new-page ^ New Page
+new-theme ^ New thema
+no ^ No
+none ^ None
+normal ^ Normal
+not-exist-in-menu ^ is not in the menu
+order ^ Order
+order-with-mouse ^ Here you can choose the order that the pages should have in the menu. Select with the mouse and drag
+owner ^ Owner
+page ^ Page
+page-all-desc ^ Here you can select pages to be included in any menu. Click to move to or from "Menu"
+page-all-title ^ All Pages
+page-media ^ Media
+page-parent ^ Parent of other pages
+page-reference ^ Refer to page
+page-utilities ^ Management of pages
+pages ^ Pages
+pages-missing ^ Pages missing
+parent ^ Parent
+parts ^ Parts
+password ^ Password
+paste ^ Paste
+position ^ Position
+right ^ Right
+save ^ Save
+section ^ Section
+select ^ Select
+select-image ^ Select image
+select-page ^ Select page
+select-page-to-delete ^ Select page to delete
+select-page-to-order ^ Select the page where the order should be changed
+select-theme ^ Select theme
+settings ^ Settings
+shadow ^ Shadow
+shadow-size ^ Shadow size
+show-page-title ^ Display title of the page
+show-title ^ Show title
+size ^ Size
+small ^ Small
+smaller ^ Smaller
+sound ^ Sound
+soundcloud-instruction ^ Go to Soundcloud and choose your song. Then click on "Share" and select the "Embed" tab there. Then copy what is in the "Code" field and paste it below
+soundfile ^ Sound file
+spotify-instruction ^ Go to Spotify and select your song. Then click on "Share" and then select "Embed". Click send on "Copy" and paste here below
+system ^ System
+text ^ Text
+theme ^ Theme
+themes ^ Themes
+title ^ Titel
+type-of-section ^ Type of section
+underline ^ Underline
+up ^ Up
+upload ^ Upload
+use-theme-now ^ Want to use the theme now?
+username ^ User
+users ^ Users
+webpage-name ^ The name of the website
+what-to-do-with-page ^ What do you want to do with the page?
+yes ^ Yes
+youtube-instruction ^ Go to Youtube and choose your song. Then click on "Share" and then select "Embed". Click send on "Copy" and paste here below
